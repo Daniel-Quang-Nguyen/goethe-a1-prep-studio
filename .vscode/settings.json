@@ -1,0 +1,9 @@
+{
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "files.associations": {
+    "*.html": "html"
+  },
+  "liveServer.settings.defaultBrowser": "default",
+  "liveServer.settings.port": 5500
+}

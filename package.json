@@ -1,0 +1,20 @@
+{
+  "name": "goethe-a1-prep-studio",
+  "version": "1.0.0",
+  "description": "Interactive Goethe A1 German Exam Preparation Studio & Master Reference Suite",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 3000 .",
+    "dev": "npx serve -l 3000 .",
+    "test": "node test/verify_app.js"
+  },
+  "keywords": [
+    "german",
+    "goethe-zertifikat",
+    "a1",
+    "start-deutsch-1",
+    "interactive-learning"
+  ],
+  "author": "Antigravity AI",
+  "license": "MIT"
+}
