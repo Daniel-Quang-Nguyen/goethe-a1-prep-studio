@@ -1,7 +1,6 @@
 ---
 trigger: always_on
 description: Goethe-Zertifikat A1 linguistic scope and test question formatting standards
-globs: "**/*.html, **/*.md, **/*.json"
 ---
 
 # Goethe A1 Content Standards
