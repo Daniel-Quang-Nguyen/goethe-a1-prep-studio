@@ -1,0 +1,1541 @@
+[
+  {
+    "id": 1,
+    "title": "1. Person & Vorstellung",
+    "subtitle": "Personal Information",
+    "desc": "Self-introductions, personal details, origin, languages, and spelling aloud (Buchstabieren).",
+    "vocab": [
+      {
+        "de": "der Name, -n",
+        "en": "name"
+      },
+      {
+        "de": "der Vorname, -n",
+        "en": "first name"
+      },
+      {
+        "de": "der Nachname, -n",
+        "en": "surname / last name"
+      },
+      {
+        "de": "das Land, Länder",
+        "en": "country"
+      },
+      {
+        "de": "die Stadt, Städte",
+        "en": "city"
+      },
+      {
+        "de": "die Sprache, -n",
+        "en": "language"
+      },
+      {
+        "de": "der Wohnort, -e",
+        "en": "place of residence"
+      },
+      {
+        "de": "die Adresse, -n",
+        "en": "address"
+      },
+      {
+        "de": "die Telefonnummer, -n",
+        "en": "telephone number"
+      },
+      {
+        "de": "das Alter (Sg.)",
+        "en": "age"
+      },
+      {
+        "de": "die Herkunft (Sg.)",
+        "en": "origin"
+      },
+      {
+        "de": "das Formular, -e",
+        "en": "form / application"
+      }
+    ],
+    "dialogue": [
+      {
+        "speaker": "Prüfer",
+        "text": "Guten Tag! Stellen Sie sich bitte kurz vor."
+      },
+      {
+        "speaker": "Teilnehmer",
+        "text": "Guten Tag! Ich heiße Maria Santos, ich komme aus Spanien und ich wohne in Berlin."
+      },
+      {
+        "speaker": "Sachbearbeiter",
+        "text": "Wie ist Ihr Nachname und wie buchstabiert man das?"
+      },
+      {
+        "speaker": "Bürger",
+        "text": "Mein Nachname ist Bauer: B-A-U-E-R."
+      },
+      {
+        "speaker": "Kollege",
+        "text": "Welche Sprachen sprechen Sie und wie ist Ihre Handynummer?"
+      },
+      {
+        "speaker": "Kollegin",
+        "text": "Ich spreche Spanisch und Deutsch. Meine Handynummer ist 0171 458923."
+      }
+    ],
+    "dialogues": [
+      [
+        {
+          "speaker": "Prüfer",
+          "text": "Guten Tag! Stellen Sie sich bitte kurz vor."
+        },
+        {
+          "speaker": "Teilnehmer",
+          "text": "Guten Tag! Ich heiße Maria Santos, ich komme aus Spanien und ich wohne in Berlin."
+        }
+      ],
+      [
+        {
+          "speaker": "Sachbearbeiter",
+          "text": "Wie ist Ihr Nachname und wie buchstabiert man das?"
+        },
+        {
+          "speaker": "Bürger",
+          "text": "Mein Nachname ist Bauer: B-A-U-E-R."
+        }
+      ],
+      [
+        {
+          "speaker": "Kollege",
+          "text": "Welche Sprachen sprechen Sie und wie ist Ihre Handynummer?"
+        },
+        {
+          "speaker": "Kollegin",
+          "text": "Ich spreche Spanisch und Deutsch. Meine Handynummer ist 0171 458923."
+        }
+      ]
+    ],
+    "quiz": {
+      "q": "Wie lautet die passende Antwort auf: \"Woher kommen Sie?\"",
+      "options": [
+        "Ich wohne in Berlin.",
+        "Ich komme aus Spanien.",
+        "Ich bin 24 Jahre alt.",
+        "Ich spreche Deutsch."
+      ],
+      "answer": 1,
+      "explanation": "\"Woher\" asks for geographical origin, which is answered with \"Ich komme aus...\" + country/city."
+    },
+    "quizzes": [
+      {
+        "q": "Wie lautet die passende Antwort auf: \"Woher kommen Sie?\"",
+        "options": [
+          "Ich wohne in Berlin.",
+          "Ich komme aus Spanien.",
+          "Ich bin 24 Jahre alt.",
+          "Ich spreche Deutsch."
+        ],
+        "answer": 1,
+        "explanation": "\"Woher\" asks for geographical origin, which is answered with \"Ich komme aus...\" + country/city."
+      },
+      {
+        "q": "Welche Frage passt zur Antwort: \"B-A-U-E-R.\"",
+        "options": [
+          "Wie alt sind Sie?",
+          "Wo wohnen Sie?",
+          "Wie buchstabiert man Ihren Namen?",
+          "Was ist Ihre Adresse?"
+        ],
+        "answer": 2,
+        "explanation": "Spelling out individual letters answers \"Wie buchstabiert man...?\" (How do you spell...)."
+      },
+      {
+        "q": "Ergänzen Sie: \"Maria spricht Spanisch und lernt ______ Deutsch.\"",
+        "options": [
+          "ein bisschen",
+          "keine",
+          "vieler",
+          "nicht eine"
+        ],
+        "answer": 0,
+        "explanation": "\"Ein bisschen\" means \"a little bit\", a standard quantifier used with languages at A1."
+      },
+      {
+        "q": "Welches Verb steht in Position 2: \"In Berlin ______ Herr Müller seit zwei Monaten.\"",
+        "options": [
+          "wohnen",
+          "wohnt",
+          "wohne",
+          "gewohnt"
+        ],
+        "answer": 1,
+        "explanation": "With third-person singular subject \"Herr Müller\" (er), regular verb conjugation ends in -t: \"wohnt\"."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "2. Zahlen, Zeit & Datum",
+    "subtitle": "Time & Prices",
+    "desc": "12/24-hour clock times, ordinal dates, days of the week, months, and Euro/Cent pricing.",
+    "vocab": [
+      {
+        "de": "die Uhrzeit, -en",
+        "en": "clock time"
+      },
+      {
+        "de": "die Stunde, -n",
+        "en": "hour"
+      },
+      {
+        "de": "die Minute, -n",
+        "en": "minute"
+      },
+      {
+        "de": "der Wochentag, -e",
+        "en": "day of the week"
+      },
+      {
+        "de": "der Monat, -e",
+        "en": "month"
+      },
+      {
+        "de": "das Jahr, -e",
+        "en": "year"
+      },
+      {
+        "de": "das Datum, Daten",
+        "en": "date"
+      },
+      {
+        "de": "der Geburtstag, -e",
+        "en": "birthday"
+      },
+      {
+        "de": "der Preis, -e",
+        "en": "price"
+      },
+      {
+        "de": "der Euro, -s",
+        "en": "euro"
+      },
+      {
+        "de": "der Cent, -s",
+        "en": "cent"
+      },
+      {
+        "de": "der Kalender, -",
+        "en": "calendar"
+      }
+    ],
+    "dialogue": [
+      {
+        "speaker": "Passant",
+        "text": "Entschuldigung, wie spät ist es jetzt?"
+      },
+      {
+        "speaker": "Dame",
+        "text": "Es ist genau viertel nach drei (15:15 Uhr)."
+      },
+      {
+        "speaker": "Kunde",
+        "text": "Wie viel kostet das Wörterbuch?"
+      },
+      {
+        "speaker": "Kassiererin",
+        "text": "Das macht zwölf Euro neunzig, bitte."
+      },
+      {
+        "speaker": "Patient",
+        "text": "Haben Sie am Montag, dem zehnten Mai, einen Termin frei?"
+      },
+      {
+        "speaker": "Arzthelferin",
+        "text": "Ja, um zehn Uhr dreißig passt es gut."
+      }
+    ],
+    "dialogues": [
+      [
+        {
+          "speaker": "Passant",
+          "text": "Entschuldigung, wie spät ist es jetzt?"
+        },
+        {
+          "speaker": "Dame",
+          "text": "Es ist genau viertel nach drei (15:15 Uhr)."
+        }
+      ],
+      [
+        {
+          "speaker": "Kunde",
+          "text": "Wie viel kostet das Wörterbuch?"
+        },
+        {
+          "speaker": "Kassiererin",
+          "text": "Das macht zwölf Euro neunzig, bitte."
+        }
+      ],
+      [
+        {
+          "speaker": "Patient",
+          "text": "Haben Sie am Montag, dem zehnten Mai, einen Termin frei?"
+        },
+        {
+          "speaker": "Arzthelferin",
+          "text": "Ja, um zehn Uhr dreißig passt es gut."
+        }
+      ]
+    ],
+    "quiz": {
+      "q": "Wie sagt man \"14:30 Uhr\" umgangssprachlich?",
+      "options": [
+        "halb zwei",
+        "halb drei",
+        "vierzehn Uhr dreißig",
+        "dreißig nach zwei"
+      ],
+      "answer": 1,
+      "explanation": "In colloquial German, \"14:30\" is referred to as \"halb drei\" (halfway towards 3)."
+    },
+    "quizzes": [
+      {
+        "q": "Wie sagt man \"14:30 Uhr\" umgangssprachlich?",
+        "options": [
+          "halb zwei",
+          "halb drei",
+          "vierzehn Uhr dreißig",
+          "dreißig nach zwei"
+        ],
+        "answer": 1,
+        "explanation": "In colloquial German, \"14:30\" is referred to as \"halb drei\" (halfway towards 3)."
+      },
+      {
+        "q": "Welche Präposition benutzt man für Tage und Daten: \"Der Kurs beginnt ______ Montag.\"?",
+        "options": [
+          "um",
+          "im",
+          "am",
+          "an"
+        ],
+        "answer": 2,
+        "explanation": "Days of the week and calendar dates always take the fused preposition \"am\" (an + dem)."
+      },
+      {
+        "q": "Wie viel sind \"drei Euro fünfzig\" plus \"zwei Euro zwanzig\"?",
+        "options": [
+          "fünf Euro siebzig",
+          "sechs Euro",
+          "vier Euro siebzig",
+          "fünf Euro fünfzig"
+        ],
+        "answer": 0,
+        "explanation": "3,50 € + 2,20 € = 5,70 € (\"fünf Euro siebzig\")."
+      },
+      {
+        "q": "Welche Präposition steht vor Uhrzeiten: \"Das Treffen beginnt ______ 18:00 Uhr.\"?",
+        "options": [
+          "am",
+          "um",
+          "im",
+          "von"
+        ],
+        "answer": 1,
+        "explanation": "Exact clock times take \"um\" (\"um 18:00 Uhr\")."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "3. Wohnen & Haushalt",
+    "subtitle": "Housing & Ads",
+    "desc": "Apartment classified ads (3 ZKB, KM, WM, NK), rooms, furniture, household items, and two-way prepositions.",
+    "vocab": [
+      {
+        "de": "die Wohnung, -en",
+        "en": "apartment / flat"
+      },
+      {
+        "de": "das Zimmer, -",
+        "en": "room"
+      },
+      {
+        "de": "die Küche, -n",
+        "en": "kitchen"
+      },
+      {
+        "de": "das Bad, Bäder",
+        "en": "bathroom"
+      },
+      {
+        "de": "der Balkon, -e",
+        "en": "balcony"
+      },
+      {
+        "de": "die Miete, -n",
+        "en": "rent"
+      },
+      {
+        "de": "die Nebenkosten (Pl.)",
+        "en": "utility costs (NK)"
+      },
+      {
+        "de": "der Schlüssel, -",
+        "en": "key"
+      },
+      {
+        "de": "der Schrank, Schränke",
+        "en": "cupboard / wardrobe"
+      },
+      {
+        "de": "das Bett, -en",
+        "en": "bed"
+      },
+      {
+        "de": "der Tisch, -e",
+        "en": "table"
+      },
+      {
+        "de": "der Stuhl, Stühle",
+        "en": "chair"
+      }
+    ],
+    "dialogue": [
+      {
+        "speaker": "Interessent",
+        "text": "Guten Tag, ich rufe wegen der 3-Zimmer-Wohnung an. Ist sie noch frei?"
+      },
+      {
+        "speaker": "Vermieter",
+        "text": "Ja, die Kaltmiete beträgt 650 Euro plus 150 Euro Nebenkosten."
+      },
+      {
+        "speaker": "Mieterin",
+        "text": "Wo steht der Esstisch in der neuen Wohnung?"
+      },
+      {
+        "speaker": "Partner",
+        "text": "Er steht in der Küche neben dem Fenster."
+      },
+      {
+        "speaker": "Hausverwalter",
+        "text": "Hier sind Ihre zwei Wohnungsschlüssel und der Haustürschlüssel."
+      },
+      {
+        "speaker": "Mieter",
+        "text": "Vielen Dank! Funktioniert die Heizung im Wohnzimmer gut?"
+      }
+    ],
+    "dialogues": [
+      [
+        {
+          "speaker": "Interessent",
+          "text": "Guten Tag, ich rufe wegen der 3-Zimmer-Wohnung an. Ist sie noch frei?"
+        },
+        {
+          "speaker": "Vermieter",
+          "text": "Ja, die Kaltmiete beträgt 650 Euro plus 150 Euro Nebenkosten."
+        }
+      ],
+      [
+        {
+          "speaker": "Mieterin",
+          "text": "Wo steht der Esstisch in der neuen Wohnung?"
+        },
+        {
+          "speaker": "Partner",
+          "text": "Er steht in der Küche neben dem Fenster."
+        }
+      ],
+      [
+        {
+          "speaker": "Hausverwalter",
+          "text": "Hier sind Ihre zwei Wohnungsschlüssel und der Haustürschlüssel."
+        },
+        {
+          "speaker": "Mieter",
+          "text": "Vielen Dank! Funktioniert die Heizung im Wohnzimmer gut?"
+        }
+      ]
+    ],
+    "quiz": {
+      "q": "Was bedeutet die Abkürzung \"3 ZKB\" in einer Wohnungsanzeige?",
+      "options": [
+        "3 Zimmer, Küche, Bad",
+        "3 Züge, Koffer, Bahn",
+        "3 Zimmer, Keller, Balkon",
+        "3 Zentimeter Kantenbreite"
+      ],
+      "answer": 0,
+      "explanation": "\"3 ZKB\" is standard German housing classified shorthand for \"3 Zimmer, Küche, Bad\"."
+    },
+    "quizzes": [
+      {
+        "q": "Was bedeutet die Abkürzung \"3 ZKB\" in einer Wohnungsanzeige?",
+        "options": [
+          "3 Zimmer, Küche, Bad",
+          "3 Züge, Koffer, Bahn",
+          "3 Zimmer, Keller, Balkon",
+          "3 Zentimeter Kantenbreite"
+        ],
+        "answer": 0,
+        "explanation": "\"3 ZKB\" is standard German housing classified shorthand for \"3 Zimmer, Küche, Bad\"."
+      },
+      {
+        "q": "Welcher Fall folgt auf \"in/auf\" bei der Frage \"Wo?\": \"Das Buch liegt auf ______ Tisch (m).\"?",
+        "options": [
+          "der",
+          "den",
+          "dem",
+          "des"
+        ],
+        "answer": 2,
+        "explanation": "Location questions (\"Wo?\") with two-way prepositions require the Dative case: masculine \"dem Tisch\"."
+      },
+      {
+        "q": "Was bedeutet \"Warmmiete\" (WM)?",
+        "options": [
+          "Miete nur für den Sommer",
+          "Miete inklusive Heizung und Nebenkosten",
+          "Miete ohne Nebenkosten",
+          "Kaution für den Vermieter"
+        ],
+        "answer": 1,
+        "explanation": "\"Warmmiete\" is total rent including heating and utility advances."
+      },
+      {
+        "q": "Welcher Artikel gehört zu \"Wohnung\"?",
+        "options": [
+          "der",
+          "das",
+          "die",
+          "den"
+        ],
+        "answer": 2,
+        "explanation": "Nouns ending in \"-ung\" are always feminine in German: \"die Wohnung\"."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "4. Einkaufen & Essen",
+    "subtitle": "Supermarket & Café",
+    "desc": "Grocery shopping, food items, packaging, uncounted mass nouns, weights, and café/restaurant orders.",
+    "vocab": [
+      {
+        "de": "der Supermarkt, -märkte",
+        "en": "supermarket"
+      },
+      {
+        "de": "das Lebensmittel, -",
+        "en": "groceries / food item"
+      },
+      {
+        "de": "das Brot, -e",
+        "en": "bread"
+      },
+      {
+        "de": "das Brötchen, -",
+        "en": "bread roll"
+      },
+      {
+        "de": "das Fleisch (Sg.)",
+        "en": "meat"
+      },
+      {
+        "de": "das Gemüse (Sg.)",
+        "en": "vegetables"
+      },
+      {
+        "de": "das Obst (Sg.)",
+        "en": "fruit"
+      },
+      {
+        "de": "die Milch (Sg.)",
+        "en": "milk"
+      },
+      {
+        "de": "der Käse (Sg.)",
+        "en": "cheese"
+      },
+      {
+        "de": "die Flasche, -n",
+        "en": "bottle"
+      },
+      {
+        "de": "das Kilo, -s",
+        "en": "kilogram"
+      },
+      {
+        "de": "die Rechnung, -en",
+        "en": "bill / check"
+      }
+    ],
+    "dialogue": [
+      {
+        "speaker": "Verkäufer",
+        "text": "Guten Tag! Was darf es sein?"
+      },
+      {
+        "speaker": "Kundin",
+        "text": "Ich möchte bitte ein Kilo Äpfel und fünfhundert Gramm Käse."
+      },
+      {
+        "speaker": "Kellner",
+        "text": "Haben Sie schon gewählt? Was möchten Sie trinken?"
+      },
+      {
+        "speaker": "Gast",
+        "text": "Ich nehme einen Kaffee mit Milch und ein Mineralwasser, bitte."
+      },
+      {
+        "speaker": "Gast",
+        "text": "Wir möchten bitte bezahlen, getrennt oder zusammen?"
+      },
+      {
+        "speaker": "Kellnerin",
+        "text": "Wie Sie möchten. Zusammen macht das 18 Euro 40."
+      }
+    ],
+    "dialogues": [
+      [
+        {
+          "speaker": "Verkäufer",
+          "text": "Guten Tag! Was darf es sein?"
+        },
+        {
+          "speaker": "Kundin",
+          "text": "Ich möchte bitte ein Kilo Äpfel und fünfhundert Gramm Käse."
+        }
+      ],
+      [
+        {
+          "speaker": "Kellner",
+          "text": "Haben Sie schon gewählt? Was möchten Sie trinken?"
+        },
+        {
+          "speaker": "Gast",
+          "text": "Ich nehme einen Kaffee mit Milch und ein Mineralwasser, bitte."
+        }
+      ],
+      [
+        {
+          "speaker": "Gast",
+          "text": "Wir möchten bitte bezahlen, getrennt oder zusammen?"
+        },
+        {
+          "speaker": "Kellnerin",
+          "text": "Wie Sie möchten. Zusammen macht das 18 Euro 40."
+        }
+      ]
+    ],
+    "quiz": {
+      "q": "Wie bestellt man höflich im Café mit dem Modalverb \"möchten\"?",
+      "options": [
+        "Ich will einen Kaffee.",
+        "Ich möchte bitte einen Kaffee.",
+        "Geben Sie mir Kaffee!",
+        "Ich mag trinken Kaffee."
+      ],
+      "answer": 1,
+      "explanation": "\"Ich möchte bitte einen Kaffee\" is the polite standard phrasing for ordering in Goethe A1."
+    },
+    "quizzes": [
+      {
+        "q": "Wie bestellt man höflich im Café mit dem Modalverb \"möchten\"?",
+        "options": [
+          "Ich will einen Kaffee.",
+          "Ich möchte bitte einen Kaffee.",
+          "Geben Sie mir Kaffee!",
+          "Ich mag trinken Kaffee."
+        ],
+        "answer": 1,
+        "explanation": "\"Ich möchte bitte einen Kaffee\" is the polite standard phrasing for ordering in Goethe A1."
+      },
+      {
+        "q": "Wie verneint man ein unzählbares Maskulinum im Akkusativ: \"Ich trinke ______ Kaffee.\"?",
+        "options": [
+          "nicht",
+          "keine",
+          "keinen",
+          "keinem"
+        ],
+        "answer": 2,
+        "explanation": "\"Kaffee\" is masculine (der Kaffee); in direct object accusative, zero-article negation is \"keinen\"."
+      },
+      {
+        "q": "Was bedeutet: \"Zusammen oder getrennt?\" im Restaurant?",
+        "options": [
+          "Drinnen oder draußen sitzen?",
+          "Mit Karte oder bar zahlen?",
+          "Alles auf eine Rechnung oder jeder separat?",
+          "Große oder kleine Portion?"
+        ],
+        "answer": 2,
+        "explanation": "It asks whether customers want to pay together on one bill or split the payment individually."
+      },
+      {
+        "q": "Welche Mengenangabe ist grammatikalisch korrekt: \"zwei ______ Wasser\"?",
+        "options": [
+          "Flaschen",
+          "Flasche",
+          "Stücke",
+          "Kilo"
+        ],
+        "answer": 0,
+        "explanation": "Containers take the plural form after numerals greater than 1: \"zwei Flaschen Wasser\"."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "5. Freizeit & Hobbys",
+    "subtitle": "Sports & Cinema",
+    "desc": "Free time activities, sports, cultural events, weekend invitations, and weather conditions.",
+    "vocab": [
+      {
+        "de": "das Hobby, -s",
+        "en": "hobby"
+      },
+      {
+        "de": "die Freizeit (Sg.)",
+        "en": "free time / leisure"
+      },
+      {
+        "de": "der Sport (Sg.)",
+        "en": "sports"
+      },
+      {
+        "de": "das Kino, -s",
+        "en": "cinema / movie theater"
+      },
+      {
+        "de": "das Museum, Museen",
+        "en": "museum"
+      },
+      {
+        "de": "das Konzert, -e",
+        "en": "concert"
+      },
+      {
+        "de": "das Wochenende, -n",
+        "en": "weekend"
+      },
+      {
+        "de": "das Schwimmbad, -bäder",
+        "en": "swimming pool"
+      },
+      {
+        "de": "das Buch, Bücher",
+        "en": "book"
+      },
+      {
+        "de": "die Musik (Sg.)",
+        "en": "music"
+      },
+      {
+        "de": "der Park, -s",
+        "en": "park"
+      },
+      {
+        "de": "das Wetter (Sg.)",
+        "en": "weather"
+      }
+    ],
+    "dialogue": [
+      {
+        "speaker": "Jonas",
+        "text": "Hast du am Samstag Zeit? Wir wollen im Park Fußball spielen."
+      },
+      {
+        "speaker": "Lukas",
+        "text": "Ja, gern! Das Wetter soll sonnig und warm werden."
+      },
+      {
+        "speaker": "Maria",
+        "text": "Was machst du gern am Wochenende?"
+      },
+      {
+        "speaker": "Elena",
+        "text": "Ich lese gern Bücher, höre Musik und gehe manchmal ins Schwimmbad."
+      },
+      {
+        "speaker": "David",
+        "text": "Gehen wir heute Abend ins Kino? Der Film beginnt um acht."
+      },
+      {
+        "speaker": "Sarah",
+        "text": "Super Idee! Treffen wir uns um halb acht vor dem Kino."
+      }
+    ],
+    "dialogues": [
+      [
+        {
+          "speaker": "Jonas",
+          "text": "Hast du am Samstag Zeit? Wir wollen im Park Fußball spielen."
+        },
+        {
+          "speaker": "Lukas",
+          "text": "Ja, gern! Das Wetter soll sonnig und warm werden."
+        }
+      ],
+      [
+        {
+          "speaker": "Maria",
+          "text": "Was machst du gern am Wochenende?"
+        },
+        {
+          "speaker": "Elena",
+          "text": "Ich lese gern Bücher, höre Musik und gehe manchmal ins Schwimmbad."
+        }
+      ],
+      [
+        {
+          "speaker": "David",
+          "text": "Gehen wir heute Abend ins Kino? Der Film beginnt um acht."
+        },
+        {
+          "speaker": "Sarah",
+          "text": "Super Idee! Treffen wir uns um halb acht vor dem Kino."
+        }
+      ]
+    ],
+    "quiz": {
+      "q": "Wie drückt man Vorlieben mit \"gern\" im Satz korrekt aus?",
+      "options": [
+        "Ich spiele gern Gitarre.",
+        "Ich gern spiele Gitarre.",
+        "Gitarre spielen ich gern.",
+        "Ich liebe spielen Gitarre."
+      ],
+      "answer": 0,
+      "explanation": "The adverb \"gern\" directly follows the conjugated verb in Position 2: \"Ich spiele gern...\"."
+    },
+    "quizzes": [
+      {
+        "q": "Wie drückt man Vorlieben mit \"gern\" im Satz korrekt aus?",
+        "options": [
+          "Ich spiele gern Gitarre.",
+          "Ich gern spiele Gitarre.",
+          "Gitarre spielen ich gern.",
+          "Ich liebe spielen Gitarre."
+        ],
+        "answer": 0,
+        "explanation": "The adverb \"gern\" directly follows the conjugated verb in Position 2: \"Ich spiele gern...\"."
+      },
+      {
+        "q": "Welche Konjunktion steht auf Position 0: \"Ich möchte mitkommen, ______ ich habe keine Zeit.\"?",
+        "options": [
+          "weil",
+          "aber",
+          "dass",
+          "wenn"
+        ],
+        "answer": 1,
+        "explanation": "\"aber\" is a coordinating conjunction occupying Position 0 without causing verb inversion."
+      },
+      {
+        "q": "Wohin gehen wir? Ergänzen Sie Akkusativ: \"Wir gehen ______ Kino (n).\"?",
+        "options": [
+          "ins",
+          "im",
+          "ans",
+          "am"
+        ],
+        "answer": 0,
+        "explanation": "Direction towards a neuter location takes \"in das\", contracted to \"ins\" (\"ins Kino\")."
+      },
+      {
+        "q": "Welcher Satz beschreibt das Wetter syntaktisch richtig?",
+        "options": [
+          "Es ist sonnig.",
+          "Es sonnig ist.",
+          "Es macht Sonne.",
+          "Es hat Sonne."
+        ],
+        "answer": 0,
+        "explanation": "\"Es ist sonnig\" is the standard impersonal A1 expression for weather conditions."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "6. Arbeit & Beruf",
+    "subtitle": "Professions & Work",
+    "desc": "Occupations, female professional forms (-in), workplaces, office equipment, and absence notes.",
+    "vocab": [
+      {
+        "de": "der Beruf, -e",
+        "en": "profession / occupation"
+      },
+      {
+        "de": "die Arbeit, -en",
+        "en": "work / job"
+      },
+      {
+        "de": "das Büro, -s",
+        "en": "office"
+      },
+      {
+        "de": "der Kollege, -n",
+        "en": "male colleague"
+      },
+      {
+        "de": "die Kollegin, -nen",
+        "en": "female colleague"
+      },
+      {
+        "de": "der Chef, -s",
+        "en": "boss / manager"
+      },
+      {
+        "de": "der Arzt, Ärzte",
+        "en": "male physician / doctor"
+      },
+      {
+        "de": "die Ärztin, -nen",
+        "en": "female physician / doctor"
+      },
+      {
+        "de": "der Lehrer, -",
+        "en": "male teacher"
+      },
+      {
+        "de": "der Computer, -",
+        "en": "computer"
+      },
+      {
+        "de": "der Feierabend, -e",
+        "en": "end of working day"
+      },
+      {
+        "de": "der Arbeitsplatz, -plätze",
+        "en": "workplace"
+      }
+    ],
+    "dialogue": [
+      {
+        "speaker": "Herr Weber",
+        "text": "Was machen Sie beruflich, Frau Becker?"
+      },
+      {
+        "speaker": "Frau Becker",
+        "text": "Ich arbeite als Verkäuferin in einer Bäckerei."
+      },
+      {
+        "speaker": "Angestellter",
+        "text": "Guten Morgen, Herr Krause. Ich bin leider krank und kann heute nicht zur Arbeit kommen."
+      },
+      {
+        "speaker": "Chef",
+        "text": "Gute Besserung! Bitte schicken Sie uns das ärztliche Attest."
+      },
+      {
+        "speaker": "Kollege",
+        "text": "Druckst du mir bitte den Bericht aus?"
+      },
+      {
+        "speaker": "Kollegin",
+        "text": "Gerne, der Drucker steht im Zimmer 204."
+      }
+    ],
+    "dialogues": [
+      [
+        {
+          "speaker": "Herr Weber",
+          "text": "Was machen Sie beruflich, Frau Becker?"
+        },
+        {
+          "speaker": "Frau Becker",
+          "text": "Ich arbeite als Verkäuferin in einer Bäckerei."
+        }
+      ],
+      [
+        {
+          "speaker": "Angestellter",
+          "text": "Guten Morgen, Herr Krause. Ich bin leider krank und kann heute nicht zur Arbeit kommen."
+        },
+        {
+          "speaker": "Chef",
+          "text": "Gute Besserung! Bitte schicken Sie uns das ärztliche Attest."
+        }
+      ],
+      [
+        {
+          "speaker": "Kollege",
+          "text": "Druckst du mir bitte den Bericht aus?"
+        },
+        {
+          "speaker": "Kollegin",
+          "text": "Gerne, der Drucker steht im Zimmer 204."
+        }
+      ]
+    ],
+    "quiz": {
+      "q": "Wie fragt man nach dem Beruf einer Person?",
+      "options": [
+        "Was machen Sie beruflich?",
+        "Wie arbeiten Sie?",
+        "Woher ist Ihre Arbeit?",
+        "Wie viel kostet Ihr Beruf?"
+      ],
+      "answer": 0,
+      "explanation": "\"Was machen Sie beruflich?\" (or \"Was sind Sie von Beruf?\") is the standard polite inquiry about profession."
+    },
+    "quizzes": [
+      {
+        "q": "Wie fragt man nach dem Beruf einer Person?",
+        "options": [
+          "Was machen Sie beruflich?",
+          "Wie arbeiten Sie?",
+          "Woher ist Ihre Arbeit?",
+          "Wie viel kostet Ihr Beruf?"
+        ],
+        "answer": 0,
+        "explanation": "\"Was machen Sie beruflich?\" (or \"Was sind Sie von Beruf?\") is the standard polite inquiry about profession."
+      },
+      {
+        "q": "Welche weibliche Berufsform ist korrekt gebildet: \"der Lehrer\" -> ______?",
+        "options": [
+          "die Lehrin",
+          "die Lehrerin",
+          "die Lehrfrau",
+          "die Lehrerfrau"
+        ],
+        "answer": 1,
+        "explanation": "Feminine job titles regularly append \"-in\" to masculine occupational nouns: \"die Lehrerin\"."
+      },
+      {
+        "q": "Welche Präposition steht für den Arbeitgeber: \"Er arbeitet ______ Siemens.\"?",
+        "options": [
+          "bei",
+          "nach",
+          "zu",
+          "mit"
+        ],
+        "answer": 0,
+        "explanation": "Working for a company/employer takes the dative preposition \"bei\" (\"bei Siemens\")."
+      },
+      {
+        "q": "Welches Modalverb drückt Verpflichtung aus: \"Ich ______ heute bis 18 Uhr arbeiten.\"?",
+        "options": [
+          "muss",
+          "will",
+          "darf",
+          "mag"
+        ],
+        "answer": 0,
+        "explanation": "\"müssen\" (ich muss) expresses duty or necessity (\"I have to work until 6 PM\")."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "7. Verkehr & Reisen",
+    "subtitle": "Transport & Tickets",
+    "desc": "Public transportation, train stations, tickets, schedules, platform announcements, and directions.",
+    "vocab": [
+      {
+        "de": "der Bahnhof, -höfe",
+        "en": "train station"
+      },
+      {
+        "de": "der Zug, Züge",
+        "en": "train"
+      },
+      {
+        "de": "der Bus, -se",
+        "en": "bus"
+      },
+      {
+        "de": "die U-Bahn, -en",
+        "en": "underground / subway"
+      },
+      {
+        "de": "das Flugzeug, -e",
+        "en": "airplane"
+      },
+      {
+        "de": "die Fahrkarte, -n",
+        "en": "ticket"
+      },
+      {
+        "de": "das Gleis, -e",
+        "en": "platform track"
+      },
+      {
+        "de": "die Haltestelle, -n",
+        "en": "bus / tram stop"
+      },
+      {
+        "de": "die Abfahrt, -en",
+        "en": "departure"
+      },
+      {
+        "de": "die Ankunft, -künfte",
+        "en": "arrival"
+      },
+      {
+        "de": "die Verspätung, -en",
+        "en": "delay"
+      },
+      {
+        "de": "der Koffer, -",
+        "en": "suitcase"
+      }
+    ],
+    "dialogue": [
+      {
+        "speaker": "Reisender",
+        "text": "Guten Tag, eine Fahrkarte nach München, bitte."
+      },
+      {
+        "speaker": "Bahnbeamtin",
+        "text": "Einfach oder hin und zurück? Haben Sie eine BahnCard?"
+      },
+      {
+        "speaker": "Fahrgast",
+        "text": "Entschuldigung, von welchem Gleis fährt der ICE nach Hamburg ab?"
+      },
+      {
+        "speaker": "Schaffner",
+        "text": "Gleis 4. Aber Achtung, der Zug hat heute 15 Minuten Verspätung."
+      },
+      {
+        "speaker": "Touristin",
+        "text": "Entschuldigung, wie komme ich zum Hauptbahnhof?"
+      },
+      {
+        "speaker": "Passant",
+        "text": "Gehen Sie geradeaus und biegen Sie an der Ampel links ab."
+      }
+    ],
+    "dialogues": [
+      [
+        {
+          "speaker": "Reisender",
+          "text": "Guten Tag, eine Fahrkarte nach München, bitte."
+        },
+        {
+          "speaker": "Bahnbeamtin",
+          "text": "Einfach oder hin und zurück? Haben Sie eine BahnCard?"
+        }
+      ],
+      [
+        {
+          "speaker": "Fahrgast",
+          "text": "Entschuldigung, von welchem Gleis fährt der ICE nach Hamburg ab?"
+        },
+        {
+          "speaker": "Schaffner",
+          "text": "Gleis 4. Aber Achtung, der Zug hat heute 15 Minuten Verspätung."
+        }
+      ],
+      [
+        {
+          "speaker": "Touristin",
+          "text": "Entschuldigung, wie komme ich zum Hauptbahnhof?"
+        },
+        {
+          "speaker": "Passant",
+          "text": "Gehen Sie geradeaus und biegen Sie an der Ampel links ab."
+        }
+      ]
+    ],
+    "quiz": {
+      "q": "Welches Verkehrsmittel benutzt man mit \"mit dem\": \"Ich fahre jeden Tag ______ Bus.\"?",
+      "options": [
+        "mit der",
+        "mit dem",
+        "mit das",
+        "mit den"
+      ],
+      "answer": 1,
+      "explanation": "\"Der Bus\" is masculine; \"mit\" always demands Dative, resulting in \"mit dem Bus\"."
+    },
+    "quizzes": [
+      {
+        "q": "Welches Verkehrsmittel benutzt man mit \"mit dem\": \"Ich fahre jeden Tag ______ Bus.\"?",
+        "options": [
+          "mit der",
+          "mit dem",
+          "mit das",
+          "mit den"
+        ],
+        "answer": 1,
+        "explanation": "\"Der Bus\" is masculine; \"mit\" always demands Dative, resulting in \"mit dem Bus\"."
+      },
+      {
+        "q": "Was bedeutet die Lautsprecheransage: \"Der ICE 540 hat ca. 10 Minuten Verspätung.\"?",
+        "options": [
+          "Der Zug kommt 10 Minuten zu spät.",
+          "Der Zug fährt 10 Minuten früher ab.",
+          "Der Zug fällt komplett aus.",
+          "Der Zug hält an Gleis 10."
+        ],
+        "answer": 0,
+        "explanation": "\"Verspätung\" means delay, signifying the train will arrive or depart 10 minutes late."
+      },
+      {
+        "q": "Was bedeutet: \"Hin und zurück\" am Fahrkartenschalter?",
+        "options": [
+          "Nur Hinfahrt",
+          "Fahrt zum Ziel und Rückfahrt zurück",
+          "Gepäckaufgabe",
+          "Sitzplatzreservierung"
+        ],
+        "answer": 1,
+        "explanation": "\"Hin und zurück\" designates a round-trip / return journey ticket."
+      },
+      {
+        "q": "Wohin gehört das trennbare Präfix bei \"abfahren\": \"Der Zug ______ um 10:15 Uhr ______.\"?",
+        "options": [
+          "fährt ... ab",
+          "ab ... fährt",
+          "abfährt ... -",
+          "fährt ... aus"
+        ],
+        "answer": 0,
+        "explanation": "In main clauses, the prefix \"ab-\" detaches and moves to the very end of the sentence: \"fährt ... ab\"."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "8. Gesundheit & Körper",
+    "subtitle": "Health & Doctor",
+    "desc": "Parts of the body, illness symptoms, pharmacy items, doctor appointments, and sick leave certificates (AU).",
+    "vocab": [
+      {
+        "de": "der Kopf, Köpfe",
+        "en": "head"
+      },
+      {
+        "de": "der Bauch, Bäuche",
+        "en": "stomach / belly"
+      },
+      {
+        "de": "der Rücken, -",
+        "en": "back"
+      },
+      {
+        "de": "das Auge, -n",
+        "en": "eye"
+      },
+      {
+        "de": "der Hals, Hälse",
+        "en": "throat / neck"
+      },
+      {
+        "de": "das Bein, -e",
+        "en": "leg"
+      },
+      {
+        "de": "die Hand, Hände",
+        "en": "hand"
+      },
+      {
+        "de": "der Schmerz, -en",
+        "en": "pain"
+      },
+      {
+        "de": "das Fieber (Sg.)",
+        "en": "fever"
+      },
+      {
+        "de": "das Medikament, -e",
+        "en": "medicine / medication"
+      },
+      {
+        "de": "die Apotheke, -n",
+        "en": "pharmacy"
+      },
+      {
+        "de": "der Termin, -e",
+        "en": "appointment"
+      }
+    ],
+    "dialogue": [
+      {
+        "speaker": "Arzt",
+        "text": "Guten Tag, Herr Schneider. Was fehlt Ihnen denn?"
+      },
+      {
+        "speaker": "Patient",
+        "text": "Ich habe seit drei Tagen starke Kopfschmerzen und Halsschmerzen."
+      },
+      {
+        "speaker": "Apothekerin",
+        "text": "Guten Tag, kann ich Ihnen helfen?"
+      },
+      {
+        "speaker": "Kundin",
+        "text": "Ja bitte, haben Sie etwas gegen Husten und Fieber?"
+      },
+      {
+        "speaker": "Arzthelferin",
+        "text": "Praxis Dr. Bergmann, guten Tag!"
+      },
+      {
+        "speaker": "Anrufer",
+        "text": "Guten Tag, ich möchte bitte einen Termin für heute Nachmittag vereinbaren. Ich bin krank."
+      }
+    ],
+    "dialogues": [
+      [
+        {
+          "speaker": "Arzt",
+          "text": "Guten Tag, Herr Schneider. Was fehlt Ihnen denn?"
+        },
+        {
+          "speaker": "Patient",
+          "text": "Ich habe seit drei Tagen starke Kopfschmerzen und Halsschmerzen."
+        }
+      ],
+      [
+        {
+          "speaker": "Apothekerin",
+          "text": "Guten Tag, kann ich Ihnen helfen?"
+        },
+        {
+          "speaker": "Kundin",
+          "text": "Ja bitte, haben Sie etwas gegen Husten und Fieber?"
+        }
+      ],
+      [
+        {
+          "speaker": "Arzthelferin",
+          "text": "Praxis Dr. Bergmann, guten Tag!"
+        },
+        {
+          "speaker": "Anrufer",
+          "text": "Guten Tag, ich möchte bitte einen Termin für heute Nachmittag vereinbaren. Ich bin krank."
+        }
+      ]
+    ],
+    "quiz": {
+      "q": "Wie drückt man Schmerzen auf Deutsch aus: \"Mein Kopf ______ weh.\"?",
+      "options": [
+        "tut",
+        "macht",
+        "geht",
+        "hat"
+      ],
+      "answer": 0,
+      "explanation": "The idiom is \"weh tun\" (3rd person singular: \"tut weh\", plural: \"tun weh\")."
+    },
+    "quizzes": [
+      {
+        "q": "Wie drückt man Schmerzen auf Deutsch aus: \"Mein Kopf ______ weh.\"?",
+        "options": [
+          "tut",
+          "macht",
+          "geht",
+          "hat"
+        ],
+        "answer": 0,
+        "explanation": "The idiom is \"weh tun\" (3rd person singular: \"tut weh\", plural: \"tun weh\")."
+      },
+      {
+        "q": "Was fragt der Arzt typischerweise zu Beginn der Untersuchung?",
+        "options": [
+          "Was fehlt Ihnen?",
+          "Woher kosten Sie?",
+          "Wie alt ist Ihr Schmerz?",
+          "Wohin fahren Sie?"
+        ],
+        "answer": 0,
+        "explanation": "\"Was fehlt Ihnen?\" is the classic German doctor greeting meaning \"What is troubling you?\"."
+      },
+      {
+        "q": "Was bedeutet die Abkürzung \"Krankmeldung\" oder \"AU-Bescheinigung\"?",
+        "options": [
+          "Rezept für die Apotheke",
+          "Ärztliches Attest für den Arbeitgeber",
+          "Rechnung des Arztes",
+          "Terminkalender"
+        ],
+        "answer": 1,
+        "explanation": "\"Arbeitsunfähigkeitsbescheinigung\" (AU) is an official doctor note certifying inability to work for an employer."
+      },
+      {
+        "q": "Welcher Artikel gehört zu \"Auge\"?",
+        "options": [
+          "der",
+          "das",
+          "die",
+          "den"
+        ],
+        "answer": 1,
+        "explanation": "\"Auge\" is neuter: \"das Auge\" (Plural: \"die Augen\")."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "9. Familie & Menschen",
+    "subtitle": "Family & Relations",
+    "desc": "Family members, marital status, possessive pronouns (mein/dein/sein/ihr), and social relationships.",
+    "vocab": [
+      {
+        "de": "die Familie, -n",
+        "en": "family"
+      },
+      {
+        "de": "die Eltern (Pl.)",
+        "en": "parents"
+      },
+      {
+        "de": "der Vater, Väter",
+        "en": "father"
+      },
+      {
+        "de": "die Mutter, Mütter",
+        "en": "mother"
+      },
+      {
+        "de": "der Sohn, Söhne",
+        "en": "son"
+      },
+      {
+        "de": "die Tochter, Töchter",
+        "en": "daughter"
+      },
+      {
+        "de": "der Bruder, Brüder",
+        "en": "brother"
+      },
+      {
+        "de": "die Schwester, -n",
+        "en": "sister"
+      },
+      {
+        "de": "die Großeltern (Pl.)",
+        "en": "grandparents"
+      },
+      {
+        "de": "das Kind, -er",
+        "en": "child"
+      },
+      {
+        "de": "der Freund, -e",
+        "en": "friend / boyfriend"
+      },
+      {
+        "de": "der Familienstand (Sg.)",
+        "en": "marital status"
+      }
+    ],
+    "dialogue": [
+      {
+        "speaker": "Lisa",
+        "text": "Ist das auf dem Foto deine Familie?"
+      },
+      {
+        "speaker": "Max",
+        "text": "Ja, das sind meine Eltern, meine Schwester Anna und mein kleiner Bruder Jan."
+      },
+      {
+        "speaker": "Kollege",
+        "text": "Haben Sie Kinder, Herr Hoffmann?"
+      },
+      {
+        "speaker": "Herr Hoffmann",
+        "text": "Ja, ich habe zwei Kinder: einen Sohn und eine Tochter."
+      },
+      {
+        "speaker": "Beamtin",
+        "text": "Wie ist Ihr Familienstand?"
+      },
+      {
+        "speaker": "Bürgerin",
+        "text": "Ich bin verheiratet und lebe mit meinem Mann in Köln."
+      }
+    ],
+    "dialogues": [
+      [
+        {
+          "speaker": "Lisa",
+          "text": "Ist das auf dem Foto deine Familie?"
+        },
+        {
+          "speaker": "Max",
+          "text": "Ja, das sind meine Eltern, meine Schwester Anna und mein kleiner Bruder Jan."
+        }
+      ],
+      [
+        {
+          "speaker": "Kollege",
+          "text": "Haben Sie Kinder, Herr Hoffmann?"
+        },
+        {
+          "speaker": "Herr Hoffmann",
+          "text": "Ja, ich habe zwei Kinder: einen Sohn und eine Tochter."
+        }
+      ],
+      [
+        {
+          "speaker": "Beamtin",
+          "text": "Wie ist Ihr Familienstand?"
+        },
+        {
+          "speaker": "Bürgerin",
+          "text": "Ich bin verheiratet und lebe mit meinem Mann in Köln."
+        }
+      ]
+    ],
+    "quiz": {
+      "q": "Welches Possessivpronomen passt zu \"ich\" und Maskulinum Akkusativ: \"Ich besuche ______ Vater.\"?",
+      "options": [
+        "mein",
+        "meinen",
+        "meine",
+        "meinem"
+      ],
+      "answer": 1,
+      "explanation": "Masculine direct objects in the accusative case take the \"-en\" ending: \"meinen Vater\"."
+    },
+    "quizzes": [
+      {
+        "q": "Welches Possessivpronomen passt zu \"ich\" und Maskulinum Akkusativ: \"Ich besuche ______ Vater.\"?",
+        "options": [
+          "mein",
+          "meinen",
+          "meine",
+          "meinem"
+        ],
+        "answer": 1,
+        "explanation": "Masculine direct objects in the accusative case take the \"-en\" ending: \"meinen Vater\"."
+      },
+      {
+        "q": "Was bedeutet der Familienstand \"ledig\"?",
+        "options": [
+          "verheiratet",
+          "nicht verheiratet / Single",
+          "geschieden",
+          "verwitwet"
+        ],
+        "answer": 1,
+        "explanation": "\"ledig\" signifies unmarried or single."
+      },
+      {
+        "q": "Wie heißt die Mehrzahl von \"das Kind\"?",
+        "options": [
+          "die Kinde",
+          "die Kinder",
+          "die Kinders",
+          "die Kind"
+        ],
+        "answer": 1,
+        "explanation": "The plural form of \"das Kind\" is \"die Kinder\"."
+      },
+      {
+        "q": "Welcher Begriff fasst Vater und Mutter zusammen?",
+        "options": [
+          "die Geschwister",
+          "die Verwandten",
+          "die Eltern",
+          "die Großeltern"
+        ],
+        "answer": 2,
+        "explanation": "Father and mother together are called \"die Eltern\" (parents)."
+      }
+    ]
+  }
+]

@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "type": "Sprechen Teil 1",
+    "title": "Sich vorstellen (Personal Introduction)",
+    "desc": "Introduce yourself to the examination committee using the standard prompt points: Name, Alter, Land, Wohnort, Sprachen, Beruf, and Hobby.",
+    "solution": "Ich heiße Maria Santos. Ich bin 28 Jahre alt und komme aus Spanien. Jetzt wohne ich in München. Ich spreche Spanisch, Englisch und ein bisschen Deutsch. Von Beruf bin ich Architektin. Meine Hobbys sind Schwimmen und Musik hören.",
+    "reaction": "Sehr gut, danke schön! Woher genau aus Spanien kommen Sie?"
+  },
+  {
+    "id": 2,
+    "type": "Sprechen Teil 1",
+    "title": "Buchstabieren (Spelling Surname & Street)",
+    "desc": "The examiner asks you: 'Wie heißen Sie mit Nachnamen? Können Sie das bitte buchstabieren? Und wie heißt Ihre Straße?' Spell your surname and street clearly.",
+    "solution": "Mein Nachname ist Schneider: S - C - H - N - E - I - D - E - R. Ich wohne in der Bachstraße: B - A - C - H - Straße.",
+    "reaction": "Vielen Dank, Frau Schneider! Das ist alles richtig notiert."
+  },
+  {
+    "id": 3,
+    "type": "Sprechen Teil 1",
+    "title": "Zahlen & Telefonnummer (Phone & Postal Code)",
+    "desc": "The examiner asks: 'Wie ist Ihre Telefonnummer und Ihre Postleitzahl in Hamburg?' Say your mobile phone number and 5-digit postal code clearly.",
+    "solution": "Meine Handynummer ist 0151 - 3 4 8 9 2 0 6. Meine Postleitzahl in Hamburg ist 2 0 0 9 5.",
+    "reaction": "Danke schön. Null-eins-fünf-eins, drei-vier-acht-neun, zwei-null-sechs. Sehr gut!"
+  },
+  {
+    "id": 4,
+    "type": "Sprechen Teil 2",
+    "title": "Thema: Einkaufen — Wort: Obst",
+    "desc": "You draw a card with the topic 'Einkaufen' and the keyword 'Obst'. Formulate an information-seeking question to your partner, and review the partner's answer.",
+    "solution": "Wo kaufen Sie normalerweise frisches Obst?",
+    "reaction": "Ich kaufe Obst immer im Supermarkt oder samstags auf dem Markt."
+  },
+  {
+    "id": 5,
+    "type": "Sprechen Teil 2",
+    "title": "Thema: Freizeit — Wort: Wochenende",
+    "desc": "You draw a card with the topic 'Freizeit' and the keyword 'Wochenende'. Ask your partner what they do on weekends.",
+    "solution": "Was machen Sie am Wochenende in Ihrer Freizeit?",
+    "reaction": "Am Wochenende treffe ich Freunde oder fahre mit dem Fahrrad."
+  },
+  {
+    "id": 6,
+    "type": "Sprechen Teil 2",
+    "title": "Thema: Wohnen — Wort: Balkon",
+    "desc": "You draw a card with the topic 'Wohnen' and the keyword 'Balkon'. Ask your partner if their apartment has a balcony.",
+    "solution": "Hat Ihre Wohnung einen Balkon oder eine Terrasse?",
+    "reaction": "Ja, meine Wohnung hat einen Balkon mit schöner Aussicht."
+  },
+  {
+    "id": 7,
+    "type": "Sprechen Teil 2",
+    "title": "Thema: Verkehr — Wort: Bahnhof",
+    "desc": "You draw a card with the topic 'Verkehr' and the keyword 'Bahnhof'. Ask your partner how they travel to the main train station.",
+    "solution": "Fahren Sie mit dem Bus oder mit der U-Bahn zum Bahnhof?",
+    "reaction": "Ich nehme meistens den Bus, das ist sehr bequem."
+  },
+  {
+    "id": 8,
+    "type": "Sprechen Teil 2",
+    "title": "Thema: Arbeit & Beruf — Wort: Pause",
+    "desc": "You draw a card with the topic 'Arbeit' and the keyword 'Pause'. Ask your partner when they take their lunch break at work.",
+    "solution": "Wann machen Sie bei der Arbeit Mittagspause?",
+    "reaction": "Ich mache meine Pause meistens von 12 Uhr bis 13 Uhr."
+  },
+  {
+    "id": 9,
+    "type": "Sprechen Teil 3",
+    "title": "Prompt Card: Ein Taxi rufen (Call a Taxi)",
+    "desc": "You are at the hotel reception with heavy luggage and need to catch an early train. Ask the receptionist politely to call a taxi.",
+    "solution": "Können Sie mir bitte ein Taxi zum Bahnhof rufen?",
+    "reaction": "Ja gern! Das Taxi kommt in zehn Minuten."
+  },
+  {
+    "id": 10,
+    "type": "Sprechen Teil 3",
+    "title": "Prompt Card: Rauchverbot (No Smoking Sign)",
+    "desc": "You see a no-smoking sign in the cafe. Ask the person at the table if smoking is permitted on the terrace.",
+    "solution": "Entschuldigung, darf man hier im Café rauchen?",
+    "reaction": "Nein, hier drinnen darf man nicht rauchen. Es gibt ein Rauchverbot."
+  },
+  {
+    "id": 11,
+    "type": "Sprechen Teil 3",
+    "title": "Prompt Card: Fenster öffnen & Stift leihen (Classroom Request)",
+    "desc": "You are in the German course. The room is hot and you forgot your pen. Ask your partner to open the window and politely borrow a pen.",
+    "solution": "Es ist sehr warm hier. Öffnen Sie bitte das Fenster und leihen Sie mir kurz einen Stift!",
+    "reaction": "Ja natürlich, sehr gern! Hier ist der Stift, und ich mache das Fenster auf."
+  },
+  {
+    "id": 12,
+    "type": "Sprechen Teil 3",
+    "title": "Prompt Card: Im Restaurant — Glas Wasser & Rechnung (Water & Bill)",
+    "desc": "You have finished your meal in a bistro. Ask the waiter for a glass of water, the bill, and a receipt.",
+    "solution": "Bringen Sie mir bitte noch ein Glas Wasser und die Rechnung mit Quittung?",
+    "reaction": "Sehr gerne! Ich bringe Ihnen sofort das Wasser und die Rechnung."
+  },
+  {
+    "id": 13,
+    "type": "Schreiben Teil 2",
+    "title": "E-Mail: Hotel Inquiry (Zimmerreservierung)",
+    "desc": "Write an email to Hotel Alpenblick in Salzburg: request a double room with breakfast for 3 nights (15.-18. August), ask about the total price, and inquire about parking.",
+    "solution": "Sehr geehrte Damen und Herren, ich möchte ein Doppelzimmer mit Frühstück vom 15. bis 18. August reservieren. Was kostet das Zimmer pro Nacht? Haben Sie auch einen Parkplatz am Hotel? Mit freundlichen Grüßen, Maria Santos",
+    "reaction": "Sehr geehrte Frau Santos, vielen Dank für Ihre Anfrage! Ein Doppelzimmer kostet 90 Euro pro Nacht inklusive Frühstück. Ein Parkplatz steht kostenlos bereit. Mit freundlichen Grüßen, Hotel Alpenblick"
+  },
+  {
+    "id": 14,
+    "type": "Schreiben Teil 2",
+    "title": "E-Mail: Appointment Cancellation (Arzttermin absagen)",
+    "desc": "You have a doctor's appointment tomorrow at 15:00. Write an email to the clinic: apologize and cancel because you must work, and ask for a new appointment next week.",
+    "solution": "Guten Tag Praxis Dr. Keller, leider kann ich morgen um 15 Uhr nicht zum Termin kommen. Ich muss lange im Büro arbeiten. Entschuldigen Sie bitte. Haben Sie nächste Woche am Mittwoch Zeit für einen neuen Termin? Mit freundlichen Grüßen, Maria Santos",
+    "reaction": "Guten Tag Frau Santos, vielen Dank für die Nachricht. Am nächsten Mittwoch um 10 Uhr haben wir einen freien Termin. Passt Ihnen das? Viele Grüße, Ihr Praxis-Team"
+  },
+  {
+    "id": 15,
+    "type": "Schreiben Teil 2",
+    "title": "E-Mail: Birthday Party Invitation (Einladung zum Geburtstag)",
+    "desc": "You are celebrating your birthday next Saturday at 18:00. Write an informal email to your friend Felix: invite him to your home, say you will grill in the garden, ask him to bring drinks, and ask for a reply by Thursday.",
+    "solution": "Lieber Felix, ich feiere am Samstag ab 18 Uhr meinen Geburtstag bei mir zu Hause. Wir grillen im Garten. Kommst du? Bring bitte etwas zu trinken mit. Antworte mir bitte bis Donnerstag! Herzliche Grüße, Maria",
+    "reaction": "Hallo Maria, danke für die tolle Einladung! Ich komme sehr gern und bringe Saft und Mineralwasser mit. Bis Samstag! Lieber Gruß, Felix"
+  },
+  {
+    "id": 16,
+    "type": "Schreiben Teil 2",
+    "title": "E-Mail: Danksagung & Kursabwesenheit (Thank-You & Course Absence)",
+    "desc": "Write an email to your German teacher, Frau Berg: thank her for the help in the German course, explain that you cannot attend class on Friday due to an appointment, apologize, and ask for the homework.",
+    "solution": "Liebe Frau Berg, vielen Dank für die Hilfe im Deutschkurs. Ich habe am Freitag einen wichtigen Termin und kann leider nicht zum Unterricht kommen. Entschuldigen Sie bitte mein Fehlen. Schicken Sie mir bitte die Hausaufgaben per E-Mail? Herzliche Grüße, Maria Santos",
+    "reaction": "Liebe Frau Santos, danke für Ihre Nachricht. Das ist kein Problem! Ich sende Ihnen die Aufgaben am Freitag per E-Mail zu. Herzliche Grüße, Frau Berg"
+  }
+]

@@ -1,0 +1,586 @@
+[
+  {
+    "id": "praesens",
+    "title": "1. Präsens & Stammänderungen",
+    "summary": "Regular verb endings: -e (ich), -st (du), -t (er/sie/es/ihr), -en (wir/sie/Sie). Stems ending in -d/-t insert an extra -e- before endings (du arbeitest, er wartet). Strong verbs undergo stem vowel mutations in 2nd and 3rd person singular only: e &rarr; i (sprechen &rarr; du sprichst, er spricht; essen &rarr; du isst), e &rarr; ie (lesen &rarr; du liest, sehen &rarr; er sieht), and a &rarr; ä (fahren &rarr; du fährst, schlafen &rarr; er schläft). Irregular verbs 'sein' (ich bin, du bist, er ist...) and 'haben' (ich habe, du hast, er hat...) must be memorized.",
+    "questions": [
+      {
+        "q": "Was machst du am Wochenende? — Ich ___ jeden Tag zwei Stunden Deutsch.",
+        "options": [
+          "lerne",
+          "lernst",
+          "lernt",
+          "lernen"
+        ],
+        "answer": 0,
+        "explanation": "The 1st person singular pronoun 'ich' takes the regular present tense verb ending '-e' (ich lerne)."
+      },
+      {
+        "q": "Wo ___ du, Stefan? — Ich arbeite bei einer Bank in Frankfurt.",
+        "options": [
+          "arbeitst",
+          "arbeitest",
+          "arbeitet",
+          "arbeiten"
+        ],
+        "answer": 1,
+        "explanation": "Verbs with stems ending in -t or -d (arbeiten -> arbeit-) insert an extra '-e-' before '-st' in the 2nd person singular: 'du arbeitest'."
+      },
+      {
+        "q": "Entschuldigung, ___ du auch Englisch? — Ja, ein bisschen.",
+        "options": [
+          "sprechst",
+          "spricht",
+          "sprichst",
+          "sprechen"
+        ],
+        "answer": 2,
+        "explanation": "The verb 'sprechen' has an irregular stem vowel mutation e → i in the 2nd and 3rd person singular. For 'du', it is 'du sprichst'."
+      },
+      {
+        "q": "Schau mal, der Zug nach Berlin ___ heute von Gleis 4.",
+        "options": [
+          "fährt",
+          "fahrt",
+          "fahre",
+          "fahren"
+        ],
+        "answer": 0,
+        "explanation": "The strong verb 'fahren' changes stem vowel a → ä in the 3rd person singular ('der Zug fährt')."
+      },
+      {
+        "q": "Mein Sohn ___ jeden Abend vor dem Schlafen ein Buch.",
+        "options": [
+          "lese",
+          "lest",
+          "lesen",
+          "liest"
+        ],
+        "answer": 3,
+        "explanation": "The verb 'lesen' changes its stem e → ie in 2nd and 3rd person singular: 'er liest'."
+      },
+      {
+        "q": "Guten Tag, Herr Weber! Wo ___ Sie im Moment?",
+        "options": [
+          "bist",
+          "sind",
+          "seid",
+          "ist"
+        ],
+        "answer": 1,
+        "explanation": "The formal address 'Sie' always pairs with the verb form 'sind' for the irregular verb 'sein'."
+      }
+    ]
+  },
+  {
+    "id": "akkusativ",
+    "title": "2. Akkusativ",
+    "summary": "The accusative case identifies the direct object of an action and follows accusative prepositions: bis, durch, für, gegen, ohne, um. In the accusative, ONLY masculine forms change: der &rarr; den, ein &rarr; einen, kein &rarr; keinen, mein &rarr; meinen. Feminine (die/eine), neuter (das/ein), and plural (die/keine) remain identical to nominative. Common verbs triggering accusative include haben, brauchen, suchen, kaufen, finden, trinken, essen, and anrufen.",
+    "questions": [
+      {
+        "q": "Herr Meier sucht ___ Schlüssel für sein Büro.",
+        "options": [
+          "den",
+          "der",
+          "dem",
+          "das"
+        ],
+        "answer": 0,
+        "explanation": "'Der Schlüssel' is masculine. When used as the direct object in the accusative case, masculine 'der' changes to 'den'."
+      },
+      {
+        "q": "Hast du ___ Apfel für die Pause? Ich habe großen Hunger.",
+        "options": [
+          "ein",
+          "einen",
+          "eine",
+          "einem"
+        ],
+        "answer": 1,
+        "explanation": "'Haben' takes a direct object in the accusative case. Masculine 'der Apfel' becomes 'einen Apfel'."
+      },
+      {
+        "q": "Ist das Geschenk für ___ Vater? — Ja, er hat heute Geburtstag.",
+        "options": [
+          "der",
+          "dem",
+          "den",
+          "des"
+        ],
+        "answer": 2,
+        "explanation": "The preposition 'für' strictly governs the accusative case. Masculine 'der Vater' becomes 'den Vater'."
+      },
+      {
+        "q": "Ich trinke meinen Kaffee morgens immer ohne ___ Zucker.",
+        "options": [
+          "der",
+          "dem",
+          "das",
+          "den"
+        ],
+        "answer": 3,
+        "explanation": "The preposition 'ohne' strictly requires the accusative case. Masculine 'der Zucker' becomes 'den Zucker'."
+      },
+      {
+        "q": "Wir möchten heute ein neues ___ für das Wohnzimmer kaufen.",
+        "options": [
+          "Sofa",
+          "Fernseher",
+          "Tisch",
+          "Schrank"
+        ],
+        "answer": 0,
+        "explanation": "The indefinite article 'ein' in the accusative case can only refer to a neuter noun (das Sofa). 'Der Fernseher', 'der Tisch', and 'der Schrank' are masculine and would require 'einen'."
+      },
+      {
+        "q": "Hast du eine Fahrkarte? — Nein, ich habe noch ___ Fahrkarte gekauft.",
+        "options": [
+          "keinen",
+          "keine",
+          "kein",
+          "keinem"
+        ],
+        "answer": 1,
+        "explanation": "'Die Fahrkarte' is feminine. In the accusative case, feminine forms retain the '-e' ending: 'keine Fahrkarte'."
+      }
+    ]
+  },
+  {
+    "id": "dativ",
+    "title": "3. Dativ",
+    "summary": "The dative case marks the indirect object (receiver/beneficiary: dem Mann, der Frau, dem Kind, den Freunden). Articles change to: der/das &rarr; dem; die &rarr; der; plural die &rarr; den (+n on plural noun). Dative verbs include: helfen, gefallen, schmecken, danken, gehören, passen, wehtun. Dative prepositions are always: aus, bei, mit, nach, seit, von, zu (Common contractions: zum = zu dem, zur = zu der, beim = bei dem, vom = von dem).",
+    "questions": [
+      {
+        "q": "Fährst du mit ___ Bus oder gehst du zu Fuß zum Bahnhof?",
+        "options": [
+          "der",
+          "dem",
+          "den",
+          "das"
+        ],
+        "answer": 1,
+        "explanation": "The preposition 'mit' always requires the dative case. Masculine 'der Bus' changes to 'dem Bus'."
+      },
+      {
+        "q": "Frau Keller kommt aus ___ Schweiz und arbeitet jetzt in München.",
+        "options": [
+          "die",
+          "der",
+          "dem",
+          "den"
+        ],
+        "answer": 1,
+        "explanation": "The preposition 'aus' always takes the dative case. Feminine 'die Schweiz' becomes 'der Schweiz'."
+      },
+      {
+        "q": "Können Sie ___ bitte helfen? Ich finde mein Abteil nicht.",
+        "options": [
+          "mich",
+          "ich",
+          "mir",
+          "mein"
+        ],
+        "answer": 2,
+        "explanation": "The verb 'helfen' strictly governs the dative case. The 1st person personal pronoun in dative is 'mir'."
+      },
+      {
+        "q": "Wie komme ich am besten ___ Bahnhof? — Nehmen Sie die U-Bahn!",
+        "options": [
+          "zur",
+          "in den",
+          "nach dem",
+          "zum"
+        ],
+        "answer": 3,
+        "explanation": "The preposition 'zu' governs dative. 'Der Bahnhof' becomes 'dem Bahnhof', contracting 'zu + dem' into 'zum'."
+      },
+      {
+        "q": "Schmeckt ___ Kindern das Mittagessen? — Ja, sie essen alles auf.",
+        "options": [
+          "den",
+          "die",
+          "der",
+          "dem"
+        ],
+        "answer": 0,
+        "explanation": "The verb 'schmecken' takes a dative object. The plural definite article in dative is 'den' ('den Kindern')."
+      },
+      {
+        "q": "Seit ___ Monat lerne ich Deutsch an einem Sprachinstitut.",
+        "options": [
+          "einen",
+          "einem",
+          "einer",
+          "ein"
+        ],
+        "answer": 1,
+        "explanation": "The preposition 'seit' strictly requires the dative case. Masculine 'der Monat' becomes 'einem Monat'."
+      }
+    ]
+  },
+  {
+    "id": "wechsel",
+    "title": "4. Wechselpräpositionen",
+    "summary": "The 9 two-way prepositions are: an, auf, hinter, in, neben, über, unter, vor, zwischen. Case selection rule: 1) Wo? (Location/stationary state) &rarr; DATIV (in dem / im Zimmer, auf dem Tisch, an der Wand). 2) Wohin? (Destination/directional movement across a boundary) &rarr; AKKUSATIV (in das / ins Zimmer, auf den Tisch, an die Wand). Important verb pairs: stehen / stellen (to stand / to place upright), liegen / legen (to lie / to lay flat), sitzen / setzen (to sit / to set down).",
+    "questions": [
+      {
+        "q": "Wo ist Michael? — Er ist in ___ Küche und kocht Kaffee.",
+        "options": [
+          "der",
+          "die",
+          "das",
+          "den"
+        ],
+        "answer": 0,
+        "explanation": "The question 'Wo?' asks for a stationary location, requiring the dative case. Feminine 'die Küche' becomes 'der Küche'."
+      },
+      {
+        "q": "Wohin gehst du heute Abend? — Ich gehe mit Freunden in ___ Kino.",
+        "options": [
+          "dem",
+          "das",
+          "der",
+          "den"
+        ],
+        "answer": 1,
+        "explanation": "The question 'Wohin?' asks for a directional destination, requiring the accusative case. Neuter 'das Kino' remains 'das Kino' (or 'ins Kino')."
+      },
+      {
+        "q": "Der Brief liegt auf ___ Tisch im Flur.",
+        "options": [
+          "den",
+          "der",
+          "dem",
+          "das"
+        ],
+        "answer": 2,
+        "explanation": "The verb 'liegen' describes a fixed position answering 'Wo?', requiring dative. Masculine 'der Tisch' becomes 'dem Tisch'."
+      },
+      {
+        "q": "Bitte legen Sie die Dokumente auf ___ Schreibtisch!",
+        "options": [
+          "dem",
+          "der",
+          "das",
+          "den"
+        ],
+        "answer": 3,
+        "explanation": "The verb 'legen' describes an action of placing something answering 'Wohin?', requiring accusative. Masculine 'der Schreibtisch' becomes 'den Schreibtisch'."
+      },
+      {
+        "q": "Wir treffen uns um 18 Uhr an ___ Bushaltestelle.",
+        "options": [
+          "der",
+          "die",
+          "dem",
+          "den"
+        ],
+        "answer": 0,
+        "explanation": "Meeting at a spot answers 'Wo?' (location), which requires dative. Feminine 'die Bushaltestelle' becomes 'der Bushaltestelle'."
+      },
+      {
+        "q": "Die Katze schläft gemütlich unter ___ Bett.",
+        "options": [
+          "das",
+          "dem",
+          "den",
+          "der"
+        ],
+        "answer": 1,
+        "explanation": "Sleeping under the bed answers 'Wo?' (stationary position), requiring dative. Neuter 'das Bett' becomes 'dem Bett'."
+      }
+    ]
+  },
+  {
+    "id": "trennbar",
+    "title": "5. Trennbare Verben",
+    "summary": "Separable verbs contain detachable prefixes (auf-, an-, ab-, ein-, aus-, mit-, vor-, zu-, fern-). In present tense main clauses, the verb root is conjugated in Position 2, while the prefix moves to the very end of the sentence (Satzklammer: 'Ich stehe um 6:30 Uhr auf'). In combination with a modal verb, the separable verb remains intact in its infinitive form at the end ('Ich muss morgen um 6:30 Uhr aufstehen'). In yes/no questions, the conjugated stem starts in Position 1 and the prefix stays at the end ('Kommst du heute mit?'). Non-separable prefixes (be-, emp-, ent-, er-, ge-, miss-, ver-, zer-) never detach.",
+    "questions": [
+      {
+        "q": "Wann stehst du morgens auf? — Unter der Woche ___ ich um 6:30 Uhr ___.",
+        "options": [
+          "stehe ... auf",
+          "aufstehe ... ",
+          "steht ... auf",
+          "stehst ... auf"
+        ],
+        "answer": 0,
+        "explanation": "The separable verb 'aufstehen' splits in a main clause: conjugated stem 'stehe' in Position 2, prefix 'auf' at sentence end."
+      },
+      {
+        "q": "Hast du Daniels Telefonnummer? — Ja, ich ___ ihn heute Nachmittag ___.",
+        "options": [
+          "anrufe ... ",
+          "rufe ... an",
+          "ruft ... an",
+          "rufst ... an"
+        ],
+        "answer": 1,
+        "explanation": "'Anrufen' is separable: conjugated root 'rufe' takes Position 2, prefix 'an' moves to the end of the clause."
+      },
+      {
+        "q": "Der Kühlschrank ist leer. Wir müssen heute nach der Arbeit ___.",
+        "options": [
+          "kaufen ein",
+          "einkauft",
+          "einkaufen",
+          "kauft ein"
+        ],
+        "answer": 2,
+        "explanation": "When accompanied by a modal verb ('müssen'), the separable verb does not split; it stands in the full infinitive at sentence end ('einkaufen')."
+      },
+      {
+        "q": "Kommst du zur Party? — Ja, und ich ___ einen leckeren Salat ___.",
+        "options": [
+          "mitbringe ... ",
+          "bringt ... mit",
+          "bringst ... mit",
+          "bringe ... mit"
+        ],
+        "answer": 3,
+        "explanation": "For subject 'ich', the verb 'mitbringen' conjugates to 'bringe' in Position 2 and places the prefix 'mit' at the end: 'bringe ... mit'."
+      },
+      {
+        "q": "Mein Vater ___ jeden Sonntagabend die Nachrichten im Fernsehen ___.",
+        "options": [
+          "sieht ... fern",
+          "seht ... fern",
+          "fernsieht ... ",
+          "fernseht ... "
+        ],
+        "answer": 0,
+        "explanation": "'Fernsehen' undergoes stem vowel change e → ie in 3rd person singular ('sieht') and places prefix 'fern' at sentence end: 'sieht ... fern'."
+      },
+      {
+        "q": "Entschuldigung, um wie viel Uhr ___ der Zug nach Wien ___?",
+        "options": [
+          "abfährt ... ",
+          "fährt ... ab",
+          "fahrt ... ab",
+          "fahre ... ab"
+        ],
+        "answer": 1,
+        "explanation": "'Abfahren' has a stem mutation a → ä for 3rd person singular ('der Zug fährt') with prefix 'ab' at the end: 'fährt ... ab'."
+      }
+    ]
+  },
+  {
+    "id": "modal",
+    "title": "6. Modalverben",
+    "summary": "Modal verbs modify an action: können (ability/possibility), müssen (necessity/obligation), wollen (strong will/intention), dürfen (permission/prohibition: nicht dürfen = must not), sollen (duty/recommendation), möchten (polite desire: would like to). Key rules: 1) 1st and 3rd person singular have identical forms with NO ending (ich kann, er kann; ich darf, er darf; ich muss, er muss). 2) Stem vowel changes in singular (können &rarr; kann, dürfen &rarr; darf, müssen &rarr; muss, wissen &rarr; weiß). 3) Sentence bracket (Satzklammer): conjugated modal in Position 2, main verb as infinitive at sentence end ('Ich kann gut Deutsch sprechen').",
+    "questions": [
+      {
+        "q": "Ich bin leider krank und ___ heute nicht zur Schule kommen.",
+        "options": [
+          "kann",
+          "kannst",
+          "könnt",
+          "können"
+        ],
+        "answer": 0,
+        "explanation": "1st person singular 'ich' takes the modal form 'kann' without umlaut and with zero ending ('ich kann')."
+      },
+      {
+        "q": "Entschuldigung, ___ man hier im Gebäude rauchen? — Nein, das ist verboten.",
+        "options": [
+          "darfst",
+          "darf",
+          "dürfen",
+          "dürft"
+        ],
+        "answer": 1,
+        "explanation": "The impersonal subject 'man' behaves like 3rd person singular (er/sie/es). 'Dürfen' becomes 'darf' without umlaut and zero ending."
+      },
+      {
+        "q": "Der Bus fährt in fünf Minuten ab. Du ___ dich jetzt beeilen!",
+        "options": [
+          "muss",
+          "müsst",
+          "musst",
+          "müssen"
+        ],
+        "answer": 2,
+        "explanation": "The 2nd person singular of 'müssen' drops the umlaut and adds '-st': 'du musst'."
+      },
+      {
+        "q": "Guten Tag! Was ___ Sie bestellen, Herr Becker?",
+        "options": [
+          "möchtet",
+          "möchtest",
+          "magst",
+          "möchten"
+        ],
+        "answer": 3,
+        "explanation": "The formal address 'Sie' requires the plural infinitive-like ending '-en': 'möchten Sie'."
+      },
+      {
+        "q": "Am Samstag haben die Kinder frei und ___ ins Schwimmbad gehen.",
+        "options": [
+          "wollen",
+          "will",
+          "wollt",
+          "willst"
+        ],
+        "answer": 0,
+        "explanation": "The subject 'die Kinder' is plural (sie = they), requiring the plural verb form 'wollen'."
+      },
+      {
+        "q": "Welcher Satz ist grammatisch korrekt?",
+        "options": [
+          "Ich morgen muss meinen Arzt anrufen.",
+          "Ich muss morgen meinen Arzt anrufen.",
+          "Ich muss anrufen morgen meinen Arzt.",
+          "Morgen ich muss meinen Arzt anrufen."
+        ],
+        "answer": 1,
+        "explanation": "German sentence bracket (Satzklammer) requires the conjugated modal in Position 2 ('muss') and the infinitive at the very end ('anrufen')."
+      }
+    ]
+  },
+  {
+    "id": "satzbau",
+    "title": "7. Satzbau & V2-Regel",
+    "summary": "Fundamental rules of German sentence structure: 1) V2-Rule: In declarative main clauses, the conjugated finite verb is ALWAYS in Position 2. 2) Inversion: If any element other than the subject (such as a time, place, or object) takes Position 1, the subject moves immediately behind the verb to Position 3 ('Heute fahre ich nach Köln'). 3) W-Fragen: Question word in Position 1, conjugated verb in Position 2 ('Wo wohnen Sie?'). 4) Ja/Nein-Fragen: Conjugated verb in Position 1 ('Kommen Sie aus Spanien?'). 5) Coordinating conjunctions (ADUSO: aber, denn, und, sondern, oder) occupy Position 0 and do not trigger inversion.",
+    "questions": [
+      {
+        "q": "Morgen ___ wir früh mit dem Zug nach München.",
+        "options": [
+          "fahren",
+          "wir fahren",
+          "fahrt",
+          "gefahren"
+        ],
+        "answer": 0,
+        "explanation": "With the temporal adverb 'Morgen' in Position 1, the conjugated verb 'fahren' must be in Position 2, followed by subject 'wir' in Position 3."
+      },
+      {
+        "q": "Welche Frage nach dem Wohnort ist grammatisch korrekt?",
+        "options": [
+          "Wo du wohnst?",
+          "Wo wohnst du?",
+          "Du wohnst wo?",
+          "Wo wohnen du?"
+        ],
+        "answer": 1,
+        "explanation": "In a W-question, Position 1 is the question word ('Wo'), Position 2 is the finite verb ('wohnst'), and Position 3 is the subject ('du')."
+      },
+      {
+        "q": "Welche Entscheidungsfrage (Ja/Nein-Frage) ist richtig?",
+        "options": [
+          "Du kommst heute zum Unterricht?",
+          "Kommst heute du zum Unterricht?",
+          "Kommst du heute zum Unterricht?",
+          "Heute kommst du zum Unterricht?"
+        ],
+        "answer": 2,
+        "explanation": "Yes/no questions in German require the conjugated verb in Position 1, followed directly by the subject in Position 2."
+      },
+      {
+        "q": "Diesen Film ___ ich schon aus dem Kino.",
+        "options": [
+          "kenne",
+          "ich kenne",
+          "kenne schon",
+          "habe gekannt"
+        ],
+        "answer": 0,
+        "explanation": "The direct object 'Diesen Film' is placed in Position 1 for emphasis. By the V2 rule, the conjugated verb 'kenne' must follow in Position 2, before subject 'ich'."
+      },
+      {
+        "q": "Ich trinke gern Tee, aber mein Bruder ___ lieber Kaffee.",
+        "options": [
+          "trinken",
+          "er trinkt",
+          "trinkt",
+          "getrunken"
+        ],
+        "answer": 2,
+        "explanation": "Coordinating conjunction 'aber' occupies Position 0. The clause starts with subject 'mein Bruder' in Position 1, requiring finite verb 'trinkt' in Position 2."
+      },
+      {
+        "q": "Welcher Satz mit Perfekt hat die richtige Satzstellung?",
+        "options": [
+          "Gestern habe gekauft ich ein Fahrrad.",
+          "Gestern ich habe ein Fahrrad gekauft.",
+          "Gestern habe ein Fahrrad ich gekauft.",
+          "Gestern habe ich ein Fahrrad gekauft."
+        ],
+        "answer": 3,
+        "explanation": "Position 1: 'Gestern', Position 2: auxiliary 'habe', Position 3: subject 'ich', and the Partizip II 'gekauft' closes the sentence bracket at the very end."
+      }
+    ]
+  },
+  {
+    "id": "verneinung",
+    "title": "8. Verneinung: nicht vs. kein",
+    "summary": "Negation in German uses either 'kein' or 'nicht': 1) Use 'kein' (kein, keine, keinen, keinem) to negate nouns that would have an indefinite article ('ein/eine') or NO article at all (zero article: 'Ich habe kein Auto', 'Ich habe keine Zeit', 'Wir trinken keine Milch'). 2) Use 'nicht' to negate: verbs ('Ich rauche nicht'), adjectives/adverbs ('Das Zimmer ist nicht teuer'), nouns with definite articles ('Das ist nicht der Schlüssel'), possessive pronouns ('Das ist nicht meine Tasche'), proper names ('Er heißt nicht Peter'), and prepositional phrases ('Ich wohne nicht in Hamburg').",
+    "questions": [
+      {
+        "q": "Hast du einen Bleistift für mich? — Nein, ich habe leider ___ Bleistift.",
+        "options": [
+          "keinen",
+          "kein",
+          "keine",
+          "nicht"
+        ],
+        "answer": 0,
+        "explanation": "'Der Bleistift' is a masculine noun preceded by an indefinite article. In the accusative case, it takes 'keinen'."
+      },
+      {
+        "q": "Kommst du heute mit ins Theater? — Nein, ich komme heute ___ mit.",
+        "options": [
+          "kein",
+          "nicht",
+          "keine",
+          "keinen"
+        ],
+        "answer": 1,
+        "explanation": "Verbs and verbal actions are negated with 'nicht'. In separable verbs, 'nicht' is placed before the separable prefix."
+      },
+      {
+        "q": "Gehen wir heute Abend spazieren? — Tut mir leid, ich habe jetzt ___ Zeit.",
+        "options": [
+          "nicht",
+          "kein",
+          "keinen",
+          "keine"
+        ],
+        "answer": 3,
+        "explanation": "'Die Zeit' is a feminine noun without an article. Nouns without articles are negated with 'kein/keine' ('keine Zeit')."
+      },
+      {
+        "q": "Ist deine neue Wohnung sehr teuer? — Nein, sie ist ___ teuer.",
+        "options": [
+          "keine",
+          "nicht",
+          "kein",
+          "keinen"
+        ],
+        "answer": 1,
+        "explanation": "Adjectives like 'teuer' are negated with 'nicht', never with 'kein'."
+      },
+      {
+        "q": "Haben Sie Geschwister? — Nein, ich habe ___ Geschwister.",
+        "options": [
+          "keine",
+          "nicht",
+          "kein",
+          "keinen"
+        ],
+        "answer": 0,
+        "explanation": "Plural nouns without an article are negated with 'keine' ('keine Geschwister')."
+      },
+      {
+        "q": "Ist das dein Koffer auf dem Band? — Nein, das ist ___ mein Koffer.",
+        "options": [
+          "kein",
+          "keinen",
+          "nicht",
+          "keine"
+        ],
+        "answer": 2,
+        "explanation": "Nouns preceded by possessive pronouns ('mein Koffer') or definite articles must be negated with 'nicht', never 'kein'."
+      }
+    ]
+  }
+]
