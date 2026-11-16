@@ -9,7 +9,6 @@ A complete, self-contained interactive preparation studio and master reference l
 ```text
 goethe_a1_prep_studio/
 ├── index.html                   # Primary interactive application (Open directly in browser)
-├── interactive_a1_trainer.html  # Named standalone copy of the interactive studio
 ├── goethe_a1_complete_guide.md  # Master 4,200+ line reference manual & study guide
 ├── inline_quiz_widget.html      # Lightweight inline practice widget
 └── README.md                    # Project documentation and guide
@@ -20,7 +19,7 @@ goethe_a1_prep_studio/
 ## 🚀 How to Run
 
 1. **Direct Browser Launch (Zero Installation Required)**:
-   - Double-click **`index.html`** or **`interactive_a1_trainer.html`** in your file manager.
+   - Double-click **`index.html`** in your file manager.
    - It will open immediately in any modern web browser (Google Chrome, Microsoft Edge, Mozilla Firefox, Safari, Brave).
    - Everything runs 100% locally and offline (no local server or database required).
 
