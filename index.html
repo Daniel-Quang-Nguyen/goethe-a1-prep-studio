@@ -187,7 +187,7 @@ mark {
 
 /* Layout & Display */
 .block { display: block; }
-.hidden { display: none; }
+.hidden { display: none !important; }
 .relative { position: relative; }
 .absolute { position: absolute; }
 .sticky { position: sticky; }
@@ -334,7 +334,7 @@ mark {
 .underline { text-decoration-line: underline; }
 .line-through { text-decoration-line: line-through; }
 .decoration-2 { text-decoration-thickness: 2px; }
-.whitespace-pre-line { whitespace: pre-line; }
+.whitespace-pre-line { white-space: pre-line; }
 
 /* Borders & Dividers */
 .border { border-width: 1px; }
@@ -668,7 +668,418 @@ mark {
   transform: translateY(-1px);
 }
 
-  </style>
+  
+/* ==========================================================================
+   UI/UX OVERHAUL — token-driven components, clearer hierarchy, fixed buttons
+   ========================================================================== */
+:root {
+  --shadow-sm: 0 1px 2px rgba(31,29,26,.05), 0 1px 3px rgba(31,29,26,.04);
+  --shadow-md: 0 4px 16px rgba(31,29,26,.07);
+  --ring: rgba(41,128,185,.35);
+  --btn-bg: #faf9f5; --btn-bg-hover: #f0ede6; --btn-border: #d8d4cc; --btn-fg: #1f1d1a;
+  --solid-bg: #433428; --solid-bg-hover: #32271e; --solid-fg: #ffffff;
+}
+body.dark {
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 6px 20px rgba(0,0,0,.35);
+  --ring: rgba(90,177,230,.45);
+  --btn-bg: #24221f; --btn-bg-hover: #2e2b27; --btn-border: #38342f; --btn-fg: #f5f4f0;
+  --solid-bg: #c48b59; --solid-bg-hover: #d49a68; --solid-fg: #141312;
+}
+
+/* Readable base */
+body { font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+main { max-width: 1120px !important; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 10px; }
+
+/* Header: frosted, tokenised (was hardcoded white in dark mode) */
+header.sticky {
+  background: color-mix(in srgb, var(--header-bg) 88%, transparent);
+  -webkit-backdrop-filter: saturate(160%) blur(12px); backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---- BUTTONS: single source of truth (fixes light-theme toggle/header/solid buttons) ---- */
+#themeToggleBtn, #ttsRateBtn, .umlaut-btn {
+  background: var(--btn-bg) !important; color: var(--btn-fg) !important;
+  border: 1px solid var(--btn-border) !important; box-shadow: var(--shadow-sm);
+  min-height: 34px; transition: background .15s, transform .1s, border-color .15s;
+}
+#themeToggleBtn:hover, #ttsRateBtn:hover, .umlaut-btn:hover {
+  background: var(--btn-bg-hover) !important; border-color: var(--primary) !important;
+}
+#themeToggleBtn:active, #ttsRateBtn:active { transform: scale(.96); }
+#btnHeaderStudyGuide, button.bg-\[\#433428\], a.bg-\[\#433428\] {
+  background: var(--solid-bg) !important; color: var(--solid-fg) !important;
+  border: 1px solid transparent; box-shadow: var(--shadow-sm);
+}
+#btnHeaderStudyGuide:hover, button.bg-\[\#433428\]:hover, button.hover\:bg-\[\#32271e\]:hover {
+  background: var(--solid-bg-hover) !important;
+}
+button.bg-\[\#433428\] *, #btnHeaderStudyGuide * { color: inherit !important; }
+button:disabled { opacity: .5; }
+
+/* ---- Navigation pills / subtabs / mobile tabs: theme aware ---- */
+.studio-nav-pill { color: var(--secondary-foreground); padding: 7px 14px !important; border-radius: 999px !important; }
+.studio-nav-pill:hover { color: var(--foreground); background: var(--muted); }
+.studio-nav-pill.active { color: var(--solid-fg); background: var(--solid-bg); box-shadow: var(--shadow-sm); }
+.studio-subtab { background: var(--card); border: 1px solid var(--border); color: var(--secondary-foreground); border-radius: 999px !important; }
+.studio-subtab:hover { border-color: var(--primary); color: var(--foreground); }
+.studio-subtab.active { background: var(--solid-bg); border-color: var(--solid-bg); color: var(--solid-fg); }
+.bottom-nav-tab { color: var(--muted-foreground); min-height: 56px; }
+.bottom-nav-tab.active { color: var(--primary); position: relative; }
+.bottom-nav-tab.active::before { content:""; position:absolute; top:0; width:28px; height:3px; border-radius:0 0 4px 4px; background: var(--primary); }
+#mobileBottomNav { background: var(--header-bg) !important; border-color: var(--border) !important; padding-bottom: env(safe-area-inset-bottom, 0); }
+
+/* ---- Section headers: clear title, eyebrow, spacing ---- */
+.studio-container { animation: sectionIn .25s ease both; }
+@keyframes sectionIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.studio-container > div:first-child {
+  padding: 4px 0 18px; margin-bottom: 4px; border-bottom: 1px solid var(--border);
+  gap: 16px; flex-wrap: wrap;
+}
+.studio-container > div:first-child h2 {
+  font-family: 'Newsreader', Georgia, serif !important; font-weight: 500 !important;
+  font-size: clamp(1.6rem, 3vw, 2.1rem) !important; letter-spacing: -.01em; line-height: 1.15; color: var(--foreground);
+}
+.studio-container > div:first-child p { font-size: 13.5px !important; margin-top: 6px; max-width: 60ch; color: var(--muted-foreground) !important; }
+
+/* ---- Cards: consistent surface, radius, hover, rhythm ---- */
+.studio-container .bg-\[\#ffffff\].rounded-2xl, #todayCard {
+  background: var(--card); border: 1px solid var(--border); border-radius: 18px !important;
+  box-shadow: var(--shadow-sm); transition: box-shadow .2s, border-color .2s;
+}
+.studio-container .bg-\[\#ffffff\].rounded-2xl:hover { box-shadow: var(--shadow-md); }
+.studio-container h3 { font-size: 15px; font-weight: 700; letter-spacing: -.005em; }
+.studio-container .text-\[10px\], .studio-container .text-\[11px\] { letter-spacing: .06em; }
+.studio-container .space-y-6 > * + * { margin-top: 1.75rem; }
+
+/* Today card: compact stat strip */
+#todayCard { padding: 14px 18px !important; background: linear-gradient(135deg, var(--card), var(--muted)); }
+#todayCard .font-mono { font-size: 13px; font-variant-numeric: tabular-nums; }
+#btnCollapseTodayCard { border-radius: 8px; width: 28px; height: 28px; }
+#btnCollapseTodayCard:hover { background: var(--muted); }
+
+/* Search */
+#globalSearchInput { background: var(--input-bg) !important; border-color: var(--input-border) !important; color: var(--foreground) !important; border-radius: 999px !important; padding-left: 2.25rem !important; }
+#globalSearchInput:focus { box-shadow: 0 0 0 3px var(--ring); border-color: var(--accent) !important; }
+#globalSearchResults { background: var(--card) !important; border-color: var(--border) !important; box-shadow: var(--shadow-md); }
+
+/* Quiz feedback: dark-safe (had hardcoded white) */
+#quizFeedbackBox { background: var(--card) !important; }
+
+/* Mobile */
+@media (max-width: 767px) {
+  main { padding-left: 14px !important; padding-right: 14px !important; }
+  .studio-container > div:first-child { flex-direction: column; align-items: flex-start !important; }
+  #todayCard > div { flex-wrap: wrap; }
+  #themeToggleBtn { padding: 6px 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .studio-container { animation: none; } * { transition: none !important; } }
+
+  
+/* ---- Fix: umlaut dock covered header (missing .bottom-14) so theme button was unclickable ---- */
+#umlautBar { top: auto !important; bottom: 0 !important; z-index: 30 !important; background: color-mix(in srgb, var(--header-bg) 92%, transparent) !important; border-color: var(--border) !important; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+@media (max-width: 767px) { #umlautBar { bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important; } }
+header.sticky { z-index: 50 !important; }
+main { padding-bottom: 7rem !important; }
+
+/* ---- Readable rule summaries ---- */
+#gramRuleSummary { padding: 0 !important; background: none !important; border: 0 !important; font-size: inherit !important; }
+.rs-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow-sm); }
+.rs-eyebrow { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color: var(--accent); margin-bottom:10px; }
+.rs-lead { font-family:'Newsreader',Georgia,serif; font-size:1.2rem; line-height:1.5; color: var(--foreground); margin:0 0 14px; max-width:68ch; }
+.rs-list { display:grid; gap:8px; counter-reset: rs; margin:0; padding:0; }
+.rs-item { position:relative; display:flex; gap:12px; align-items:flex-start; padding:11px 13px; border-radius:12px; background: var(--muted); border:1px solid var(--border-subtle); font-size:14px; line-height:1.65; color: var(--secondary-foreground); counter-increment: rs; }
+.rs-item::before { content: counter(rs); flex:0 0 22px; height:22px; margin-top:2px; border-radius:50%; background: var(--accent-bg); color: var(--accent); border:1px solid var(--border); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.rs-ex { display:inline-block; padding:1px 8px; margin:1px 2px; border-radius:8px; background: var(--card); border:1px solid var(--border); font-family:'Newsreader',Georgia,serif; font-size:15px; font-style:italic; color: var(--foreground); }
+.rs-arrow { color: var(--accent); font-weight:700; padding:0 3px; }
+.rs-key { font-weight:700; color: var(--foreground); }
+.rs-item code, .rs-lead code { font-family: ui-monospace, Menlo, monospace; font-size:.9em; padding:1px 6px; border-radius:6px; background: var(--card); border:1px solid var(--border); color: var(--primary); }
+/* general in-card text legibility */
+#gramFeedbackBox, #gramFeedbackBox * { font-size: 14px; line-height: 1.7; }
+#gramQuestionText { font-size: 1.35rem; line-height: 1.5; }
+
+  
+/* ---- Preposition matrix: chips instead of run-together words ---- */
+#prepMatrix .grid { gap: 14px; }
+#prepMatrix .grid > div { padding: 16px !important; border-radius: 14px !important; }
+#prepMatrix .grid > div > div:first-child { font-size: 13px; align-items: flex-start; gap: 8px; margin-bottom: 12px !important; }
+#prepMatrix .font-serif { display: flex; flex-wrap: wrap; gap: 6px; font-size: 15px !important; }
+#prepMatrix .font-serif > span { padding: 3px 11px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); font-weight: 600; }
+#prepMatrix .grid > div > div:last-child, #prepMatrix .grid p { font-size: 13px !important; line-height: 1.6; margin-top: 12px !important; color: var(--secondary-foreground) !important; }
+#prepMatrix .text-\[10px\] { font-size: 11px !important; white-space: nowrap; }
+/* quieter pronoun hints inside rule summaries */
+.rs-ex.rs-hint { padding: 0 4px; border: 0; background: none; font-size: 13px; color: var(--muted-foreground); }
+.rs-ex.rs-hint::before { content: "("; } .rs-ex.rs-hint::after { content: ")"; }
+.search-icon-fix { top: 0; bottom: 0; }
+
+  .rs-item code, .rs-lead code, .rs-ex { white-space: nowrap; }
+  
+/* ---- Fix: missing responsive utilities (desktop nav hidden, mobile dock always shown) ---- */
+@media (min-width: 640px) { .sm\:inline-block { display: inline-block; } .sm\:text-xl { font-size: 1.25rem; line-height: 1.75rem; } }
+@media (min-width: 768px) {
+  .md\:flex { display: flex !important; }
+  .md\:hidden { display: none !important; }
+  .md\:min-w-\[260px\] { min-width: 260px; }
+  main { padding-bottom: 5rem !important; }
+}
+@media (min-width: 1024px) { .lg\:block { display: block; } .lg\:max-w-md { max-width: 28rem; } .lg\:min-w-\[320px\] { min-width: 320px; } }
+#desktopStudioNav { gap: 4px; }
+
+  
+/* readable exam feedback */
+#quizFeedbackContent .text-xs, #quizFeedbackContent .text-\[10px\] { font-size: 14px !important; line-height: 1.7; }
+#quizFeedbackContent .text-\[10px\] { font-size: 11px !important; letter-spacing: .08em; }
+#quizFeedbackContent .space-y-3 > div:first-child { border-left: 4px solid var(--accent); }
+#quizFeedbackContent span.inline-flex { font-size: 13px !important; }
+
+  /* ===== UX LAYER ===== */
+:root{--muted-foreground:#6f665e}
+body.dark{--muted-foreground:#a8a195}
+.ux-icon{width:18px;height:18px;display:inline-block;vertical-align:-3px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bottom-nav-tab .tab-icon .ux-icon{width:22px;height:22px}
+.ux-card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow-sm)}
+.ux-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:8px 16px;border-radius:12px;font-weight:700;font-size:13px;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--btn-fg);cursor:pointer;transition:transform .1s,background .15s}
+.ux-btn:hover{background:var(--btn-bg-hover)}.ux-btn:active{transform:scale(.97)}
+.ux-btn.primary{background:var(--solid-bg);color:var(--solid-fg);border-color:transparent}
+.ux-btn.primary:hover{background:var(--solid-bg-hover)}
+.ux-btn[disabled]{opacity:.5;cursor:not-allowed}
+#uxDash{display:grid;grid-template-columns:1.1fr 1.4fr;gap:16px;margin-bottom:24px}
+@media(max-width:860px){#uxDash{grid-template-columns:1fr}}
+.ux-cta{padding:20px;display:flex;flex-direction:column;gap:10px;background:linear-gradient(135deg,var(--card),var(--muted))}
+.ux-eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-foreground)}
+.ux-big{font-family:'Newsreader',Georgia,serif;font-size:1.6rem;line-height:1.2;color:var(--foreground)}
+.ux-sub{font-size:13.5px;color:var(--secondary-foreground)}
+.ux-prog{padding:20px}
+.ux-bar{height:8px;border-radius:99px;background:var(--muted);overflow:hidden;border:1px solid var(--border-subtle)}
+.ux-bar>i{display:block;height:100%;border-radius:99px;background:var(--accent);transition:width .5s ease}
+.ux-bar.good>i{background:var(--success)}.ux-bar.warn>i{background:var(--warning)}
+.ux-topic{display:grid;grid-template-columns:130px 1fr auto;align-items:center;gap:12px;padding:8px 0;font-size:13px}
+.ux-topic b{color:var(--foreground)}.ux-topic small{color:var(--muted-foreground);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ux-ready{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.ux-ready strong{font-size:2rem;font-family:'Newsreader',Georgia,serif;color:var(--foreground)}
+.ux-start{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;border-radius:14px;background:var(--accent-bg);border:1px solid var(--border);font-size:13.5px;color:var(--secondary-foreground)}
+#uxSessionBar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;margin-bottom:16px;border-radius:14px;background:var(--accent-bg);border:1px solid var(--border);font-size:13px}
+#uxSessionBar .ux-bar{flex:1;min-width:120px}
+.ux-overlay{position:fixed;inset:0;z-index:100;background:rgba(20,19,18,.55);display:flex;align-items:center;justify-content:center;padding:16px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);cursor:pointer}.ux-modal{cursor:default;position:relative}
+.ux-modal{width:100%;max-width:460px;max-height:90vh;overflow:auto;padding:26px;background:var(--card);color:var(--foreground);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow-md)}
+.ux-modal h2{font-family:'Newsreader',Georgia,serif;font-size:1.7rem;margin-bottom:6px}
+.ux-field{display:grid;gap:6px;margin:16px 0;font-size:13px;font-weight:600}
+.ux-field input[type=date]{padding:10px 12px;border-radius:10px;border:1px solid var(--input-border);background:var(--input-bg);color:var(--foreground)}
+.ux-chips{display:flex;gap:8px;flex-wrap:wrap}
+.ux-chip{padding:8px 14px;border-radius:99px;border:1px solid var(--border);background:var(--muted);font-weight:600;font-size:13px;cursor:pointer;color:var(--foreground)}
+.ux-chip.on{background:var(--solid-bg);color:var(--solid-fg);border-color:transparent}
+.ux-ring{width:112px;height:112px;border-radius:50%;margin:8px auto 14px;display:grid;place-items:center;font-family:'Newsreader',Georgia,serif;font-size:2rem;color:var(--foreground)}
+.ux-miss{padding:10px 12px;border-radius:12px;background:var(--muted);border:1px solid var(--border-subtle);font-size:13px;margin-top:8px;line-height:1.55}
+.ux-miss b{color:var(--success)}
+#uxToast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:90;display:flex;gap:12px;align-items:center;padding:10px 14px;border-radius:14px;background:var(--foreground);color:var(--background);font-size:13px;box-shadow:var(--shadow-md);transition:.25s}
+#uxToast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+#uxToast button{color:inherit;text-decoration:underline;font-weight:700}
+#uxSettings{position:absolute;right:0;top:calc(100% + 8px);width:290px;padding:16px;z-index:70;display:none}
+#uxSettings.open{display:block}
+.ux-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:13px;font-weight:600}
+.ux-row:last-child{border:0}
+.ux-switch{width:42px;height:24px;border-radius:99px;background:var(--border);position:relative;flex:none;cursor:pointer;border:0}
+.ux-switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.ux-switch[aria-checked=true]{background:var(--success)}.ux-switch[aria-checked=true]::after{left:21px}
+#uxBanner{margin:0 0 16px;padding:10px 14px;border-radius:12px;background:var(--warning-bg);border:1px solid var(--warning-border);color:var(--foreground);font-size:13px;display:flex;gap:10px;justify-content:space-between;align-items:center}
+.ux-pop{animation:uxPop .45s ease}.ux-shake{animation:uxShake .4s ease}
+@keyframes uxPop{40%{transform:scale(1.03);box-shadow:0 0 0 6px color-mix(in srgb,var(--success) 25%,transparent)}}
+@keyframes uxShake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.ux-conf{position:fixed;top:-12px;width:8px;height:14px;z-index:120;border-radius:2px;animation:uxFall 1.8s ease-in forwards}
+@keyframes uxFall{to{transform:translateY(105vh) rotate(540deg);opacity:.9}}
+details.ux-more{border:1px solid var(--border);border-radius:12px;background:var(--muted)}
+details.ux-more summary{padding:10px 14px;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground);cursor:pointer}
+details.ux-more>div{padding:0 14px 12px}
+.ux-sres{padding:8px 10px;border-radius:10px;display:flex;gap:10px;align-items:center;font-size:13.5px;cursor:pointer}
+.ux-sres:hover{background:var(--muted)}
+.ux-gender{font:700 11px ui-monospace,monospace;padding:2px 7px;border-radius:6px;background:var(--accent-bg);color:var(--accent)}
+/* readability for Vocab / Review / Guide */
+#studioVocab .text-xs,#studioReview .text-xs,#viewCheatsheet .text-xs{font-size:13px;line-height:1.65}
+#studioVocab .text-\[11px\],#studioReview .text-\[11px\],#viewCheatsheet .text-\[11px\]{font-size:12px}
+#viewCheatsheet,#viewCheatsheet p,#viewCheatsheet li,#viewCheatsheet td{font-size:14px;line-height:1.7}
+#viewCheatsheet h2,#viewCheatsheet h3{font-family:'Newsreader',Georgia,serif}
+@media(pointer:coarse){button,.studio-nav-pill,.umlaut-btn,.ux-chip{min-height:44px}.umlaut-btn{min-width:44px}}
+@media(max-width:640px){.ux-topic{grid-template-columns:100px 1fr auto}}
+@media(prefers-reduced-motion:reduce){.ux-pop,.ux-shake,.ux-conf{animation:none}}
+#ttsRateBtn{display:none!important}
+
+  #todayCard{margin-bottom:16px!important}.ux-bar{background:var(--border)}
+  main{min-width:0;width:100%}
+#uxDash>*,.studio-container,.studio-container>*{min-width:0}
+@media(max-width:860px){#uxDash{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:767px){#todayCard>div{flex-wrap:wrap;gap:10px}#todayCard>div>div{min-width:0;flex:1 1 100%}#todayCard p{white-space:normal}#uxSettings{position:fixed;left:12px;right:12px;top:60px;width:auto}}
+  .rs-ex{white-space:normal!important}.rs-item>div,.rs-lead{min-width:0;overflow-wrap:anywhere}.rs-card{min-width:0}
+  #mobileBottomNav{width:100%}#mobileBottomNav a{min-width:0;flex:1 1 0}@media(max-width:767px){.studio-container .flex.items-center.gap-4{flex-wrap:wrap;gap:8px 14px}}
+  @media(max-width:767px){#todayCard .flex.items-center.gap-4{flex-wrap:wrap;gap:8px 14px;text-align:left}#todayCard .flex{min-width:0}}
+  @media(max-width:767px){footer .flex.items-center.gap-4{flex-wrap:wrap;gap:6px 14px}footer{margin-bottom:96px}}
+  
+/* ==========================================================================
+   READABILITY & LAYOUT LAYER v2 — type scale, sectioning, reference TOC
+   ========================================================================== */
+:root{
+  --fs-body:1rem; --fs-small:.875rem; --fs-micro:.78rem;
+  --radius:16px; --space-section:2.5rem;
+  --muted-foreground:#6b625a; --secondary-foreground:#413b36;
+  --shadow-card:0 1px 2px rgba(31,29,26,.05),0 4px 14px rgba(31,29,26,.04);
+}
+body.dark{ --muted-foreground:#a9a097; --secondary-foreground:#d6d0c8; --shadow-card:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.25); }
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{font-size:var(--fs-body)!important;line-height:1.65!important;letter-spacing:.003em;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+
+/* --- Type scale: lift every tiny size --- */
+.text-xs,.text-\[12px\]{font-size:var(--fs-small)!important;line-height:1.55!important}
+.text-\[10px\],.text-\[11px\],.text-\[9px\]{font-size:var(--fs-micro)!important;line-height:1.45!important}
+.text-sm{font-size:var(--fs-body)!important;line-height:1.65!important}
+.text-base{font-size:1.0625rem!important}
+.text-lg{font-size:1.2rem!important}
+.text-xl{font-size:1.4rem!important}
+.text-2xl{font-size:1.75rem!important;line-height:1.25!important}
+.font-serif{font-family:'Newsreader',Georgia,serif}
+.tracking-widest,.tracking-wider{letter-spacing:.08em!important}
+
+/* --- Layout: comfortable measure, more air --- */
+main{max-width:1180px!important;padding-top:2rem!important}
+.studio-container{gap:var(--space-section)}
+.studio-container.space-y-6>*+*{margin-top:var(--space-section)!important}
+.studio-container p,.studio-container li{max-width:72ch}
+.studio-container td p,.studio-container td li,.studio-container .grid p{max-width:none}
+[class*="rounded-2xl"][class*="border"]{box-shadow:var(--shadow-card)!important;border-radius:var(--radius)!important}
+[class*="rounded-xl"]{border-radius:12px}
+.p-3{padding:.9rem!important}.p-4{padding:1.15rem!important}.p-5{padding:1.4rem!important}
+.gap-4{gap:1.1rem!important}
+
+/* --- Studio header: real section banner --- */
+.studio-container>div:first-child{
+  position:relative;padding:1.4rem 1.5rem 1.25rem!important;margin-bottom:.5rem;
+  background:var(--card);border:1px solid var(--border)!important;border-radius:var(--radius);
+  box-shadow:var(--shadow-card);flex-wrap:wrap;gap:1rem;overflow:hidden}
+.studio-container>div:first-child::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}
+#studioVocab>div:first-child::before{background:var(--success)}
+#studioExam>div:first-child::before{background:var(--warning)}
+#studioReview>div:first-child::before{background:var(--primary)}
+.studio-container>div:first-child h2{font-size:1.75rem!important;letter-spacing:-.01em}
+.studio-container>div:first-child p{font-size:var(--fs-body)!important;color:var(--muted-foreground)!important;margin-top:.25rem}
+.studio-container>div:first-child .eyebrow{display:block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem}
+
+/* --- Section headings inside cards --- */
+.studio-container h3{font-size:1.1rem!important;letter-spacing:-.005em}
+.studio-container h3.text-sm{font-size:1.05rem!important}
+
+/* --- Header & nav --- */
+header .studio-nav-pill{font-size:.95rem!important;padding:.55rem 1rem!important;border-radius:12px!important}
+header .studio-nav-pill span:first-child{font-size:1rem}
+header input#globalSearchInput{font-size:.95rem!important;padding-top:.55rem!important;padding-bottom:.55rem!important}
+header button{font-size:.9rem!important}
+.studio-subtab{font-size:.9rem!important;padding:.55rem 1rem!important;border:1px solid var(--border)}
+.studio-subtab:hover{border-color:var(--primary)}
+
+@media (max-width:767px){.studio-container>div:first-child h2{font-size:1.4rem!important}}
+
+/* --- Buttons & inputs: bigger hit areas, clearer focus --- */
+button,a.studio-subtab,.studio-nav-pill{min-height:40px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent)!important;outline-offset:2px}
+input,select,textarea{font-size:1rem!important}
+
+/* --- Tables: legible reference tables --- */
+.studio-container table{border-collapse:separate;border-spacing:0;width:100%;font-size:.95rem}
+.studio-container th{font-size:.8rem!important;text-transform:uppercase;letter-spacing:.06em;text-align:left;
+  background:var(--muted);color:var(--secondary-foreground);padding:.7rem .9rem!important;border-bottom:2px solid var(--border)}
+.studio-container td{padding:.7rem .9rem!important;border-bottom:1px solid var(--border-subtle,var(--border));vertical-align:top}
+.studio-container tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--muted) 60%,transparent)}
+.studio-container tbody tr:hover td{background:var(--accent-bg)}
+.overflow-x-auto,.studio-container table{scrollbar-width:thin}
+
+/* --- Today card: slimmer, only the numbers that matter --- */
+#todayCard{display:none!important} /* superseded by the dashboard above */
+
+/* --- Reference Library: sectioned with sticky left TOC --- */
+#viewCheatsheet>div.sticky{display:none}
+#viewCheatsheet section[id]{scroll-margin-top:90px}
+#viewCheatsheet section>div:first-child h2,#viewCheatsheet section>.flex:first-child h2{font-size:1.6rem!important;letter-spacing:-.01em}
+#viewCheatsheet h3{font-size:1.2rem!important;padding-top:.35rem}
+#viewCheatsheet h3.text-base{font-size:1.2rem!important}
+#viewCheatsheet h3,#viewCheatsheet h4{scroll-margin-top:90px}
+#viewCheatsheet section+section{margin-top:3.5rem;padding-top:2.5rem!important;border-top:2px solid var(--border)!important}
+#refToc{display:none}
+@media (min-width:1100px){
+  #viewCheatsheet{position:relative;padding-left:270px}
+  #refToc{display:block;position:absolute;left:0;top:0;bottom:0;width:240px}
+  #refToc nav{position:sticky;top:88px;max-height:calc(100vh - 110px);overflow:auto;padding:.9rem;
+    background:var(--muted);border:1px solid var(--border);border-radius:14px}
+  #refToc .toc-h{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-foreground);margin:.2rem .4rem .6rem}
+  #refToc a{display:block;padding:.38rem .6rem;border-radius:8px;font-size:.875rem;line-height:1.35;color:var(--secondary-foreground);text-decoration:none}
+  #refToc a.l1{font-weight:800;color:var(--foreground);margin-top:.7rem;font-size:.92rem}
+  #refToc a.l2{padding-left:1rem}
+  #refToc a:hover{background:var(--card)}
+  #refToc a.on{background:var(--card);color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+}
+/* Compact in-page jump menu for narrow screens */
+#refJump{display:block;position:sticky;top:64px;z-index:20;margin-bottom:1rem}
+#refJump select{width:100%;padding:.7rem .9rem;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--foreground);font-weight:600}
+@media (min-width:1100px){#refJump{display:none}}
+
+/* --- Quiz/flashcard canvases: focus the content --- */
+#canvasQuiz,#canvasFlashcards,#canvasPuzzle,#canvasArticles,#canvasSimulator{max-width:880px;margin-left:auto;margin-right:auto;width:100%}
+#canvasQuiz .font-serif,#canvasFlashcards .font-serif{line-height:1.4}
+@media print{header,#refToc{display:none!important}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+
+
+/* ===== Authentic conversations + speak buttons ===== */
+#dialogueBox{display:flex;flex-direction:column;gap:16px}
+.dlg-intro{padding:12px 14px;border:1px dashed var(--border,#e7e4dc);border-radius:14px;background:var(--muted,#faf9f5);font-size:13px;line-height:1.65;color:var(--muted-foreground,#736b63)}
+.dlg-intro strong{color:var(--foreground,#1f1d1a)}
+.dlg-toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.dlg-chip{min-height:36px;padding:6px 14px;border-radius:999px;border:1px solid var(--border,#e7e4dc);background:var(--card,#fff);color:var(--foreground,#1f1d1a);font-size:12px;font-weight:700;cursor:pointer}
+.dlg-chip:hover{border-color:var(--primary,#433428)}
+.dlg-scene{border:1px solid var(--border,#e7e4dc);border-radius:18px;background:var(--card,#fff);padding:16px;display:flex;flex-direction:column;gap:12px}
+.dlg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.dlg-kicker{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground,#8c827a)}
+.dlg-title{margin:2px 0 0;font-size:17px;font-weight:700;line-height:1.3;color:var(--foreground,#1f1d1a)}
+.dlg-reg{padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;border:1px solid var(--border,#e7e4dc);white-space:nowrap}
+.dlg-reg.is-formal{background:var(--muted,#faf9f5);color:var(--muted-foreground,#736b63)}
+.dlg-reg.is-informal{background:var(--success-bg,#edf4ed);color:var(--success,#2d6a4f);border-color:var(--success-border,#c3dfce)}
+.dlg-setting{margin:0;font-size:13px;line-height:1.65;color:var(--muted-foreground,#736b63)}
+.dlg-setting strong{color:var(--foreground,#1f1d1a)}
+.dlg-lines{display:flex;flex-direction:column;gap:8px}
+.dlg-line{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:14px;background:var(--muted,#faf9f5);border:1px solid var(--border,#e7e4dc);transition:border-color .15s,box-shadow .15s}
+.dlg-line.is-speaking{border-color:var(--primary,#433428);box-shadow:0 0 0 2px color-mix(in srgb,var(--primary,#433428) 25%,transparent)}
+.dlg-speaker{flex:0 0 auto;margin-top:3px;padding:2px 8px;border-radius:6px;background:var(--primary,#433428);color:var(--primary-foreground,#fff);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;max-width:96px;overflow-wrap:anywhere}
+.dlg-body{flex:1 1 auto;min-width:0}
+.dlg-de{font-size:16px;line-height:1.55;color:var(--foreground,#1f1d1a)}
+.dlg-tr{margin-top:3px;font-size:13px;line-height:1.5;font-style:italic;color:var(--muted-foreground,#736b63)}
+.dlg-hide-en .dlg-tr{display:none}
+.dlg-btns{flex:0 0 auto;display:flex;gap:6px}
+.dlg-btn{min-width:36px;min-height:36px;padding:4px 8px;border-radius:10px;border:1px solid var(--border,#e7e4dc);background:var(--card,#fff);color:var(--foreground,#1f1d1a);font-size:14px;cursor:pointer;line-height:1}
+.dlg-btn:hover{border-color:var(--primary,#433428)}
+.dlg-btn-sm{min-width:30px;min-height:30px;font-size:12px}
+.dlg-actions{display:flex;gap:8px}
+.dlg-play{min-height:38px;padding:8px 16px;border-radius:12px;border:none;background:var(--primary,#433428);color:var(--primary-foreground,#fff);font-size:13px;font-weight:700;cursor:pointer}
+.dlg-play:hover{filter:brightness(1.08)}
+.dlg-explain{border:1px solid var(--border,#e7e4dc);border-radius:14px;background:var(--muted,#faf9f5)}
+.dlg-explain>summary{padding:11px 14px;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted-foreground,#736b63);cursor:pointer}
+.dlg-explain-body{padding:0 14px 14px;display:flex;flex-direction:column;gap:6px}
+.dlg-explain-body h5{margin:8px 0 0;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary,#433428)}
+.dlg-explain-body p,.dlg-explain-body li{margin:0;font-size:13.5px;line-height:1.65;color:var(--foreground,#1f1d1a)}
+.dlg-notes{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.dlg-phrases{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:6px}
+.dlg-phrases li{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:var(--card,#fff);border:1px solid var(--border,#e7e4dc)}
+.dlg-ph-de{font-weight:700;flex:1 1 auto;min-width:0}
+.dlg-ph-en{flex:0 1 auto;font-size:12.5px;color:var(--muted-foreground,#736b63);text-align:right}
+.dlg-try{margin-top:8px;padding:10px 12px;border-radius:10px;background:var(--success-bg,#edf4ed);border:1px solid var(--success-border,#c3dfce);font-size:13.5px;line-height:1.6;color:var(--foreground,#1f1d1a)}
+@media (max-width:560px){
+  .dlg-line{flex-wrap:wrap}
+  .dlg-speaker{max-width:none}
+  .dlg-body{flex-basis:100%;order:3}
+  .dlg-btns{margin-left:auto}
+  .dlg-phrases{grid-template-columns:1fr}
+}
+/* standalone speak buttons (flashcards, quiz) */
+.speak-chip{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:5px 12px;border-radius:10px;border:1px solid var(--border,#e7e4dc);background:var(--card,#fff);color:var(--foreground,#1f1d1a);font-size:12px;font-weight:700;cursor:pointer}
+.speak-chip:hover{border-color:var(--primary,#433428)}
+</style>
 </head>
 <body class="min-h-screen flex flex-col antialiased text-sm text-[#1f1d1a]">
 
@@ -737,7 +1148,7 @@ mark {
           <span id="headerStreak">0</span>
         </div>
 
-        <button onclick="toggleTheme()" id="themeToggleBtn" title="Switch Theme (Dark / Light)" class="px-2.5 py-1.5 rounded-xl border border-[#e7e4dc] bg-[#faf9f5] hover:bg-white text-xs sm:text-sm font-semibold text-[#1f1d1a] transition-all shadow-xs flex items-center gap-1 cursor-pointer">
+        <button onclick="toggleTheme()" id="themeToggleBtn" aria-label="Toggle light or dark theme" title="Switch Theme (Dark / Light)" class="px-2.5 py-1.5 rounded-xl border border-[#e7e4dc] bg-[#faf9f5] hover:bg-white text-xs sm:text-sm font-semibold text-[#1f1d1a] transition-all shadow-xs flex items-center gap-1 cursor-pointer">
           <span id="themeToggleIcon">🌙</span>
           <span id="themeToggleLabel" class="hidden md:inline">Dark</span>
         </button>
@@ -1044,7 +1455,7 @@ mark {
           <!-- Authentic Dialogue Simulation -->
           <div class="space-y-3">
             <h3 class="text-xs font-bold uppercase tracking-wider text-[#8c827a] flex items-center gap-1.5">
-              <span>💬</span> Authentic Dialogue (Examiner &amp; Candidate)
+              <span>💬</span> Authentic Conversations (Real-Life Scenes)
             </h3>
             <div id="dialogueBox" class="space-y-2"></div>
           </div>
@@ -1090,6 +1501,7 @@ mark {
                   <div id="fcFrontPhrase" class="font-editorial text-3xl sm:text-4xl text-[#1f1d1a]">
                     Hallo!
                   </div>
+                <div class="text-center"><button type="button" data-speak onclick="event.stopPropagation();speakGerman(document.getElementById('fcFrontPhrase').innerText)" class="speak-chip" title="Listen to the phrase">🔊 Listen</button></div>
                 </div>
 
                 <div class="text-center text-xs text-[#8c827a] border-t border-[#e7e4dc] pt-3">
@@ -1108,6 +1520,7 @@ mark {
                   <div class="bg-[#faf9f5] p-3 rounded-xl border border-[#e7e4dc] space-y-1">
                     <div class="text-xs font-bold uppercase text-[#8c827a]">Example Sentence:</div>
                     <div id="fcBackSentence" class="font-semibold text-sm text-[#1f1d1a]">Hallo, wie geht es dir?</div>
+                    <button type="button" data-speak onclick="event.stopPropagation();speakGerman(document.getElementById('fcBackSentence').innerText)" class="speak-chip" title="Listen to the example sentence">🔊 Listen to sentence</button>
                     <div id="fcBackSentenceTrans" class="text-xs text-[#736b63] italic">Hello, how are you?</div>
                   </div>
 
@@ -1167,15 +1580,15 @@ mark {
 
           <!-- 3 Architectural Choice Buttons -->
           <div class="grid grid-cols-3 gap-3 pt-2">
-            <button onclick="checkArticle('der')" id="btnDer" data-gender="der" class="genderBtnDer class="py-4 rounded-xl border border-[#e7e4dc] bg-white hover:border-[#2980b9] hover:bg-[#f4f9fd] text-center font-bold text-lg text-[#2980b9] transition-all shadow-sm">
+            <button onclick="checkArticle('der')" id="btnDer" data-gender="der" class="genderBtnDer py-4 rounded-xl border border-[#e7e4dc] bg-white hover:border-[#2980b9] hover:bg-[#f4f9fd] text-center font-bold text-lg text-[#2980b9] transition-all shadow-sm">
               DER
               <span class="block text-xs font-normal text-[#8c827a]">Masculine</span>
             </button>
-            <button onclick="checkArticle('die')" id="btnDie" data-gender="die" class="genderBtnDie class="py-4 rounded-xl border border-[#e7e4dc] bg-white hover:border-[#b25e3b] hover:bg-[#fdf7f4] text-center font-bold text-lg text-[#b25e3b] transition-all shadow-sm">
+            <button onclick="checkArticle('die')" id="btnDie" data-gender="die" class="genderBtnDie py-4 rounded-xl border border-[#e7e4dc] bg-white hover:border-[#b25e3b] hover:bg-[#fdf7f4] text-center font-bold text-lg text-[#b25e3b] transition-all shadow-sm">
               DIE
               <span class="block text-xs font-normal text-[#8c827a]">Feminine</span>
             </button>
-            <button onclick="checkArticle('das')" id="btnDas" data-gender="das" class="genderBtnDas class="py-4 rounded-xl border border-[#e7e4dc] bg-white hover:border-[#2d6a4f] hover:bg-[#f3f9f5] text-center font-bold text-lg text-[#2d6a4f] transition-all shadow-sm">
+            <button onclick="checkArticle('das')" id="btnDas" data-gender="das" class="genderBtnDas py-4 rounded-xl border border-[#e7e4dc] bg-white hover:border-[#2d6a4f] hover:bg-[#f3f9f5] text-center font-bold text-lg text-[#2d6a4f] transition-all shadow-sm">
               DAS
               <span class="block text-xs font-normal text-[#8c827a]">Neuter</span>
             </button>
@@ -1350,6 +1763,7 @@ mark {
             <h2 id="quizPromptText" class="font-editorial text-2xl lg:text-3xl font-normal leading-relaxed text-[#1f1d1a]">
               Ich komme ___ Deutschland.
             </h2>
+            <div><button type="button" data-speak onclick="speakGerman(document.getElementById('quizPromptText').innerText)" class="speak-chip" title="Read the question aloud">🔊 Read aloud</button></div>
           </div>
 
           <!-- Options Grid (2x2 architectural cards) -->
@@ -2529,78 +2943,7 @@ mark {
   </section>
   </main>
 
-<aside id="sidebarInspector" class="w-full lg:w-80 lg:min-w-[320px] bg-[#ffffff] border-t lg:border-t-0 lg:border-l border-[#e7e4dc] p-5 space-y-5 overflow-y-auto">
-      
-      <!-- Inspector Header (Like CAM-03 in user's image) -->
-      <div class="border-b border-[#e7e4dc] pb-3 space-y-1">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-bold tracking-widest uppercase text-[#8c827a]">INSPECTOR / A1 PROFILE</span>
-          <span class="px-2 py-0.5 rounded bg-[#f5f2eb] text-[#433428] font-mono text-xs font-bold" id="inspIdBadge">Q-01</span>
-        </div>
-        <h3 class="font-editorial text-lg text-[#1f1d1a]" id="inspTitle">Grammar & Syntax Analysis.</h3>
-      </div>
-
-      <!-- Properties Table (Key-Value Rows like image) -->
-      <div class="space-y-2 text-xs">
-        <div class="flex items-center justify-between py-1.5 border-b border-[#f0ede6]">
-          <span class="text-[#736b63] text-xs font-semibold">Category</span>
-          <span class="font-bold text-[#1f1d1a] font-mono text-sm" id="inspPropCat">Präpositionen</span>
-        </div>
-        <div class="flex items-center justify-between py-1.5 border-b border-[#f0ede6]">
-          <span class="text-[#736b63] text-xs font-semibold">Grammatical Case</span>
-          <span class="font-bold text-[#2980b9] font-mono text-sm" id="inspPropCase">Dativ</span>
-        </div>
-        <div class="flex items-center justify-between py-1.5 border-b border-[#f0ede6]">
-          <span class="text-[#736b63] text-xs font-semibold">Syntactic Role</span>
-          <span class="font-bold text-[#1f1d1a] font-mono text-sm" id="inspPropRole">Verkehrsmittel</span>
-        </div>
-        <div class="flex items-center justify-between py-1.5 border-b border-[#f0ede6]">
-          <span class="text-[#736b63] text-xs font-semibold">Exam Module</span>
-          <span class="font-bold text-[#2d6a4f] font-mono text-sm" id="inspPropModule">Sprechen & Hören</span>
-        </div>
-      </div>
-
-      <!-- Sentence Breakdown Inspector Card -->
-      <div class="bg-[#faf9f5] rounded-xl border border-[#e7e4dc] p-4 space-y-2 text-xs leading-relaxed">
-        <div class="font-bold text-[#433428] flex items-center gap-1.5 text-xs uppercase tracking-wider">
-          <span>🔍</span> Sentence Breakdown
-        </div>
-        <div id="inspBreakdownText" class="text-[#3d3833] text-sm space-y-1.5 leading-relaxed">
-          Select an answer option to inspect the sentence breakdown.
-        </div>
-      </div>
-
-      <!-- Rule Spotlight Card -->
-      <div class="bg-[#faf9f5] rounded-xl border border-[#e7e4dc] p-4 space-y-2 text-xs leading-relaxed">
-        <div class="font-bold text-[#b25e3b] flex items-center gap-1.5 text-xs uppercase tracking-wider">
-          <span>💡</span> Grammar Rule Spotlight
-        </div>
-        <p id="inspRuleText" class="text-[#3d3833] text-sm leading-relaxed">
-          Select an answer option on the canvas.
-        </p>
-      </div>
-
-      <!-- Goethe Exam Advice Card -->
-      <div class="bg-[#faf9f5] rounded-xl border border-[#e7e4dc] p-4 space-y-2 text-xs leading-relaxed">
-        <div class="font-bold text-[#2d6a4f] flex items-center gap-1.5 text-xs uppercase tracking-wider">
-          <span>🎯</span> Goethe A1 Exam Tip
-        </div>
-        <p id="inspTipText" class="text-[#2d6a4f] text-sm leading-relaxed">
-          Essential for Goethe A1 Start Deutsch 1.
-        </p>
-      </div>
-
-      <!-- Quick Action Buttons -->
-      <div class="pt-2 space-y-2">
-        <button onclick="nextQuestion()" class="w-full py-2.5 rounded-lg bg-[#433428] text-white hover:bg-[#32271e] text-xs font-semibold tracking-wide transition-colors shadow-sm">
-          Next Question →
-        </button>
-        <button onclick="switchViewMode('cheatsheet')" class="w-full py-2 rounded-lg border border-[#e7e4dc] bg-white hover:bg-[#faf9f5] text-xs text-[#524b45] font-medium transition-colors">
-          Open Reference Guide
-        </button>
-      </div>
-
-    </aside>
+<!-- Inspector sidebar merged into per-question feedback boxes -->
 
   </div>
 
@@ -2654,8 +2997,7 @@ mark {
   <!-- COMPLETE STUDIO JAVASCRIPT ENGINE          -->
   <!-- ========================================== -->
     <script>
-
-    // ==========================================
+// ==========================================
     // 1. SAFE STORAGE ENGINE (WITH IN-MEMORY CACHE)
     // ==========================================
     const _memoryStorage = Object.create(null);
@@ -2721,6 +3063,51 @@ mark {
       document.body.classList.add('dark');
     }
 
+    function formatRuleSummary(raw) {
+      let t = String(raw || '').trim();
+      const hl = (x) => x
+        .replace(/\(([^()]{2,})\)/g, (m, g) => '<span class="rs-ex' + (g.length <= 16 && !/\s{2,}|→|&rarr;/.test(g) && !/[\s]/.test(g.replace(/\//g,'')) ? ' rs-hint' : '') + '">' + g + '</span>')
+        .replace(/(&rarr;|→)/g, '<span class="rs-arrow">&rarr;</span>')
+        .replace(/(^|[\s(])(-[a-zäöüß\/]+-?)(?=[\s,.):]|$)/gi, '$1<code>$2</code>');
+      let lead = '', items = [];
+      const num = t.split(/\s*\b\d\)\s+/);
+      if (num.length > 2) { lead = num.shift().trim(); items = num.map(x => x.trim()).filter(Boolean); }
+      else {
+        const parts = t.split(/(?<=[.!?])\s+(?=[A-ZÄÖÜ'"])/).map(x => x.trim()).filter(Boolean);
+        lead = parts.shift() || ''; items = parts;
+      }
+      lead = lead.replace(/:\s*$/, '');
+      return '<div class="rs-card"><div class="rs-eyebrow"><span>💡</span><span>Rule Summary</span></div>' +
+        (lead ? '<p class="rs-lead">' + hl(lead) + '</p>' : '') +
+        (items.length ? '<ol class="rs-list">' + items.map(i => '<li class="rs-item"><div>' + hl(i) + '</div></li>').join('') + '</ol>' : '') +
+        '</div>';
+    }
+    window.formatRuleSummary = formatRuleSummary;
+
+    // In-page routing: works in sandboxed frames / hosted previews where #/path links break
+    document.addEventListener('click', function(e) {
+      const a = e.target && e.target.closest ? e.target.closest('a[href^="#/"]') : null;
+      if (!a) return;
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      window.__route = href;
+      try { history.replaceState(null, '', href); } catch (err) {}
+      handleRoute();
+      const top = document.querySelector('main');
+      if (top && !href.split('/')[2]) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, true);
+
+    window.mdLite = function(t) {
+      return String(t || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').trim();
+    };
+    function syncThemeButton() {
+      const dark = document.body.classList.contains('dark');
+      const i = document.getElementById('themeToggleIcon'), l = document.getElementById('themeToggleLabel');
+      if (i) i.innerText = dark ? '☀️' : '🌙';
+      if (l) l.innerText = dark ? 'Light' : 'Dark';
+    }
+    document.addEventListener('DOMContentLoaded', syncThemeButton);
+
     const appState = {
       score: 0,
       streak: 0,
@@ -2749,25 +3136,658 @@ mark {
     // ==========================================
     // 4. SPEECH SYNTHESIS ENGINE
     // ==========================================
-    window.speakGerman = function(text, rateOverride) {
-      if (!text || typeof text !== 'string') return;
+    // ---- Voice loading (voices arrive asynchronously in Chrome/Edge/Android) ----
+    const TTS = { voices: [], token: 0, seqToken: 0, current: null, warned: false };
+
+    function ttsLoadVoices() {
+      try { TTS.voices = window.speechSynthesis.getVoices() || []; } catch (e) { TTS.voices = []; }
+    }
+    if (window.speechSynthesis) {
+      ttsLoadVoices();
       try {
-        if (typeof window !== 'undefined' && window.speechSynthesis) {
-          window.speechSynthesis.cancel();
-          const utterance = new (window.SpeechSynthesisUtterance || SpeechSynthesisUtterance)(text);
-          utterance.lang = 'de-DE';
-          utterance.rate = (typeof rateOverride === 'number') ? rateOverride : (appState.ttsRate || 1.0);
-          window.speechSynthesis.speak(utterance);
-        }
-      } catch (e) {
-        console.warn('TTS playback error:', e);
+        if (window.speechSynthesis.addEventListener) window.speechSynthesis.addEventListener('voiceschanged', ttsLoadVoices);
+        else window.speechSynthesis.onvoiceschanged = ttsLoadVoices;
+      } catch (e) { /* ignore */ }
+    }
+
+    // Best German voices first: de-DE beats de-AT/de-CH, natural/neural voices beat robotic ones
+    function ttsGermanVoices() {
+      const score = v => (/de[-_]DE/i.test(v.lang) ? 4 : 0) +
+        (/google|natural|neural|premium|enhanced/i.test(v.name) ? 3 : 0) + (v.localService ? 1 : 0);
+      return TTS.voices.filter(v => /^de([-_]|$)/i.test(v.lang || '')).sort((a, b) => score(b) - score(a));
+    }
+    function ttsPickVoice(variant) {
+      const list = ttsGermanVoices();
+      if (!list.length) return null;
+      if (variant === 1) {
+        // Second speaker in a conversation: a different de-DE voice if the device has one
+        return list.find(v => v.name !== list[0].name && /de[-_]DE/i.test(v.lang)) || list[0];
       }
+      return list[0];
+    }
+
+    // Turn on-screen text into something a speech engine reads naturally
+    function ttsClean(input) {
+      let s = String(input == null ? '' : input);
+      s = s.replace(/<[^>]*>/g, ' ');                                   // strip HTML tags
+      const ta = document.createElement('textarea'); ta.innerHTML = s; s = ta.value; // decode &amp; &rarr; ...
+      s = s.replace(/^\s*\d+\.\s+/, '');                                // "1. Person & ..." -> no list number
+      s = s.replace(/\{\d+\}|_{2,}/g, ' ... ');                         // blanks in gap-fill questions
+      s = s.replace(/\b(?:[A-ZÄÖÜ]-)+[A-ZÄÖÜ]\b/g, m => m.split('-').join(', ')); // B-A-U-E-R -> B, A, U, E, R
+      s = s.replace(/&/g, ' und ').replace(/[→➜➔]/g, ', ').replace(/\s\/\s/g, ', ');
+      s = s.replace(/\s*\((?:Sg|Pl)\.?\)/gi, '');                       // (Sg.) (Pl.)
+      s = s.replace(/\*+/g, '');                                        // markdown bold
+      return s.replace(/\s+/g, ' ').trim();
+    }
+
+    // Vocabulary entries like "der Name, -n" or "die Nebenkosten (Pl.)": speak just the headword with its article
+    function ttsVocab(de) {
+      return String(de || '').replace(/\s*\([^)]*\)/g, '').split(',')[0].trim();
+    }
+
+    function ttsNotice(msg) {
+      let el = document.getElementById('ttsNotice');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'ttsNotice';
+        el.setAttribute('role', 'status');
+        el.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);max-width:min(92vw,460px);padding:10px 16px;border-radius:12px;background:var(--card,#fff);color:var(--foreground,#1f1d1a);border:1px solid var(--border,#e7e4dc);box-shadow:0 8px 28px rgba(0,0,0,.18);font-size:13px;line-height:1.5;z-index:9999;';
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.display = 'block';
+      clearTimeout(ttsNotice.h);
+      ttsNotice.h = setTimeout(() => { el.style.display = 'none'; }, 5200);
+    }
+
+    function ttsInterrupt() {
+      TTS.seqToken++;
+      if (typeof CustomEvent !== 'undefined' && typeof document.dispatchEvent === 'function') if (typeof CustomEvent !== 'undefined' && typeof document.dispatchEvent === 'function') document.dispatchEvent(new CustomEvent('tts:interrupt'));
+    }
+    function ttsStop() {
+      ttsInterrupt();
+      TTS.token++;
+      try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) { /* ignore */ }
+    }
+
+    // Core speaker. opts: { rate, voice (0|1), seq (part of a sequence), onend(ok) }
+    function ttsSpeak(text, opts) {
+      opts = opts || {};
+      const synth = window.speechSynthesis;
+      if (!synth || typeof window.SpeechSynthesisUtterance === 'undefined') {
+        ttsNotice('Audio is not supported in this browser. Try Chrome, Edge, Safari or Firefox.');
+        if (opts.onend) opts.onend(false);
+        return;
+      }
+      const clean = ttsClean(text);
+      if (!clean) { if (opts.onend) opts.onend(false); return; }
+      if (!opts.seq) ttsInterrupt();
+      const myToken = ++TTS.token;
+
+      const start = () => {
+        if (myToken !== TTS.token) return;           // a newer tap replaced this one
+        ttsLoadVoices();
+        const u = new SpeechSynthesisUtterance(clean);
+        const voice = ttsPickVoice(opts.voice || 0);
+        if (voice) { u.voice = voice; u.lang = voice.lang; }
+        else {
+          u.lang = 'de-DE';
+          if (!TTS.warned && TTS.voices.length) {
+            TTS.warned = true;
+            ttsNotice('No German voice found on this device, so the audio may sound off. Add a German voice in your system speech settings.');
+          }
+        }
+        const r = (typeof opts.rate === 'number') ? opts.rate : ((window.appState && window.appState.ttsRate) || 1.0);
+        u.rate = Math.min(1.5, Math.max(0.5, r));
+        u.pitch = 1; u.volume = 1;
+        let finished = false;
+        const done = ok => {
+          if (finished) return;
+          finished = true;
+          if (TTS.current === u) TTS.current = null;
+          if (opts.onend) opts.onend(ok);
+        };
+        u.onend = () => done(true);
+        u.onerror = () => done(false);               // "canceled"/"interrupted" are normal when another sound starts
+        TTS.current = u;                             // keep a reference: Chrome can garbage-collect utterances mid-speech
+        try {
+          if (synth.paused) synth.resume();
+          synth.speak(u);
+        } catch (e) { done(false); }
+      };
+
+      // Chrome drops a speak() issued in the same tick as cancel(); wait a beat only when something is playing
+      if (synth.speaking || synth.pending) { synth.cancel(); setTimeout(start, 90); }
+      else { start(); }
+    }
+
+    window.__ttsSpeak = ttsSpeak;
+    window.__ttsStop = ttsStop;
+    window.speakGerman = function (textOrEl, rateOverride) {
+      let text = textOrEl;
+      if (text && typeof text === 'object' && (text.nodeType || text.innerText !== undefined || text.textContent !== undefined)) {
+        text = text.innerText || text.textContent || '';
+      }
+      if (typeof text !== 'string' || !text.trim()) return;
+      ttsSpeak(text.trim(), { rate: rateOverride });
+    };
+    window.speakVocab = function (btn) {
+      const de = btn && btn.getAttribute ? btn.getAttribute('data-de') : btn;
+      window.speakGerman(ttsVocab(de));
     };
 
-    function speakDialogue(text) {
-      window.speakGerman(text);
+    // Key-phrase buttons: drop grammar placeholders ("+ Land", "+ Akk") and ellipses before speaking
+    window.speakPhrase = function (btn) {
+      const t = (btn && btn.getAttribute ? btn.getAttribute('data-de') : btn) || '';
+      window.speakGerman(String(t).replace(/\s*\+.*$/, '').replace(/\s*…/g, '').trim());
+    };
+
+    function getActiveModuleSection() {
+      if (typeof SECTIONS_DATA === 'undefined') return null;
+      const id = (window.appState && window.appState.activeSection) || 'sec_001';
+      return SECTIONS_DATA.find(s => s.id === id) || SECTIONS_DATA[0] || null;
+    }
+
+    // Accepts a line number (what the dialogue buttons send) or plain text
+    function speakDialogue(arg, rate) {
+      let text = arg;
+      if (typeof arg === 'number') {
+        const sec = getActiveModuleSection();
+        const line = sec && sec.dialogue && sec.dialogue[arg];
+        text = line ? line.text : '';
+      }
+      window.speakGerman(text, rate);
     }
     window.speakDialogue = speakDialogue;
+
+    // Plays both lines of a scene in order, alternating voices when the device has two German voices
+    function speakScene(sceneIdx, btn) {
+      const sec = getActiveModuleSection();
+      if (!sec || !sec.dialogue) return;
+      if (btn && btn.dataset.playing === '1') { ttsStop(); return; }
+      const lines = sec.dialogue.slice(sceneIdx * 2, sceneIdx * 2 + 2);
+      ttsInterrupt();
+      const id = TTS.seqToken;
+      const setPlaying = on => {
+        if (!btn) return;
+        btn.dataset.playing = on ? '1' : '0';
+        btn.innerHTML = on ? '■ Stop' : '▶ Play whole conversation';
+      };
+      const mark = (gi, on) => {
+        const el = document.getElementById('dlgLine-' + gi);
+        if (el) el.classList.toggle('is-speaking', on);
+      };
+      setPlaying(true);
+      const next = i => {
+        if (id !== TTS.seqToken) return;
+        if (i >= lines.length) { setPlaying(false); return; }
+        const gi = sceneIdx * 2 + i;
+        mark(gi, true);
+        ttsSpeak(lines[i].text, {
+          seq: true, voice: i % 2,
+          onend: ok => {
+            mark(gi, false);
+            if (id !== TTS.seqToken) return;
+            if (!ok) { setPlaying(false); return; }
+            setTimeout(() => next(i + 1), 380);
+          }
+        });
+      };
+      next(0);
+    }
+    window.speakScene = speakScene;
+
+    // Reset "Stop" buttons / highlights whenever any other audio starts or playback is stopped
+    document.addEventListener('tts:interrupt', () => {
+      document.querySelectorAll('.dlg-play').forEach(b => { b.dataset.playing = '0'; b.innerHTML = '▶ Play whole conversation'; });
+      document.querySelectorAll('.dlg-line.is-speaking').forEach(l => l.classList.remove('is-speaking'));
+    });
+    // Stop audio when leaving the page so it never keeps talking in the background
+    window.addEventListener('pagehide', () => { try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) { /* ignore */ } });
+
+    // ==========================================
+    // AUTHENTIC CONVERSATION EXPLANATIONS (3 scenes per section, same order as SECTIONS_DATA[i].dialogue pairs)
+    // ==========================================
+    const DIALOGUE_NOTES = {
+      sec_001: [
+        {
+          title: "The self-introduction", register: "Formal · Sie", formal: true,
+          setting: "The oral exam begins. The examiner asks you to introduce yourself, and the candidate answers with the three basics: name, origin and place of residence.",
+          tr: ["Good day! Please introduce yourself briefly.", "Good day! My name is Maria Santos, I come from Spain and I live in Berlin."],
+          phrases: [["sich vorstellen", "to introduce oneself"], ["Ich heiße …", "My name is …"], ["Ich komme aus + Land", "I come from + country"], ["Ich wohne in + Stadt", "I live in + city"]],
+          notes: [
+            "“Stellen Sie sich vor” is the command form of the separable verb sich vorstellen: the prefix vor jumps to the end (“Stellen Sie sich bitte kurz vor”).",
+            "Each statement is a main clause with the verb in position 2 (heiße, komme, wohne). The clauses are joined with “und”, which does not change the word order."
+          ],
+          real: "Everyday speech is looser: people often say “Ich bin Maria” or “Mein Name ist Maria Santos”. The word “kurz” tells you three or four short sentences are enough. Do not give a speech.",
+          exam: "Sprechen Teil 1: you introduce yourself from keywords such as Name, Alter, Land, Wohnort, Sprachen, Beruf and Hobby. Practise covering all of them in about 30 seconds.",
+          tryIt: "Say your own version aloud: “Ich heiße …, ich komme aus … und ich wohne in …”."
+        },
+        {
+          title: "Spelling your name at an office", register: "Formal · Sie", formal: true,
+          setting: "At a registration office or on the phone. The official has to fill in a form and needs the surname spelled letter by letter so nothing is wrong on the document.",
+          tr: ["What is your surname and how do you spell that?", "My surname is Bauer: B-A-U-E-R."],
+          phrases: [["Wie buchstabiert man das?", "How do you spell that?"], ["Mein Nachname ist …", "My surname is …"], ["Können Sie das bitte wiederholen?", "Could you repeat that, please?"], ["Wie schreibt man das?", "How is that written?"]],
+          notes: [
+            "“man” means “one/you” in general and always takes the 3rd-person singular verb: man buchstabiert.",
+            "German letter names differ from English: E = “eh”, I = “ee”, G = “geh”, J = “yot”, V = “fau”, W = “weh”, Y = “üpsilon”, Z = “tsett”. Use the 🐢 button and listen to B-A-U-E-R slowly."
+          ],
+          real: "On the phone, Germans often use a spelling alphabet for names: “B wie Berta, A wie Anton, U wie Ulrich, E wie Emil, R wie Richard”. It is worth learning a few of them.",
+          exam: "Spelling and numbers are tested in Hören and in Schreiben Teil 1 (filling in a form), where one wrong letter can cost you the point.",
+          tryIt: "Spell your own surname aloud, then say your phone number digit by digit."
+        },
+        {
+          title: "Languages and phone number", register: "Formal · Sie", formal: true,
+          setting: "A new colleague, or a course registration, asks for contact details and language skills. This is the kind of small exchange you meet at every new job or sign-up.",
+          tr: ["Which languages do you speak and what is your mobile number?", "I speak Spanish and German. My mobile number is 0171 458923."],
+          phrases: [["Welche Sprachen sprechen Sie?", "Which languages do you speak?"], ["die Handynummer", "mobile number"], ["ein bisschen Deutsch", "a little German"], ["Meine Nummer ist …", "My number is …"]],
+          notes: [
+            "sprechen is a vowel-change verb: ich spreche, du sprichst, er spricht. The formal “Sie sprechen” stays regular.",
+            "Phone numbers are read in groups or digit by digit: 0 = “null”. On the phone, 2 is often “zwo” so it cannot be mistaken for “drei”."
+          ],
+          real: "“Handy” is the everyday word for a mobile phone. It sounds English, but English speakers do not use it. 0171 is a typical mobile prefix; landline numbers start with a city code instead.",
+          exam: "Sprechen Teil 1: “Sprachen” is one of the standard keywords. Be ready to say which languages you speak and how well (“ein bisschen”, “gut”).",
+          tryIt: "Answer aloud: “Welche Sprachen sprechen Sie? Wie ist Ihre Handynummer?”"
+        }
+      ],
+      sec_002: [
+        {
+          title: "Asking the time on the street", register: "Polite · Sie", formal: true,
+          setting: "A stranger stops you in the street to ask the time. “Entschuldigung” is the polite way to start a conversation with someone you do not know.",
+          tr: ["Excuse me, what time is it now?", "It is exactly a quarter past three (3:15 p.m.)."],
+          phrases: [["Wie spät ist es?", "What time is it?"], ["Wie viel Uhr ist es?", "What time is it? (also common)"], ["viertel nach / viertel vor", "quarter past / quarter to"], ["genau", "exactly"]],
+          notes: [
+            "German has two clock systems. The official 24-hour style (“fünfzehn Uhr fünfzehn”) is used for timetables, appointments and announcements. The colloquial style (“viertel nach drei”) is used in conversation.",
+            "Classic trap: “halb drei” means 2:30, not 3:30. You count half an hour toward three."
+          ],
+          real: "In some regions you will hear “viertel drei” for 2:15. At A1, stick to “viertel nach” and “viertel vor”, which everyone understands.",
+          exam: "Hören tasks almost always contain times. Listen for whether the speaker uses the official or the colloquial system, and convert it in your head.",
+          tryIt: "Say these in colloquial German: 7:30, 8:15, 9:45, 12:00."
+        },
+        {
+          title: "Paying at the checkout", register: "Neutral · service", formal: true,
+          setting: "At the till of a bookshop. The customer asks the price and the cashier states the total.",
+          tr: ["How much does the dictionary cost?", "That comes to twelve euros ninety, please."],
+          phrases: [["Wie viel kostet …?", "How much does … cost?"], ["Das macht …", "That comes to …"], ["zwölf Euro neunzig", "€12.90"], ["bar / mit Karte", "cash / by card"]],
+          notes: [
+            "Prices are said without the word “Cent”: 12,90 € = “zwölf Euro neunzig”. Germany writes the decimal comma (12,90) and uses a dot for thousands (1.250).",
+            "kosten agrees with the thing that costs: “Das Wörterbuch kostet …” (singular) but “Die Bücher kosten …” (plural)."
+          ],
+          real: "After the total, the cashier often asks “Bar oder mit Karte?”. Cash is still very common in Germany, and some small shops do not take cards.",
+          exam: "Prices are a favourite Hören item. Listen for the euro amount first, then for the cents, and watch for tricky pairs such as 13 (dreizehn) and 30 (dreißig).",
+          tryIt: "Read aloud: 2,50 € · 7,99 € · 15,30 € · 21,05 €."
+        },
+        {
+          title: "Booking a doctor’s appointment", register: "Formal · Sie", formal: true,
+          setting: "On the phone or at the reception desk of a practice. The patient asks for a specific date and the assistant offers a time.",
+          tr: ["Do you have an appointment free on Monday, May 10th?", "Yes, at ten thirty it suits well."],
+          phrases: [["einen Termin haben / vereinbaren", "to have / arrange an appointment"], ["am Montag, dem zehnten Mai", "on Monday, May 10th"], ["um zehn Uhr dreißig", "at 10:30"], ["Es passt gut.", "That suits well."]],
+          notes: [
+            "Dates use “am” + ordinal number + -en: am zehnten Mai. Ordinals up to 19 add -t (vierten, fünften), with irregular ones: ersten, dritten, siebten, achten.",
+            "Rule of thumb: days and dates take “am”, clock times take “um”. The doctor’s assistant uses the official style (“zehn Uhr dreißig”) because it is an appointment."
+          ],
+          real: "German practices expect punctuality, and many charge for missed appointments. If you cannot come, call to cancel. “Es passt gut” or “Das passt mir” is the natural way to accept a time.",
+          exam: "Sprechen Teil 2 and Hören: appointments combine day, date and time in one sentence, so practise saying all three together.",
+          tryIt: "Ask for an appointment: “Haben Sie am Dienstag, dem fünften Juni, einen Termin frei?”"
+        }
+      ],
+      sec_003: [
+        {
+          title: "Calling about a flat advert", register: "Formal · Sie", formal: true,
+          setting: "The caller has seen an advert for a three-room flat and phones the landlord. The first questions are always: is it still free, and what does it cost?",
+          tr: ["Good day, I’m calling about the 3-room flat. Is it still available?", "Yes, the base rent is 650 euros plus 150 euros utility costs."],
+          phrases: [["Ist die Wohnung noch frei?", "Is the flat still available?"], ["die Kaltmiete (KM)", "base rent without utilities"], ["die Nebenkosten (NK)", "utility costs"], ["die Warmmiete (WM)", "total rent"]],
+          notes: [
+            "anrufen is separable: “Ich rufe … an”. The prefix goes to the end of the sentence.",
+            "Kaltmiete + Nebenkosten = Warmmiete. Here 650 + 150 = 800 € per month. “Wohnung” ends in -ung, so it is feminine and the next sentence says “sie”."
+          ],
+          real: "Landlords usually also ask for proof of income and a Schufa credit report, and the deposit (Kaution) is usually up to three months’ Kaltmiete. Ask whether the Nebenkosten include heating.",
+          exam: "Lesen Teil 2 often shows a flat advert full of abbreviations (3 ZKB, KM, NK). Learn them as vocabulary, not as sentences.",
+          tryIt: "Phone the landlord: “Ich rufe wegen der Wohnung an. Wie hoch ist die Warmmiete?”"
+        },
+        {
+          title: "Where does the furniture go?", register: "Informal · du/wir", formal: false,
+          setting: "Moving day. A couple stands in the new flat and decides where to put the dining table.",
+          tr: ["Where is the dining table in the new flat?", "It stands in the kitchen next to the window."],
+          phrases: [["Wo steht …?", "Where is … (standing)?"], ["in der Küche", "in the kitchen"], ["neben dem Fenster", "next to the window"], ["stehen / stellen", "to stand / to put upright"]],
+          notes: [
+            "“Wo?” (location) takes the dative: in der neuen Wohnung, in der Küche (feminine: der), neben dem Fenster (neuter: dem).",
+            "Position verbs answer Wo? (stehen, liegen, hängen, sitzen) and movement verbs answer Wohin? with the accusative (stellen, legen, hängen, setzen). “Er” points back to the masculine “der Esstisch”."
+          ],
+          real: "Many German flats are rented without a kitchen, and sometimes without lamps. People often take over the previous tenant’s kitchen and pay a fair price for it.",
+          exam: "This Wo?/Wohin? contrast is the most tested grammar point in the housing topic. Ask yourself: is something moving, or is it already there?",
+          tryIt: "Describe your own room: “Das Bett steht neben dem Fenster. Die Lampe hängt über dem Tisch.”"
+        },
+        {
+          title: "Getting the keys", register: "Formal · Sie", formal: true,
+          setting: "Handover day with the building manager. He gives the new tenant the keys and the tenant asks a practical question about the flat.",
+          tr: ["Here are your two apartment keys and the front-door key.", "Thank you very much! Does the heating in the living room work well?"],
+          phrases: [["Hier sind Ihre … Schlüssel", "Here are your … keys"], ["Vielen Dank!", "Thank you very much!"], ["funktioniert", "works"], ["die Heizung", "heating"]],
+          notes: [
+            "German builds long words by joining nouns, and the gender comes from the last word: Wohnung + Schlüssel = der Wohnungsschlüssel (linking -s-), Haustür + Schlüssel = der Haustürschlüssel.",
+            "“Ihre” with a capital letter is the formal possessive (your, in the Sie form). With a small letter, “ihre” means her or their."
+          ],
+          real: "At handover you normally sign a Übergabeprotokoll that lists damage and meter readings. Take photos and write down the meter numbers for electricity, gas and water.",
+          exam: "Writing Schreiben Teil 2 often asks for a short message to a landlord or neighbour. “Funktioniert die Heizung?” is a ready-made sentence for that.",
+          tryIt: "Ask about three things in the flat: “Funktioniert die Waschmaschine / der Herd / das Internet?”"
+        }
+      ],
+      sec_004: [
+        {
+          title: "At the market counter", register: "Polite · service", formal: true,
+          setting: "A weekly market or deli counter. The seller opens with the standard question and the customer orders by weight.",
+          tr: ["Good day! What can I get you?", "I would like a kilo of apples and five hundred grams of cheese, please."],
+          phrases: [["Was darf es sein?", "What can I get you?"], ["Ich möchte … bitte", "I would like … please"], ["ein Kilo Äpfel", "a kilo of apples"], ["Sonst noch etwas?", "Anything else?"]],
+          notes: [
+            "Measure words are followed directly by the thing, with no “of”: ein Kilo Äpfel, 500 Gramm Käse. Containers do take a plural: zwei Flaschen Wasser.",
+            "“Ich möchte … bitte” is the polite frame for ordering. Do not say “Ich will”, which sounds demanding."
+          ],
+          real: "The seller will almost always ask “Sonst noch etwas?” or “Darf es noch etwas sein?”. Answer “Das ist alles, danke.” A “Pfund” is 500 grams, and you will hear it at markets.",
+          exam: "Sprechen Teil 3: you often have to formulate a request with “Ich möchte …” or “Können Sie mir … geben?”. This sentence frame is the safest one to memorise.",
+          tryIt: "Order for yourself: “Ich möchte bitte ein Pfund Tomaten und eine Flasche Milch.”"
+        },
+        {
+          title: "Ordering in a café", register: "Formal · Sie", formal: true,
+          setting: "The waiter comes to your table. In Germany you are usually served at the table, and the waiter asks if you have chosen.",
+          tr: ["Have you already chosen? What would you like to drink?", "I’ll have a coffee with milk and a mineral water, please."],
+          phrases: [["Haben Sie schon gewählt?", "Have you already chosen?"], ["Ich nehme …", "I’ll have …"], ["mit Milch / ohne Zucker", "with milk / without sugar"], ["ein Mineralwasser", "a mineral water"]],
+          notes: [
+            "“Ich nehme …” (I’ll take …) is very natural for ordering. After it, masculine nouns take the accusative: der Kaffee → einen Kaffee, but das Wasser → ein Wasser.",
+            "“gewählt” is the past participle of wählen (to choose). The question uses the Perfekt, which you only need to recognise at A1."
+          ],
+          real: "In restaurants “Wasser” or “Mineralwasser” may arrive sparkling. Say “still” or “ohne Kohlensäure” if you want still water. Tap water is usually not free.",
+          exam: "Hören often features ordering conversations with prices. Listen for what each person orders and for the final total.",
+          tryIt: "Order a drink and a snack: “Ich nehme einen Tee ohne Zucker und ein Stück Kuchen, bitte.”"
+        },
+        {
+          title: "Asking for the bill", register: "Formal · Sie", formal: true,
+          setting: "End of the meal. The line in this dialogue combines two voices: in real life the guest says “Wir möchten bitte bezahlen” and the waiter then asks “Zusammen oder getrennt?”.",
+          tr: ["We would like to pay, please. Separately or together?", "As you wish. Together that comes to 18 euros 40."],
+          phrases: [["Wir möchten bitte bezahlen.", "We would like to pay."], ["Zusammen oder getrennt?", "Together or separately?"], ["Die Rechnung, bitte.", "The bill, please."], ["Stimmt so.", "Keep the change."]],
+          notes: [
+            "“Getrennt” means each person pays for their own food; “zusammen” puts everything on one bill. Splitting the bill is completely normal in Germany.",
+            "“Wie Sie möchten” (as you wish) is a polite way to say “no problem”. The waiter then states the total with “macht”."
+          ],
+          real: "Tipping (Trinkgeld) is customary but modest, about 5–10%. You usually say the total you want to pay: for a bill of 18,40 € you hand over 20 € and say “Zwanzig, bitte” or “Stimmt so”.",
+          exam: "Sprechen and Hören: expect “Zusammen oder getrennt?” as a listening trap. Make sure you can tell it apart from “zum Mitnehmen oder hier?” (take away or eat here).",
+          tryIt: "Ask for the bill and pay separately: “Die Rechnung, bitte. Wir zahlen getrennt.”"
+        }
+      ],
+      sec_005: [
+        {
+          title: "Inviting a friend", register: "Informal · du", formal: false,
+          setting: "Two friends are making plans for the weekend. One invites the other to play football, and the answer shows that they like the idea.",
+          tr: ["Do you have time on Saturday? We want to play football in the park.", "Yes, gladly! The weather is supposed to be sunny and warm."],
+          phrases: [["Hast du am Samstag Zeit?", "Do you have time on Saturday?"], ["Ja, gern!", "Yes, gladly!"], ["Wir wollen … spielen", "We want to play …"], ["Das Wetter soll sonnig werden.", "The weather is supposed to be sunny."]],
+          notes: [
+            "Modal bracket: the modal verb takes position 2 and the main verb goes to the end as an infinitive: “Wir wollen im Park Fußball spielen.”",
+            "“sollen” also means “is said to / is supposed to”, as in a weather forecast. “werden” here means “to become”, not the future tense."
+          ],
+          real: "“Gern” is the natural positive answer to an invitation. If you want to decline politely, say “Leider kann ich nicht, ich habe schon etwas vor” (I already have plans).",
+          exam: "Schreiben Teil 2: a short message accepting or declining an invitation is a typical task. Use “Ja, gern!” or “Leider habe ich keine Zeit”, and give a reason.",
+          tryIt: "Invite a friend: “Hast du am Sonntag Zeit? Wir wollen ins Schwimmbad gehen.”"
+        },
+        {
+          title: "Talking about hobbies", register: "Informal · du", formal: false,
+          setting: "Small talk between two acquaintances. One asks what the other likes doing in their free time.",
+          tr: ["What do you like doing at the weekend?", "I like reading books, I listen to music and sometimes I go to the swimming pool."],
+          phrases: [["Was machst du gern?", "What do you like doing?"], ["Ich lese gern Bücher.", "I like reading books."], ["manchmal", "sometimes"], ["ins Schwimmbad gehen", "to go to the pool"]],
+          notes: [
+            "“gern” comes right after the verb or after the object and shows that you like doing something: “Ich höre gern Musik.” Its opposites are “nicht gern”, and “lieber” means “prefer”.",
+            "“ins” = in das, used for the direction “Wohin?” (accusative). lesen has a vowel change: ich lese, du liest, er liest."
+          ],
+          real: "In small talk, Germans usually follow up with “Und du?” or “Seit wann machst du das?”. Answering with a hobby plus one detail makes the conversation flow.",
+          exam: "Sprechen Teil 1: “Hobby” is a standard keyword. Prepare two sentences: “Mein Hobby ist …” and “Ich … gern am Wochenende.”",
+          tryIt: "Say three things you like to do: “Ich … gern …, ich … gern … und manchmal …”"
+        },
+        {
+          title: "Making plans for the evening", register: "Informal · du/wir", formal: false,
+          setting: "Two friends decide to go to the cinema and fix a time and place to meet.",
+          tr: ["Shall we go to the cinema this evening? The film starts at eight.", "Great idea! Let’s meet at half past seven in front of the cinema."],
+          phrases: [["Gehen wir …?", "Shall we go …?"], ["Super Idee!", "Great idea!"], ["Treffen wir uns um halb acht", "Let’s meet at half past seven"], ["vor dem Kino", "in front of the cinema"]],
+          notes: [
+            "A sentence that begins with the verb works as a suggestion (“Let’s …”): “Gehen wir …?”, “Treffen wir uns …?”. “sich treffen” is reflexive, so it needs “uns”.",
+            "“halb acht” = 7:30 again (half toward eight). “vor dem Kino” answers Wo? so it takes the dative."
+          ],
+          real: "Friends plan to arrive a bit before the start to buy tickets and find seats. German cinemas often show adverts first, so the film itself may start later than the listed time.",
+          exam: "Hören: listen for how the two friends settle on a time. They often mention one time first and then change it, and the final time is the answer.",
+          tryIt: "Make a plan: “Gehen wir morgen ins Café? Treffen wir uns um drei vor dem Bahnhof?”"
+        }
+      ],
+      sec_006: [
+        {
+          title: "Asking about someone’s job", register: "Formal · Sie", formal: true,
+          setting: "Two people meet and one asks the other about their profession. It is a classic small-talk question in Germany.",
+          tr: ["What do you do for a living, Mrs. Becker?", "I work as a sales assistant in a bakery."],
+          phrases: [["Was machen Sie beruflich?", "What do you do for a living?"], ["Was sind Sie von Beruf?", "What is your profession?"], ["Ich arbeite als …", "I work as …"], ["in einer Bäckerei", "in a bakery"]],
+          notes: [
+            "After sein, werden and als, jobs have no article: “Ich bin Lehrer”, “Ich arbeite als Verkäuferin”.",
+            "Female job titles add -in: der Verkäufer → die Verkäuferin. “in einer Bäckerei” is dative (Wo?) and feminine, hence “einer”."
+          ],
+          real: "People often name the employer instead: “Ich arbeite bei Siemens” (bei + company). “Frau Becker” with surname is the formal address between people who do not know each other.",
+          exam: "Sprechen Teil 1: “Beruf” is a standard keyword. Know your own job or “Ich bin Student/Studentin” and the correct female or male form.",
+          tryIt: "Say what you do: “Ich bin … von Beruf” or “Ich arbeite als … bei …”."
+        },
+        {
+          title: "Calling in sick", register: "Formal · Sie", formal: true,
+          setting: "An employee calls the boss in the morning to say he cannot come to work. The boss responds kindly and asks for a medical certificate.",
+          tr: ["Good morning, Mr. Krause. Unfortunately I’m ill and cannot come to work today.", "Get well soon! Please send us the medical certificate."],
+          phrases: [["Ich bin leider krank.", "Unfortunately I’m ill."], ["Ich kann nicht kommen.", "I can’t come."], ["Gute Besserung!", "Get well soon!"], ["das Attest / die Krankmeldung", "medical certificate"]],
+          notes: [
+            "“kann … kommen” is the modal bracket: kann in position 2, kommen at the end. “leider” (unfortunately) softens bad news.",
+            "“zur Arbeit” = zu der Arbeit (feminine dative after zu). “Gute Besserung” is the fixed reply to anyone who is ill."
+          ],
+          real: "In Germany you normally call your employer as early as possible on the first sick day. A doctor’s note is normally required if the illness lasts more than three days, and some employers ask for it from the first day.",
+          exam: "Schreiben Teil 2: a short message to a boss or teacher saying you are ill is a typical task. Use “Ich bin leider krank und kann nicht kommen.”",
+          tryIt: "Write a short sick note: “Guten Morgen, ich bin leider krank und kann heute nicht kommen.”"
+        },
+        {
+          title: "Asking a colleague for a favour", register: "Informal · du", formal: false,
+          setting: "In the office. One colleague asks another to print out a report, and the other agrees and says where the printer is.",
+          tr: ["Could you print the report out for me, please?", "Gladly, the printer is in room 204."],
+          phrases: [["Druckst du mir … aus?", "Can you print … out for me?"], ["Gerne!", "Gladly!"], ["Der Drucker steht im Zimmer 204.", "The printer is in room 204."], ["bitte", "please"]],
+          notes: [
+            "A request can be a simple yes/no question with the verb first. “ausdrucken” is separable: “Druckst du … aus?” A more polite alternative is “Kannst du mir bitte … ausdrucken?”.",
+            "“mir” is the dative (for me) and “den Bericht” is the masculine accusative object. “im Zimmer” = in dem Zimmer."
+          ],
+          real: "Colleagues often say “du” to each other, but “Sie” is used with managers and customers, depending on the company. If unsure, begin with “Sie” until someone offers “Wollen wir uns duzen?”.",
+          exam: "Sprechen Teil 3: you receive a picture card and must make a polite request. “Können Sie mir bitte …?” / “Kannst du mir bitte …?” works almost every time.",
+          tryIt: "Ask a colleague: “Kannst du mir bitte das Fenster aufmachen?”"
+        }
+      ],
+      sec_007: [
+        {
+          title: "Buying a train ticket", register: "Formal · Sie", formal: true,
+          setting: "At the ticket counter of a train station. The traveller asks for a ticket and the clerk asks about the type of journey.",
+          tr: ["Good day, a ticket to Munich, please.", "One-way or return? Do you have a BahnCard?"],
+          phrases: [["Eine Fahrkarte nach …, bitte.", "A ticket to …, please."], ["einfach", "one-way"], ["hin und zurück", "return trip"], ["die BahnCard", "rail discount card"]],
+          notes: [
+            "Short requests without a verb are normal in shops and at counters: “Eine Fahrkarte nach München, bitte.” Cities without an article take “nach”.",
+            "A BahnCard gives a discount on train fares (BahnCard 25 or 50). “Einfach” is the word for a one-way ticket."
+          ],
+          real: "You may also be asked “Für wann?” (what date?) and “Erste oder zweite Klasse?”. Many regional journeys are covered by a monthly pass such as the Deutschlandticket.",
+          exam: "Sprechen Teil 3 and Hören: “einfach oder hin und zurück?” is a very common question. Be ready to answer in one short sentence.",
+          tryIt: "Buy a ticket: “Eine Fahrkarte nach Hamburg, bitte. Hin und zurück.”"
+        },
+        {
+          title: "Finding the platform", register: "Formal · Sie", formal: true,
+          setting: "On the platform. A passenger asks which platform the high-speed train leaves from and gets the answer plus a warning about a delay.",
+          tr: ["Excuse me, from which platform does the ICE to Hamburg depart?", "Platform 4. But be careful, the train is 15 minutes late today."],
+          phrases: [["Von welchem Gleis fährt …?", "From which platform does … leave?"], ["abfahren", "to depart"], ["Verspätung haben", "to be delayed"], ["pünktlich / fällt aus", "on time / cancelled"]],
+          notes: [
+            "“von” always takes the dative: von welchem Gleis (das Gleis is neuter). “abfahren” is separable: “Der Zug fährt um 10:15 Uhr ab.”",
+            "Delay vocabulary: “Der Zug hat 15 Minuten Verspätung”, “Der Zug fällt aus” (is cancelled), “Der Zug ist pünktlich”. ICE = Intercity-Express, a high-speed train."
+          ],
+          real: "Announcements are made over the loudspeaker and shown on the display boards. Delays are common, so “Verspätung” is a word you will hear again and again.",
+          exam: "Hören: station announcements give platform numbers, times and delays. Write numbers down while listening, because they are easy to forget.",
+          tryIt: "Ask for a platform: “Entschuldigung, von welchem Gleis fährt der Zug nach Berlin ab?”"
+        },
+        {
+          title: "Asking for directions", register: "Formal · Sie", formal: true,
+          setting: "A tourist asks a passer-by how to get to the main station and receives short step-by-step instructions.",
+          tr: ["Excuse me, how do I get to the main station?", "Go straight ahead and turn left at the traffic light."],
+          phrases: [["Wie komme ich zum …?", "How do I get to …?"], ["geradeaus", "straight ahead"], ["links / rechts abbiegen", "to turn left / right"], ["an der Ampel", "at the traffic light"]],
+          notes: [
+            "Directions use the formal imperative: verb first, then “Sie”. “abbiegen” is separable, so the prefix goes to the end: “Biegen Sie links ab.”",
+            "“zum” = zu dem (masculine: der Hauptbahnhof). “an der Ampel” is dative (Wo?) and feminine."
+          ],
+          real: "The main station is abbreviated “Hbf” on signs and timetables. People also say “die zweite Straße rechts” or “bis zur Kreuzung” (as far as the crossing).",
+          exam: "Hören and Sprechen Teil 3: with a map in front of you, you may have to ask for or follow directions. Practise “geradeaus, links, rechts, an der Ampel”.",
+          tryIt: "Give directions: “Gehen Sie geradeaus und dann die zweite Straße rechts.”"
+        }
+      ],
+      sec_008: [
+        {
+          title: "At the doctor’s", register: "Formal · Sie", formal: true,
+          setting: "A patient has just entered the consultation room. The doctor opens with the standard question and the patient describes the symptoms.",
+          tr: ["Good day, Mr. Schneider. What seems to be the matter?", "I have had severe headaches and a sore throat for three days."],
+          phrases: [["Was fehlt Ihnen?", "What’s the matter with you?"], ["Ich habe Kopfschmerzen.", "I have a headache."], ["Halsschmerzen", "sore throat"], ["seit drei Tagen", "for three days"]],
+          notes: [
+            "“seit” + dative with the present tense describes something that began in the past and still continues: “Ich habe seit drei Tagen …”, not the Perfekt. “Tagen” is dative plural.",
+            "Body-part compounds: Kopf + Schmerzen = Kopfschmerzen (plural). “denn” in “Was fehlt Ihnen denn?” is a friendly particle, not “because”."
+          ],
+          real: "At the practice you are asked for your insurance card (Versichertenkarte, now the eGK) at the desk. In the consultation room, the doctor will examine you and may say “Machen Sie bitte den Mund auf” (open your mouth).",
+          exam: "Hören and Sprechen: “Was fehlt Ihnen?” is the classic opener. Learn the body words (Kopf, Hals, Bauch, Rücken) and “… tut weh”.",
+          tryIt: "Describe a problem: “Mein Bauch tut weh. Ich habe seit gestern Fieber.”"
+        },
+        {
+          title: "At the pharmacy", register: "Formal · Sie", formal: true,
+          setting: "A customer asks the pharmacist for something against cough and fever.",
+          tr: ["Good day, can I help you?", "Yes please, do you have something for cough and fever?"],
+          phrases: [["Kann ich Ihnen helfen?", "Can I help you?"], ["etwas gegen + Akk", "something for/against …"], ["der Husten", "cough"], ["das Fieber", "fever"]],
+          notes: [
+            "“gegen” always takes the accusative. “Haben Sie etwas gegen Husten?” is the standard frame for asking for a remedy.",
+            "“Haben Sie …?” is a yes/no question with the verb in first position. “etwas” (something) saves you from needing the exact name of the medicine."
+          ],
+          real: "A pharmacist will usually ask follow-up questions such as “Seit wann haben Sie das?” or “Haben Sie Allergien?”. Pharmacies are marked with a red “A”, and some medicines need a prescription (Rezept).",
+          exam: "Sprechen Teil 3: “Haben Sie etwas gegen …?” works with any symptom card. Learn it as a complete chunk.",
+          tryIt: "Ask for help: “Haben Sie etwas gegen Kopfschmerzen / Halsschmerzen / Husten?”"
+        },
+        {
+          title: "Booking a same-day appointment", register: "Formal · Sie", formal: true,
+          setting: "A phone call to a doctor’s practice. The assistant answers with the practice name and the caller explains the need for an appointment today.",
+          tr: ["Dr. Bergmann’s practice, good day!", "Good day, I would like to make an appointment for this afternoon, please. I am ill."],
+          phrases: [["Praxis Dr. …, guten Tag!", "Dr. …’s practice, hello!"], ["einen Termin vereinbaren", "to arrange an appointment"], ["für heute Nachmittag", "for this afternoon"], ["Ich bin krank.", "I am ill."]],
+          notes: [
+            "On the phone, Germans usually answer with the organisation or their surname, not “Hallo”. Callers then greet and state their wish.",
+            "“vereinbaren” starts with ver-, an inseparable prefix. Its participle is “vereinbart”. “einen Termin” is masculine accusative."
+          ],
+          real: "For an acute problem say “Ich habe starke Schmerzen” or “Es ist dringend” to get an earlier slot. Practices post their consultation hours (Sprechstunde) on the door and online.",
+          exam: "Sprechen Teil 3 and Schreiben Teil 2: arranging an appointment is a standard situation. Say what you need, when, and why.",
+          tryIt: "Call the practice: “Guten Tag, ich möchte bitte einen Termin für morgen früh vereinbaren.”"
+        }
+      ],
+      sec_009: [
+        {
+          title: "Showing family photos", register: "Informal · du", formal: false,
+          setting: "Two friends look at a photo. One asks whether the people in it are the other’s family and the friend introduces everybody.",
+          tr: ["Is that your family in the photo?", "Yes, those are my parents, my sister Anna and my little brother Jan."],
+          phrases: [["Das ist / Das sind …", "That is / Those are …"], ["meine Eltern", "my parents"], ["mein kleiner Bruder", "my little brother"], ["auf dem Foto", "in the photo"]],
+          notes: [
+            "Possessives match the noun that follows: mein Bruder (masculine), meine Schwester (feminine), meine Eltern (plural). “dein” is used because the speaker says “du”.",
+            "“Das sind” (plural) goes with several people, “Das ist” with one. “auf dem Foto” is dative (Wo?), neuter."
+          ],
+          real: "Germans often say “meine Familie ist nicht groß” or describe siblings with “Ich habe einen Bruder und eine Schwester”. “Geschwister” is the word for siblings in general.",
+          exam: "Sprechen Teil 1 and Schreiben Teil 1: family members often appear in the personal details. Learn the vocabulary together with the possessive articles.",
+          tryIt: "Introduce someone: “Das ist mein Vater, das ist meine Schwester und das sind meine Großeltern.”"
+        },
+        {
+          title: "Talking about children", register: "Formal · Sie", formal: true,
+          setting: "At work, a colleague asks Mr. Hoffmann about his family. It is typical small talk between colleagues.",
+          tr: ["Do you have children, Mr. Hoffmann?", "Yes, I have two children: a son and a daughter."],
+          phrases: [["Haben Sie Kinder?", "Do you have children?"], ["zwei Kinder", "two children"], ["einen Sohn", "a son"], ["eine Tochter", "a daughter"]],
+          notes: [
+            "haben takes the accusative: der Sohn → einen Sohn, die Tochter → eine Tochter. Plural nouns have no article after a number: zwei Kinder.",
+            "The colon introduces a list: “zwei Kinder: einen Sohn und eine Tochter”. To say you have none: “Ich habe keine Kinder”."
+          ],
+          real: "“Haben Sie Kinder?” is normal small talk and also a standard question on forms. People often follow up with “Wie alt sind sie?” (How old are they?).",
+          exam: "Sprechen Teil 2: a card about “Familie” may ask “Haben Sie Geschwister?” or “Haben Sie Kinder?”. Keep your answer short and complete.",
+          tryIt: "Answer for yourself: “Ich habe … Kinder / Geschwister.” or “Ich habe keine …”"
+        },
+        {
+          title: "Marital status on an official form", register: "Formal · Sie", formal: true,
+          setting: "At an office, an official needs to complete a form and asks about the citizen’s marital status.",
+          tr: ["What is your marital status?", "I am married and live with my husband in Cologne."],
+          phrases: [["der Familienstand", "marital status"], ["ledig / verheiratet", "single / married"], ["geschieden / verwitwet", "divorced / widowed"], ["mit meinem Mann", "with my husband"]],
+          notes: [
+            "“mit” takes the dative: mit meinem Mann (masculine), mit meiner Frau (feminine), mit meinem Kind (neuter).",
+            "German city names often differ from English: Köln = Cologne, München = Munich, Wien = Vienna. “leben” and “wohnen” are both used for where someone lives."
+          ],
+          real: "Forms list the options ledig, verheiratet, geschieden and verwitwet, sometimes also “in eingetragener Lebenspartnerschaft”. This question appears on many registration forms.",
+          exam: "Schreiben Teil 1: when you fill in a form, you may need to tick or write “ledig” or “verheiratet”. Learn these words by heart.",
+          tryIt: "Say your status: “Ich bin ledig / verheiratet und wohne mit … in …”."
+        }
+      ]
+    };
+
+    function dlgEsc(s) {
+      return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function toggleDialogueEnglish(btn) {
+      appState.dlgShowEnglish = (appState.dlgShowEnglish === false);   // flip (default is shown)
+      const box = document.getElementById('dialogueBox');
+      if (box) box.classList.toggle('dlg-hide-en', appState.dlgShowEnglish === false);
+      if (btn) btn.textContent = appState.dlgShowEnglish === false ? 'Show English' : 'Hide English';
+    }
+    window.toggleDialogueEnglish = toggleDialogueEnglish;
+
+    function renderDialogueScenes(box, sec) {
+      const lines = sec.dialogue || [];
+      const notes = (typeof DIALOGUE_NOTES !== 'undefined' && DIALOGUE_NOTES[sec.id]) || [];
+      const sceneCount = Math.ceil(lines.length / 2);
+      const hideEn = appState.dlgShowEnglish === false;
+      box.classList.toggle('dlg-hide-en', hideEn);
+
+      let html = '<div class="dlg-intro"><strong>How to practise each conversation:</strong> ' +
+        '<span>1) Listen once with the English visible. 2) Listen again and repeat each line out loud right after the voice (shadowing). ' +
+        '3) Hide the English, play the scene, and check that you understand every line. Use 🐢 for slow audio.</span></div>' +
+        '<div class="dlg-toolbar"><button type="button" class="dlg-chip" onclick="toggleDialogueEnglish(this)">' + (hideEn ? 'Show English' : 'Hide English') + '</button></div>';
+
+      for (let s = 0; s < sceneCount; s++) {
+        const n = notes[s] || null;
+        const pair = lines.slice(s * 2, s * 2 + 2);
+        html += '<article class="dlg-scene">';
+        html += '<header class="dlg-head"><div><span class="dlg-kicker">Scene ' + (s + 1) + ' of ' + sceneCount + '</span>' +
+          '<h4 class="dlg-title">' + dlgEsc(n ? n.title : 'Conversation ' + (s + 1)) + '</h4></div>';
+        if (n && n.register) html += '<span class="dlg-reg ' + (n.formal ? 'is-formal' : 'is-informal') + '">' + dlgEsc(n.register) + '</span>';
+        html += '</header>';
+        if (n && n.setting) html += '<p class="dlg-setting"><strong>Situation.</strong> ' + dlgEsc(n.setting) + '</p>';
+
+        html += '<div class="dlg-lines">';
+        pair.forEach((line, j) => {
+          const gi = s * 2 + j;
+          html += '<div class="dlg-line" id="dlgLine-' + gi + '">' +
+            '<span class="dlg-speaker">' + dlgEsc(line.speaker) + '</span>' +
+            '<div class="dlg-body"><div class="dlg-de" lang="de">' + dlgEsc(line.text) + '</div>' +
+            (n && n.tr && n.tr[j] ? '<div class="dlg-tr">' + dlgEsc(n.tr[j]) + '</div>' : '') + '</div>' +
+            '<div class="dlg-btns">' +
+            '<button type="button" data-speak onclick="speakDialogue(' + gi + ')" class="dlg-btn" title="Listen" aria-label="Listen: ' + dlgEsc(line.speaker) + '">🔊</button>' +
+            '<button type="button" data-speak onclick="speakDialogue(' + gi + ',0.65)" class="dlg-btn" title="Listen slowly" aria-label="Listen slowly: ' + dlgEsc(line.speaker) + '">🐢</button>' +
+            '</div></div>';
+        });
+        html += '</div>';
+        html += '<div class="dlg-actions"><button type="button" data-speak class="dlg-play" data-playing="0" onclick="speakScene(' + s + ',this)">▶ Play whole conversation</button></div>';
+
+        if (n) {
+          html += '<details class="dlg-explain" open><summary>Explanation: what is going on and why it works</summary><div class="dlg-explain-body">';
+          if (n.phrases && n.phrases.length) {
+            html += '<h5>Key phrases</h5><ul class="dlg-phrases">' + n.phrases.map(p =>
+              '<li><span class="dlg-ph-de" lang="de">' + dlgEsc(p[0]) + '</span><span class="dlg-ph-en">' + dlgEsc(p[1]) + '</span>' +
+              '<button type="button" data-speak data-de="' + dlgEsc(p[0]) + '" onclick="speakPhrase(this)" class="dlg-btn dlg-btn-sm" title="Listen" aria-label="Listen: ' + dlgEsc(p[0]) + '">🔊</button></li>'
+            ).join('') + '</ul>';
+          }
+          if (n.notes && n.notes.length) html += '<h5>Language notes</h5><ul class="dlg-notes">' + n.notes.map(t => '<li>' + dlgEsc(t) + '</li>').join('') + '</ul>';
+          if (n.real) html += '<h5>In real life</h5><p>' + dlgEsc(n.real) + '</p>';
+          if (n.exam) html += '<h5>Exam link</h5><p>' + dlgEsc(n.exam) + '</p>';
+          if (n.tryIt) html += '<div class="dlg-try"><strong>Try it yourself.</strong> ' + dlgEsc(n.tryIt) + '</div>';
+          html += '</div></details>';
+        }
+        html += '</article>';
+      }
+      box.innerHTML = html;
+    }
+    window.renderDialogueScenes = renderDialogueScenes;
 
     function setTTSRate(rate) {
       appState.ttsRate = rate;
@@ -2792,19 +3812,41 @@ mark {
     // Study Guide In-App Toggle (verify_app.js contract)
     function toggleStudyGuideView() {
       const cheatsheet = document.getElementById('canvasCheatsheet');
-      const isCheatsheetOpen = cheatsheet && !cheatsheet.classList.contains('hidden');
+      const studioReview = document.getElementById('studioReview');
+      const isCheatsheetOpen = cheatsheet && !cheatsheet.classList.contains('hidden') && studioReview && !studioReview.classList.contains('hidden');
+      const hBtn = document.getElementById('btnHeaderStudyGuide');
+      const hIcon = document.getElementById('btnHeaderStudyGuideIcon');
+      const hLabel = document.getElementById('btnHeaderStudyGuideLabel');
+
       if (isCheatsheetOpen) {
-        switchViewMode(window.__prevPracticeMode || 'quiz');
-      } else {
-        const views = ['quiz', 'puzzle', 'articles', 'flashcards'];
-        for (let i = 0; i < views.length; i++) {
-          const el = document.getElementById('canvas' + views[i].charAt(0).toUpperCase() + views[i].slice(1));
-          if (el && !el.classList.contains('hidden')) {
-            window.__prevPracticeMode = views[i];
-            break;
-          }
+        const prev = window.__prevStudio || 'studioGrammar';
+        const sMap = { studioGrammar: 'grammar', studioVocab: 'vocab', studioExam: 'exam', studioReview: 'review' };
+        if (hLabel) hLabel.innerText = 'Guide';
+        if (hIcon) hIcon.innerText = '📖';
+        if (cheatsheet) cheatsheet.classList.add('hidden');
+        if (typeof handleRoute === 'function') {
+          location.hash = '#/' + (sMap[prev] || 'grammar');
+          handleRoute();
         }
-        switchViewMode('cheatsheet');
+      } else {
+        window.__prevStudio = appState.currentStudio || 'studioGrammar';
+        ['studioGrammar', 'studioVocab', 'studioExam'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('hidden');
+        });
+        if (studioReview) studioReview.classList.remove('hidden');
+        appState.currentStudio = 'studioReview';
+        if (cheatsheet) cheatsheet.classList.remove('hidden');
+        const mb = document.getElementById('mistakeBankContainer');
+        if (mb) mb.classList.add('hidden');
+        const srs = document.getElementById('srsQueue');
+        if (srs) srs.classList.add('hidden');
+        const sp = document.getElementById('settingsPanel');
+        if (sp) sp.classList.add('hidden');
+
+        if (hLabel) hLabel.innerText = 'Back';
+        if (hIcon) hIcon.innerText = '←';
+        cheatsheet.scrollIntoView({ behavior: 'smooth' });
       }
     }
     window.toggleStudyGuideView = toggleStudyGuideView;
@@ -2929,7 +3971,7 @@ mark {
     }
     window.recordMockExamMistake = recordMockExamMistake;
 
-    function renderMistakesList() {
+    function renderMistakesList(filterType) {
       const container = document.getElementById('mistakesList');
       const summary = document.getElementById('weaknessSummary');
       const analysis = getWeaknessAnalytics();
@@ -2942,38 +3984,58 @@ mark {
         }
       }
       if (!container) return;
-      if (appState.mistakes.length === 0) {
+      let list = appState.mistakes || [];
+      if (filterType && filterType !== 'all') {
+        const ft = filterType.toLowerCase();
+        list = list.filter(m => (m.domain || m.topic || '').toLowerCase().includes(ft));
+      }
+      if (list.length === 0) {
         container.innerHTML = '<div class="text-xs text-[#8c827a] py-3 text-center">Fehlerbank ist leer! Großartige Arbeit!</div>';
         return;
       }
-      container.innerHTML = appState.mistakes.map(m => `
+      container.innerHTML = list.map(m => `
         <div class="flex items-center justify-between p-2 rounded-xl bg-[#faf9f5] border border-[#e7e4dc] text-xs">
           <div>
             <span class="font-bold text-[#1f1d1a]">${m.id}</span>
             <span class="text-[#736b63] ml-2">(${m.domain || m.topic || 'Fehler'})</span>
           </div>
-          <button onclick="resolveMistake('${m.id}')" class="px-2 py-0.5 rounded bg-white border border-[#e7e4dc] text-[11px] font-semibold text-[#2d6a4f] hover:bg-[#eaf4ed]">Lösen ✓</button>
+          <button onclick="resolveMistake('${m.id}')" class="px-2 py-0.5 rounded bg-white border border-[#e7e4dc] text-[11px] font-semibold text-[#2d6a4f] hover:bg-[#eaf4ed] cursor-pointer">Lösen ✓</button>
         </div>
       `).join('');
     }
 
     function startMistakeRetry() {
-      if (appState.mistakes.length === 0) {
-        if (typeof alert === 'function') alert('Keine Fehler vorhanden zum Wiederholen!');
+      if (!appState.mistakes || appState.mistakes.length === 0) {
+        if (typeof toast === 'function') toast('No mistakes recorded yet to retry!');
+        else alert('Keine Fehler vorhanden zum Wiederholen!');
         return;
       }
-      const firstMistake = appState.mistakes[0];
-      if (typeof alert === 'function') alert('Wiederhole Fehler: ' + firstMistake.id);
+      if (typeof start === 'function') {
+        start(Math.min(10, appState.mistakes.length), { mistakesOnly: true });
+      } else {
+        location.hash = '#/exam/quiz';
+      }
     }
     window.startMistakeRetry = startMistakeRetry;
 
     function filterMistakes(type) {
       ['filterBtnGrammar', 'filterBtnVocab', 'filterBtnExam'].forEach(btnId => {
         const el = document.getElementById(btnId);
-        if (el) el.setAttribute('aria-pressed', 'false');
+        if (el) {
+          const match = (type === 'grammar' && btnId === 'filterBtnGrammar') ||
+                        (type === 'vocab' && btnId === 'filterBtnVocab') ||
+                        (type === 'exam' && btnId === 'filterBtnExam');
+          el.setAttribute('aria-pressed', match ? 'true' : 'false');
+          if (match) {
+            el.classList.add('bg-[#433428]', 'text-white');
+            el.classList.remove('bg-[#faf9f5]', 'text-[#524b45]');
+          } else {
+            el.classList.remove('bg-[#433428]', 'text-white');
+            el.classList.add('bg-[#faf9f5]', 'text-[#524b45]');
+          }
+        }
       });
-      const activeBtn = document.getElementById(type === 'grammar' ? 'filterBtnGrammar' : (type === 'vocab' ? 'filterBtnVocab' : 'filterBtnExam'));
-      if (activeBtn) activeBtn.setAttribute('aria-pressed', 'true');
+      renderMistakesList(type);
     }
     window.filterMistakes = filterMistakes;
 
@@ -3108,7 +4170,8 @@ mark {
     window.toggleCardFlip = flipStudioCard;
 
     function speakCurrentFlashcardPhrase() {
-      const card = FLASHCARD_DATA[appState.flashcardCurrentIndex || 0];
+      const list = getFlashcardList();
+      const card = list[appState.flashcardCurrentIndex || 0];
       if (card && card.phrase) {
         window.speakGerman(card.phrase);
       } else {
@@ -3117,13 +4180,34 @@ mark {
     }
     window.speakCurrentFlashcardPhrase = speakCurrentFlashcardPhrase;
 
+    function getFlashcardList() {
+      try { return currentFlashcards; } catch (e) { return FLASHCARD_DATA; }   // currentFlashcards is declared further down
+    }
     function renderFlashcardStudio() {
-      const card = FLASHCARD_DATA[appState.flashcardCurrentIndex || 0];
-      if (!card) return;
-      const de = document.getElementById('fcGerman');
-      const trans = document.getElementById('fcBackTranslation');
-      if (de) de.innerText = card.phrase || card.de || '';
-      if (trans) trans.innerText = card.meaning || card.en || card.translation || '';
+      const list = getFlashcardList();
+      const idx = Math.min(appState.flashcardCurrentIndex || 0, Math.max(list.length - 1, 0));
+      const card = list[idx];
+      const set = (id, v, asHtml) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (asHtml) el.innerHTML = v; else el.textContent = v;
+      };
+      const inner = document.getElementById('studioCardInner');
+      if (inner) inner.classList.remove('flipped');
+      if (!card) {
+        set('fcCardNumberBadge', 'CARD 0 / 0');
+        set('fcFrontCategory', '');
+        set('fcFrontPhrase', 'No matching phrases');
+        return;
+      }
+      set('fcCardNumberBadge', 'CARD ' + String(idx + 1).padStart(2, '0') + ' / ' + list.length);
+      set('fcFrontCategory', card.category || '');
+      set('fcFrontPhrase', card.phrase || '');
+      set('fcBackTranslation', card.translation || '');
+      set('fcBackSentence', card.sentence || '');
+      set('fcBackSentenceTrans', card.sentence_translation || '');
+      set('fcBackBreakdown', dlgEsc(card.breakdown || '').replace(/\*([^*\n]+)\*/g, '<em>$1</em>'), true);
+      set('fcBackGrammar', card.grammar || '');
     }
     window.renderFlashcardStudio = renderFlashcardStudio;
 
@@ -3269,7 +4353,20 @@ mark {
         theme: appState.theme,
         timestamp: Date.now()
       };
-      return JSON.stringify(payload, null, 2);
+      const jsonStr = JSON.stringify(payload, null, 2);
+      try {
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'goethe_a1_progress_' + new Date().toISOString().slice(0, 10) + '.json';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => { a.remove(); URL.revokeObjectURL(url); }, 500);
+      } catch(e) {
+        if (navigator.clipboard) navigator.clipboard.writeText(jsonStr);
+      }
+      return jsonStr;
     }
     window.exportProgressJSON = exportProgressJSON;
     window.exportProgress = exportProgressJSON;
@@ -3316,7 +4413,7 @@ mark {
     // 14. ROUTING & STUDIO LIFECYCLE
     // ==========================================
     function handleRoute() {
-      const hash = (typeof window !== 'undefined' && window.location && window.location.hash) ? window.location.hash : '#/grammar';
+      const hash = window.__route || ((typeof window !== 'undefined' && window.location && window.location.hash) ? window.location.hash : '#/grammar');
       const cleanHash = hash.replace(/^#\/?/, '');
       const parts = cleanHash.split('/').filter(Boolean);
       const rawRoute = (parts[0] || '').toLowerCase();
@@ -3402,6 +4499,13 @@ mark {
           if (v2Links) v2Links.forEach(a => a.classList.remove('active'));
           const cg = document.getElementById('canvasGrammar');
           if (cg) cg.classList.remove('hidden');
+          const cp = document.getElementById('canvasPuzzle');
+          if (cp) cp.classList.remove('hidden');
+          const pm = document.getElementById('prepMatrix');
+          if (pm) pm.classList.remove('hidden');
+          if (typeof renderGrammarNav === 'function') renderGrammarNav();
+          if (typeof renderGrammarLab === 'function') renderGrammarLab();
+          if (typeof renderPuzzle === 'function') renderPuzzle();
         }
       } else if (mainRoute === 'vocab') {
         const vocabSubtabs = document.querySelectorAll('#studioVocab .studio-subtab');
@@ -3429,8 +4533,14 @@ mark {
           updateVocabSubtabs('modules');
         }
       } else if (mainRoute === 'exam') {
-        if (['mock', 'quiz', 'full'].includes(subRoute)) {
+        if (['mock', 'quiz', 'full', 'practice', 'session'].includes(subRoute) || (typeof S !== 'undefined' && S.active)) {
           switchViewMode('quiz');
+          const cq = document.getElementById('canvasQuiz');
+          if (cq) cq.classList.remove('hidden');
+          ['lesenPassage', 'schreibenContainer', 'sprechenChecklist', 'canvasSimulator'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('hidden');
+          });
         } else if (['sprechen', 'simulator', 'speaking'].includes(subRoute)) {
           switchExamSkill('sprechen');
           switchViewMode('simulator');
@@ -3578,7 +4688,7 @@ mark {
       const tEl = document.getElementById('gramTitle');
       if (tEl) tEl.innerText = topic.title;
       const rEl = document.getElementById('gramRuleSummary');
-      if (rEl) rEl.innerHTML = '<strong>Rule Summary:</strong> ' + topic.summary;
+      if (rEl) rEl.innerHTML = formatRuleSummary(topic.summary);
       const pEl = document.getElementById('gramProgress');
       if (pEl) pEl.innerText = 'Question ' + (gramIndex + 1) + ' / ' + qList.length;
 
@@ -3874,6 +4984,8 @@ mark {
       const dEl = document.getElementById('moduleDesc');
       if (dEl) dEl.innerText = sec.desc;
 
+      if (window.__ttsStop) window.__ttsStop();   // changing section: stop any audio still playing
+
       const vGrid = document.getElementById('vocabGrid');
       if (vGrid) {
         vGrid.innerHTML = '';
@@ -3881,23 +4993,13 @@ mark {
           const card = document.createElement('div');
           card.className = "p-3 rounded-xl bg-[#faf9f5] border border-[#e7e4dc] flex items-center justify-between";
           card.innerHTML = '<div><div class="font-editorial text-base font-semibold text-[#1f1d1a]">' + v.de + '</div><div class="text-xs text-[#8c827a]">' + v.en + '</div></div>' +
-          '<button onclick="speakGerman(\'' + v.de.replace(/'/g, "\\'") + '\')" class="p-1.5 rounded-lg bg-white border border-[#e7e4dc] hover:border-[#433428] text-xs font-bold cursor-pointer" title="Listen aloud">🔊</button>';
+            '<button type="button" data-speak data-de="' + dlgEsc(v.de) + '" onclick="speakVocab(this)" class="p-1.5 rounded-lg bg-white border border-[#e7e4dc] hover:border-[#433428] text-xs font-bold cursor-pointer" title="Listen aloud" aria-label="Listen: ' + dlgEsc(v.de) + '">🔊</button>';
           vGrid.appendChild(card);
         });
       }
 
       const dBox = document.getElementById('dialogueBox');
-      if (dBox) {
-        dBox.innerHTML = '';
-        (sec.dialogue || []).forEach((line, idx) => {
-          const dLine = document.createElement('div');
-          dLine.className = "flex items-start gap-3 p-3 rounded-xl bg-[#faf9f5] border border-[#e7e4dc]";
-          dLine.innerHTML = '<span class="px-2 py-0.5 rounded-md bg-[#433428] text-white text-[10px] font-bold font-mono uppercase mt-0.5">' + line.speaker + '</span>' +
-            '<div class="flex-1 font-editorial text-sm sm:text-base text-[#1f1d1a] leading-relaxed">' + line.text + '</div>' +
-            '<button onclick="speakDialogue(' + idx + ')" class="p-1.5 rounded-lg bg-white border border-[#e7e4dc] hover:border-[#433428] text-xs font-bold cursor-pointer" title="Listen to speaker">🔊</button>';
-          dBox.appendChild(dLine);
-        });
-      }
+      if (dBox) renderDialogueScenes(dBox, sec);
 
       const qPrompt = document.getElementById('quizPrompt');
       if (qPrompt && sec.quiz) qPrompt.innerText = sec.quiz.q;
@@ -4356,10 +5458,10 @@ mark {
           <div class="space-y-3 pt-2 text-xs">
             <div class="p-3.5 rounded-xl bg-[#ffffff] border border-[#e7e4dc] space-y-1">
               <div class="font-bold text-[#433428] flex items-center gap-1.5">
-                <span>📖</span> <span>Rule Spotlight & Explanation:</span>
+                <span>📖</span> <span>Why this answer</span>
               </div>
               <div class="text-[#524b45] leading-relaxed pl-5">
-                ${q.explanation || q.rule || 'Goethe A1 Grammatikregel.'}
+                ${(window.mdLite || String)(q.rule || (q.explanation || '').replace(/\*\*(Full Sentence|Sentence Breakdown|Goethe A1 Exam Tip):\*\*.*?(?=\*\*[A-Z]|$)/gs, '') || 'Goethe A1 Grammatikregel.')}
               </div>
             </div>
 
@@ -4438,7 +5540,7 @@ mark {
     // Attach event listeners and wire buttons
     if (typeof window !== 'undefined') {
       window.addEventListener('keydown', handleGlobalKeydown);
-      window.addEventListener('hashchange', handleRoute);
+      window.addEventListener('hashchange', function() { window.__route = null; handleRoute(); });
     }
 
     function initStudio() {
@@ -4493,6 +5595,243 @@ mark {
     }
     window.handleGlobalSearch = handleGlobalSearch;
 
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const KEY='goethe_ux_v1';
+let storageOK=true;
+try{localStorage.setItem('__t','1');localStorage.removeItem('__t');}catch(e){storageOK=false;}
+let U={topics:{},mastered:[],autoSpeak:false,onboarded:false,examDate:'',sessions:[]};
+try{Object.assign(U,JSON.parse(localStorage.getItem(KEY)||'{}'));}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(U));}catch(e){}};
+const shuffle=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- icons ---------- */
+const P={grammar:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',vocab:'<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>',exam:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',review:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>',flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.4 1-3 0 1.4 1 2.5 2.5 2.5z"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/>',vol:'<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>'};
+const ic=n=>'<svg class="ux-icon" viewBox="0 0 24 24" aria-hidden="true">'+P[n]+'</svg>';
+const setIc=(el,n)=>{if(el)el.innerHTML=ic(n)};
+function swapIcons(){
+ ['Grammar','Vocab','Exam','Review'].forEach(k=>{const n=k.toLowerCase();
+  const a=$('topNav'+k);if(a)setIc(a.querySelector('span'),n);
+  const b=$('bottomTab'+k);if(b)setIc(b.querySelector('.tab-icon'),n);});
+ const hs=$('headerScore');if(hs)setIc(hs.previousElementSibling,'star');
+ const hk=$('headerStreak');if(hk)setIc(hk.previousElementSibling,'flame');
+ const g=$('btnHeaderStudyGuideIcon');setIc(g,'book');
+ const s=document.querySelector('#globalSearchInput');if(s&&s.previousElementSibling)setIc(s.previousElementSibling,'search');
+ themeIcon();
+}
+function themeIcon(){setIc($('themeToggleIcon'),document.body.classList.contains('dark')?'sun':'moon');}
+const _tt=window.toggleTheme;
+window.toggleTheme=function(){_tt();themeIcon();};
+
+/* ---------- audio: opt-in ---------- */
+// Direct speech execution via main engine speakGerman
+
+/* ---------- toast ---------- */
+function toast(msg,actLabel,act){const t=$('uxToast');t.innerHTML='<span>'+esc(msg)+'</span>'+(actLabel?'<button>'+esc(actLabel)+'</button>':'');
+ if(actLabel)t.querySelector('button').onclick=()=>{act();t.classList.remove('show');};
+ t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),4200);}
+function go(route){window.__route=route;try{history.replaceState(null,'',route);}catch(e){}handleRoute();window.scrollTo({top:0,behavior:'smooth'});}
+function confetti(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ const cs=['#c48b59','#2980b9','#2d6a4f','#b25e3b','#e9b949'];
+ for(let i=0;i<36;i++){const d=document.createElement('i');d.className='ux-conf';d.style.left=Math.random()*100+'vw';d.style.background=cs[i%5];d.style.animationDelay=Math.random()*.4+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),2600);}}
+
+/* ---------- sessions ---------- */
+let S={active:false};
+const mistakeIds=()=>new Set((appState.mistakes||[]).map(m=>m.id));
+function pick(n,o){o=o||{};const mi=mistakeIds();let all=QUIZ_DATA.filter(q=>!o.domain||q.domain===o.domain);
+ if(o.mistakesOnly)return shuffle(all.filter(q=>mi.has(q.id))).slice(0,n);
+ const mis=shuffle(all.filter(q=>mi.has(q.id))).slice(0,Math.ceil(n*.3));
+ const ids=new Set(mis.map(q=>q.id));
+ const fresh=shuffle(all.filter(q=>!ids.has(q.id)&&!U.mastered.includes(q.id)));
+ const done=shuffle(all.filter(q=>!ids.has(q.id)&&U.mastered.includes(q.id)));
+ return shuffle([...mis,...fresh,...done].slice(0,n));}
+function start(n,o){const list=o&&o.list?o.list:pick(n,o);
+ if(!list.length){toast('Nothing to practise here yet — answer a few questions first.');return;}
+ S={active:true,list,n:list.length,answered:0,correct:0,missed:[],done:{},opts:o||{}};
+ window.currentQuizList=list;window.quizIndex=0;window.currentQuestion=0;
+ closeOv();go('#/exam');
+ switchViewMode('quiz');
+ const cq=document.getElementById('canvasQuiz');if(cq)cq.classList.remove('hidden');
+ ['lesenPassage','schreibenContainer','sprechenChecklist','canvasSimulator'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hidden');});
+ renderQuestion(0);bar();dash();
+ const b=$('uxSessionBar');if(b)setTimeout(()=>b.scrollIntoView({behavior:'smooth',block:'start'}),250);}
+function endSession(){S={active:false};window.currentQuizList=[...QUIZ_DATA];window.quizIndex=0;renderQuestion(0);bar();}
+function bar(){const b=$('uxSessionBar');if(!b)return;
+ if(!S.active){b.innerHTML='<div><b>Practice mode</b><div class="ux-sub">Free browsing of all '+QUIZ_DATA.length+' questions.</div></div><button class="ux-btn primary" id="uxStart10">Start a 10-question session</button>';
+  $('uxStart10').onclick=()=>start(10);setNext(false);return;}
+ const pct=Math.round(S.answered/S.n*100);
+ b.innerHTML='<b>Session</b><span>Question '+Math.min(window.quizIndex+1,S.n)+' / '+S.n+'</span><span style="color:var(--success)" aria-label="correct">✓ '+S.correct+'</span><span style="color:var(--warning)" aria-label="missed">✗ '+S.missed.length+'</span><div class="ux-bar"><i style="width:'+pct+'%"></i></div><button class="ux-btn" id="uxEnd">End</button>';
+ $('uxEnd').onclick=()=>{if(S.answered===0||confirm('End this session?'))endSession();};
+ setNext(window.quizIndex>=S.n-1);}
+function setNext(last){const sp=document.querySelector('#studioExam button[onclick="nextQuestion()"] span');if(sp)sp.textContent=last?'See results':'Next Question';}
+const _nq=window.nextQuestion;
+window.nextQuestion=function(){if(S.active&&(S.answered>=S.n||window.quizIndex>=S.n-1)){finish();return;}_nq();bar();};
+const _pq=window.prevQuestion;window.prevQuestion=function(){_pq();bar();};
+const _rq=window.renderQuestion;
+window.renderQuestion=function(){_rq.apply(this,arguments);relabel();};
+function relabel(){const g=$('quizOptionsGrid');if(!g)return;g.querySelectorAll('button').forEach((b,i)=>{
+ const el=[...b.querySelectorAll('div,span')].find(x=>/^[A-D]$/.test(x.textContent.trim()));if(el){el.textContent=String(i+1);el.title='Press '+(i+1);}});}
+function closeOv(){document.querySelectorAll('.ux-overlay').forEach(o=>o.remove());}
+function finish(){const pct=Math.round(S.correct/S.n*100);
+ U.sessions.push({t:Date.now(),n:S.n,c:S.correct});U.sessions=U.sessions.slice(-30);save();
+ const msg=pct>=80?'Sehr gut! Exam-ready on these.':pct>=60?'Bestanden — keep going.':'Keep practising — review the misses below.';
+ const o=document.createElement('div');o.className='ux-overlay';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');
+ o.innerHTML='<div class="ux-modal"><button class="ux-close-x" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted-foreground);line-height:1" aria-label="Close">✕</button><div class="ux-eyebrow">Session complete</div><div class="ux-ring" style="background:conic-gradient(var(--success) '+pct+'%,var(--muted) 0)"><span style="background:var(--card);width:88px;height:88px;border-radius:50%;display:grid;place-items:center">'+pct+'%</span></div><h2 style="text-align:center">'+S.correct+' / '+S.n+' correct</h2><p class="ux-sub" style="text-align:center">'+msg+' (60% is the Goethe pass mark.)</p>'+
+  (S.missed.length?'<div class="ux-eyebrow" style="margin-top:16px">To review ('+S.missed.length+')</div>'+S.missed.map(q=>'<div class="ux-miss">'+esc(q.full_sentence||q.question)+'<br><b>→ '+esc(q.options[q.answer])+'</b></div>').join(''):'<p class="ux-sub" style="text-align:center;margin-top:12px">Perfect — nothing to review.</p>')+
+  '<div style="display:grid;gap:8px;margin-top:20px">'+(S.missed.length?'<button class="ux-btn primary" id="uxRetry">Retry missed ('+S.missed.length+')</button>':'')+'<button class="ux-btn '+(S.missed.length?'':'primary')+'" id="uxAgain">New session</button><button class="ux-btn" id="uxClose">Back to dashboard</button></div></div>';
+ document.body.appendChild(o);
+ o.onclick=e=>{if(e.target===o){closeOv();endSession();go('#/grammar');}};
+ const closeFx=o.querySelector('.ux-close-x');if(closeFx)closeFx.onclick=()=>{closeOv();endSession();go('#/grammar');};
+ if(pct>=70)confetti();
+ const m=S.missed.slice();const opts=S.opts;
+ if($('uxRetry'))$('uxRetry').onclick=()=>start(m.length,{list:m});
+ $('uxAgain').onclick=()=>start(10,{domain:opts.domain});
+ $('uxClose').onclick=()=>{closeOv();endSession();go('#/grammar');};
+ $('uxClose').focus({preventScroll:true});o.querySelector('.ux-modal').scrollTop=0;dash();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeOv();$('uxSettings')&&$('uxSettings').classList.remove('open');}});
+
+/* ---------- answer tracking ---------- */
+let lastKey='';
+function onAnswer(){const st=$('quizFeedbackStatus');if(!st)return;const txt=st.textContent||'';
+ const q=(window.currentQuizList||[])[window.quizIndex];if(!q)return;
+ const ok=!/Incorrect|Falsch/i.test(txt)&&/Correct|Richtig/i.test(txt);
+ const key=q.id+'|'+txt.slice(0,30)+'|'+(S.answered||0)+'|'+stats.answered;if(key===lastKey)return;lastKey=key;
+ const d=q.domain||'Other';const t=U.topics[d]||(U.topics[d]={a:0,c:0});t.a++;if(ok){t.c++;if(!U.mastered.includes(q.id))U.mastered.push(q.id);}else{U.mastered=U.mastered.filter(x=>x!==q.id);}
+ save();
+ if(S.active&&!S.done[q.id]){S.done[q.id]=1;S.answered++;if(ok)S.correct++;else S.missed.push(q);bar();}
+ const live=$('ariaLiveRegion');if(live)live.textContent=ok?'Richtig. Correct.':'Falsch. Incorrect. Added to review.';
+ const g=$('quizOptionsGrid');if(g){const hit=g.querySelector(ok?'[class*="border-[#2d6a4f]"]':'[class*="border-[#b25e3b]"]');if(hit){hit.classList.add(ok?'ux-pop':'ux-shake');}}
+ if(!ok)toast('Added to Review — it will come back for practice.','Open Review',()=>go('#/review'));
+ else if(stats.streak>0&&stats.streak%5===0){confetti();toast(stats.streak+' in a row!');}
+ tipToDetails();dash();}
+function tipToDetails(){const c=$('quizFeedbackContent');if(!c)return;
+ [...c.querySelectorAll('span')].filter(s=>/^Exam Tip$/i.test(s.textContent.trim())).forEach(s=>{const box=s.parentElement;
+  if(box.dataset.ux)return;const body=box.querySelector('div');const det=document.createElement('details');det.className='ux-more';det.dataset.ux=1;
+  det.innerHTML='<summary>Exam tip</summary><div>'+(body?body.innerHTML:'')+'</div>';box.replaceWith(det);});}
+
+/* ---------- dashboard ---------- */
+const days=()=>{if(!U.examDate)return null;const d=Math.ceil((new Date(U.examDate)-new Date())/864e5);return isNaN(d)?null:d;};
+function dash(){const el=$('uxDash');if(!el)return;
+ const total=QUIZ_DATA.length,mastered=U.mastered.length,ready=Math.round(mastered/total*100);
+ const mi=mistakeIds().size;const goal=appState.dailyGoal||20;const dd=days();
+ const rows=['Grammar','Prepositions','Everyday Sayings'].map(d=>{const n=QUIZ_DATA.filter(q=>q.domain===d).length,m=QUIZ_DATA.filter(q=>q.domain===d&&U.mastered.includes(q.id)).length,t=U.topics[d]||{a:0,c:0};
+  const acc=t.a?Math.round(t.c/t.a*100):null;return{d,n,m,t,acc,cov:n?Math.round(m/n*100):0};});
+ const att=rows.filter(r=>r.t.a>=3).sort((a,b)=>a.acc-b.acc)[0];
+ const empty=!rows.some(r=>r.t.a);
+ el.innerHTML='<div class="ux-card ux-cta"><div class="ux-eyebrow">Today</div><div class="ux-big">'+(empty?'Start your first session':'Today’s session: 10 questions')+'</div><div class="ux-sub">'+(mi?mi+' from your mistakes mixed with new questions':'New questions picked for you')+' · about '+Math.ceil(10*.6)+' min'+(dd!=null?' · <b>'+(dd>0?dd+' days until your exam':dd===0?'exam day — viel Erfolg!':'exam date passed')+'</b>':'')+'</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px"><button class="ux-btn primary" id="uxGo">Start today’s session</button>'+(att?'<button class="ux-btn" id="uxWeak">Practise '+esc(att.d)+'</button>':'')+'</div></div>'+
+ '<div class="ux-card ux-prog"><div class="ux-ready"><strong>'+ready+'%</strong><span class="ux-sub">exam readiness · '+mastered+' of '+total+' questions mastered</span></div>'+
+ rows.map(r=>'<div class="ux-topic"><b>'+esc(r.d)+'</b><div class="ux-bar '+(r.acc==null?'':r.acc>=75?'good':r.acc<55?'warn':'')+'"><i style="width:'+r.cov+'%"></i></div><small>'+(r.t.a?r.t.c+'/'+r.t.a+' correct':'not started')+'</small></div>').join('')+'</div>';
+ $('uxGo').onclick=()=>start(10);if($('uxWeak'))$('uxWeak').onclick=()=>start(10,{domain:att.d});
+ const rev=$('uxStartReview');if(rev){rev.disabled=!mi;rev.textContent=mi?'Review my '+mi+' mistake'+(mi>1?'s':''):'No mistakes yet';}}
+function showDash(){const el=$('uxDash');if(!el)return;const s=appState.currentStudio;el.style.display=(s==='studioGrammar'||s==='studioReview')?'':'none';}
+const _hr=window.handleRoute;window.handleRoute=function(){const r=_hr.apply(this,arguments);showDash();return r;};
+
+/* ---------- section intros ---------- */
+function intros(){const defs={studioGrammar:['Learn a rule, then test it. Pick a topic in the lab below, answer, and read why.','Practise grammar (10 Qs)',()=>start(10,{domain:'Grammar'})],
+ studioVocab:['Build vocabulary and der/die/das. Practise common phrases in a short session.','Practise Everyday Sayings',()=>start(10,{domain:'Everyday Sayings'})],
+ studioExam:['Mock the real Goethe A1 sections, or run a quick scored session.','Start a 10-question session',()=>start(10)],
+ studioReview:['Revisit what you got wrong. Mistakes return here automatically.','__review',()=>start(10,{mistakesOnly:true})]};
+ Object.keys(defs).forEach(id=>{const sec=$(id);if(!sec||sec.querySelector('.ux-start'))return;const d=defs[id];const div=document.createElement('div');div.className='ux-start';
+  div.innerHTML='<span>'+d[0]+'</span><button class="ux-btn primary" '+(d[1]==='__review'?'id="uxStartReview"':'')+'>'+(d[1]==='__review'?'Review my mistakes':d[1])+'</button>';
+  div.querySelector('button').onclick=d[2];sec.firstElementChild.after(div);});}
+
+/* ---------- settings + onboarding ---------- */
+function settings(){const wrap=$('themeToggleBtn').parentElement;wrap.style.position='relative';
+ const b=document.createElement('button');b.id='uxSettingsBtn';b.className='px-2.5 py-1.5 rounded-xl border text-xs font-semibold';b.setAttribute('aria-label','Settings');b.setAttribute('aria-haspopup','true');b.style.cssText='background:var(--btn-bg);color:var(--btn-fg);border-color:var(--btn-border);min-height:34px';b.innerHTML=ic('gear');
+ wrap.insertBefore(b,$('themeToggleBtn'));
+ const p=document.createElement('div');p.id='uxSettings';p.className='ux-card';wrap.appendChild(p);
+ const render=()=>{p.innerHTML='<div class="ux-row"><span>Auto-play audio</span><button class="ux-switch" role="switch" aria-checked="'+U.autoSpeak+'" id="uxAuto" aria-label="Auto-play audio"></button></div>'+
+  '<div class="ux-row"><span>Audio speed</span><button class="ux-btn" id="uxSpd" style="min-height:34px">'+(($('ttsRateLabel')||{}).textContent||'1.0x')+'</button></div>'+
+  '<div class="ux-row"><span>Daily goal</span><span class="ux-chips">'+[10,20,30].map(n=>'<button class="ux-chip'+(appState.dailyGoal==n?' on':'')+'" data-g="'+n+'">'+n+'</button>').join('')+'</span></div>'+
+  '<div class="ux-row"><span>Exam date</span><input type="date" id="uxDate" value="'+esc(U.examDate)+'" style="padding:6px 8px;border-radius:8px;border:1px solid var(--input-border);background:var(--input-bg);color:var(--foreground);font-size:12px"></div>'+
+  '<div class="ux-row"><span>Theme</span><button class="ux-btn" id="uxTh" style="min-height:34px">'+(document.body.classList.contains('dark')?'Light':'Dark')+'</button></div>'+
+  (storageOK?'':'<p class="ux-sub" style="margin-top:8px;color:var(--warning)">Progress can’t be saved in this view.</p>');
+  $('uxAuto').onclick=()=>{U.autoSpeak=!U.autoSpeak;save();render();};
+  $('uxSpd').onclick=()=>{toggleTTSVoiceRate();render();};
+  p.querySelectorAll('[data-g]').forEach(x=>x.onclick=()=>{setGoal(+x.dataset.g);render();});
+  $('uxDate').onchange=e=>{U.examDate=e.target.value;save();dash();};
+  $('uxTh').onclick=()=>{toggleTheme();render();};};
+ b.onclick=e=>{e.stopPropagation();render();p.classList.toggle('open');};
+ document.addEventListener('click',e=>{if(!p.contains(e.target)&&e.target!==b)p.classList.remove('open');});}
+function setGoal(n){appState.dailyGoal=n;try{renderTodayCard();}catch(e){}try{saveState&&saveState();}catch(e){}}
+function onboard(){if(U.onboarded)return;let g=20;
+ const o=document.createElement('div');o.className='ux-overlay';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');
+ o.innerHTML='<div class="ux-modal"><button class="ux-close-x" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted-foreground);line-height:1" aria-label="Close">✕</button><div class="ux-eyebrow">Willkommen</div><h2>Plan your Goethe A1 prep</h2><p class="ux-sub">Two quick questions so we can set your daily target. You can change both later in Settings.</p>'+
+ '<div class="ux-field"><label for="uxOD">When is your exam? <span class="ux-sub">(optional)</span></label><input type="date" id="uxOD"></div>'+
+ '<div class="ux-field"><span>Questions per day</span><div class="ux-chips" id="uxG">'+[[10,'10 · light'],[20,'20 · steady'],[30,'30 · intense']].map(x=>'<button class="ux-chip'+(x[0]===20?' on':'')+'" data-g="'+x[0]+'">'+x[1]+'</button>').join('')+'</div></div>'+
+ '<div style="display:grid;gap:8px"><button class="ux-btn primary" id="uxOK">Start learning</button><button class="ux-btn" id="uxSkip">Skip for now</button></div></div>';
+ document.body.appendChild(o);
+ o.querySelectorAll('[data-g]').forEach(x=>x.onclick=()=>{g=+x.dataset.g;o.querySelectorAll('[data-g]').forEach(y=>y.classList.toggle('on',y===x));});
+ const done=ok=>{if(ok){U.examDate=$('uxOD').value||'';setGoal(g);}U.onboarded=true;save();o.remove();dash();};
+ $('uxOK').onclick=()=>done(true);$('uxSkip').onclick=()=>done(false);
+ const closeBtn=o.querySelector('.ux-close-x');if(closeBtn)closeBtn.onclick=()=>done(false);
+ o.onclick=e=>{if(e.target===o)done(false);};
+ $('uxOK').focus({preventScroll:true});}
+
+/* ---------- search ---------- */
+const _hs=window.handleGlobalSearch;
+window.handleGlobalSearch=function(query){_hs(query);const box=$('globalSearchResults');const q=(query||'').trim().toLowerCase();if(!q||!box)return;
+ const nouns=ARTICLES_DATA.filter(n=>n.noun.toLowerCase().includes(q)||n.meaning.toLowerCase().includes(q)).slice(0,5);
+ const gram=GRAMMAR_TOPICS.filter(t=>t.title.toLowerCase().includes(q)||t.summary.toLowerCase().includes(q)).slice(0,3);
+ if(!nouns.length&&!gram.length){box.innerHTML='<div class="p-2" style="color:var(--muted-foreground)">No matches. Try “Apfel”, “dativ” or “mit”.</div>';return;}
+ box.innerHTML=gram.map(t=>'<div class="ux-sres" data-t="'+t.id+'"><span class="ux-gender">GRAMMAR</span><span>'+esc(t.title)+'</span></div>').join('')+
+  nouns.map((m,i)=>'<details class="ux-sres" style="display:block"><summary style="display:flex;gap:10px;align-items:center;cursor:pointer"><span class="ux-gender">'+esc(m.gender)+'</span><b>'+esc(m.noun)+'</b><span style="color:var(--muted-foreground)">'+esc(m.meaning)+'</span></summary><div style="padding:8px 0 4px 4px;font-size:13px;line-height:1.6">Plural: <b>'+esc(m.plural)+'</b><br><i>'+esc(m.example)+'</i><br><span style="color:var(--muted-foreground)">'+esc(m.clue)+'</span><br><button class="ux-btn" style="min-height:32px;margin-top:6px" onclick="speakGerman(\''+(m.gender+' '+m.noun).replace(/\'/g,'')+'\')">Listen</button></div></details>').join('');
+ box.querySelectorAll('[data-t]').forEach(x=>x.onclick=()=>{currentGrammarTopicId=x.dataset.t;gramIndex=0;renderGrammarNav();renderGrammarLab();go('#/grammar');box.classList.add('hidden');});};
+
+/* ---------- init ---------- */
+function init(){
+ if(!$('uxToast')){const t=document.createElement('div');t.id='uxToast';t.setAttribute('role','status');document.body.appendChild(t);}
+ let saved=null;try{saved=localStorage.getItem('goethe_a1_theme');}catch(e){}
+ if(!saved&&matchMedia('(prefers-color-scheme:dark)').matches)document.body.classList.add('dark');
+ swapIcons();settings();
+ const main=document.querySelector('main');
+ if(!storageOK){const b=document.createElement('div');b.id='uxBanner';b.innerHTML='<span>Progress can’t be saved in this view (browser storage is blocked). Use <b>Export JSON</b> in Review to keep it.</span><button class="ux-btn" style="min-height:32px">Dismiss</button>';b.querySelector('button').onclick=()=>b.remove();main.prepend(b);}
+ const dsh=document.createElement('div');dsh.id='uxDash';$('todayCard').after(dsh);
+ const g=$('quizOptionsGrid');if(g){let el=g;while(el.parentElement&&el.parentElement.id!=='studioExam')el=el.parentElement;const sb=document.createElement('div');sb.id='uxSessionBar';el.before(sb);}
+ intros();bar();dash();showDash();relabel();
+ const st=$('quizFeedbackStatus');if(st)new MutationObserver(onAnswer).observe(st,{childList:true,subtree:true,characterData:true});
+ setTimeout(onboard,600);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,0));else setTimeout(init,0);
+window.uxStart=start;
+})();
+
+/* READABILITY LAYER: eyebrows, mobile tab bar, reference TOC */
+(function(){
+  try{
+    var eyebrows={studioGrammar:'Studio 1 · Grammar',studioVocab:'Studio 2 · Vocabulary',studioExam:'Studio 3 · Exam Hub',studioReview:'Studio 4 · Review'};
+    Object.keys(eyebrows).forEach(function(id){
+      var h=document.querySelector('#'+id+'>div:first-child h2'); if(!h||h.parentNode.querySelector('.eyebrow'))return;
+      var e=document.createElement('span');e.className='eyebrow';e.textContent=eyebrows[id];h.parentNode.insertBefore(e,h);
+    });
+    // reference TOC
+    var v=document.getElementById('viewCheatsheet'); if(!v)return;
+    var heads=[].slice.call(v.querySelectorAll('section[id] h2, section[id] h3'));
+    var aside=document.createElement('aside');aside.id='refToc';
+    var nav='<nav aria-label="On this page"><div class="toc-h">On this page</div>',opts='<option value="">Jump to section…</option>',n=0;
+    heads.forEach(function(h){
+      var t=h.textContent.replace(/\s+/g,' ').trim(); if(!t)return;
+      if(!h.id)h.id='ref-'+(n++);
+      var l1=h.tagName==='H2';
+      nav+='<a href="#'+h.id+'" class="'+(l1?'l1':'l2')+'" data-t="'+h.id+'">'+t.replace(/</g,'&lt;')+'</a>';
+      opts+='<option value="'+h.id+'">'+(l1?'':'   ')+t.replace(/</g,'&lt;')+'</option>';
+    });
+    aside.innerHTML=nav+'</nav>';v.insertBefore(aside,v.firstChild);
+    var j=document.createElement('div');j.id='refJump';j.innerHTML='<select aria-label="Jump to section">'+opts+'</select>';
+    if(j.firstChild)if(j.firstChild)j.firstChild.onchange=function(){var t=document.getElementById(this.value);if(t)t.scrollIntoView({behavior:'smooth'})};
+    v.insertBefore(j,aside.nextSibling);
+    aside.addEventListener('click',function(e){var a=e.target.closest('a');if(!a)return;e.preventDefault();e.stopPropagation();
+      var t=document.getElementById(a.dataset.t);if(t)t.scrollIntoView({behavior:'smooth'});},true);
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){
+        aside.querySelectorAll('a.on').forEach(function(a){a.classList.remove('on')});
+        var a=aside.querySelector('a[data-t="'+en.target.id+'"]');if(a)a.classList.add('on');}})},{rootMargin:'-90px 0px -70% 0px'});
+      heads.forEach(function(h){if(h.id)io.observe(h)});
+    }
+  }catch(err){console.warn('ux layer',err)}
+})();
   </script>
 </body>
 </html>
