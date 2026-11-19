@@ -62,6 +62,7 @@ class MockElement {
     this._innerText = '';
     this._innerHTML = '';
     this.value = '';
+    this.disabled = false;
     this.style = {};
     this.dataset = {};
     this.eventListeners = {};
@@ -70,7 +71,28 @@ class MockElement {
     this.selectionEnd = 0;
     this.offsetWidth = 100;
     this.offsetHeight = 40;
+    this.width = 1200;
+    this.height = 800;
   }
+
+  getContext(type) {
+    return {
+      clearRect() {}, fillRect() {}, strokeRect() {}, beginPath() {},
+      arc() {}, fill() {}, stroke() {}, moveTo() {}, lineTo() {},
+      setTransform() {}, createRadialGradient() { return { addColorStop() {} }; },
+      createLinearGradient() { return { addColorStop() {} }; },
+      save() {}, restore() {}
+    };
+  }
+
+  get firstElementChild() {
+    if (!this.children.length) {
+      const dummy = new MockElement('div', this.ownerDocument);
+      this.appendChild(dummy);
+    }
+    return this.children[0];
+  }
+  get lastElementChild() { return this.children[this.children.length - 1] || null; }
 
   get id() { return this.getAttribute('id') || ''; }
   set id(val) { this.setAttribute('id', val); }
@@ -99,6 +121,12 @@ class MockElement {
   get textContent() { return this.innerText; }
   set textContent(val) { this.innerText = val; }
 
+  remove() {
+    if (this.parentNode && typeof this.parentNode.removeChild === 'function') {
+      this.parentNode.removeChild(this);
+    }
+  }
+
   get innerHTML() { return this._innerHTML; }
   set innerHTML(val) {
     this._innerHTML = String(val);
@@ -116,7 +144,21 @@ class MockElement {
         const childEl = new MockElement('div', this.ownerDocument);
         childEl.id = childId;
         this.ownerDocument._registerElement(childId, childEl);
+        this.appendChild(childEl);
       }
+    }
+    const btnRegex = /<button\b[^>]*>([\s\S]*?)<\/button>/gi;
+    let bm;
+    let hasBtn = false;
+    while ((bm = btnRegex.exec(htmlStr)) !== null) {
+      hasBtn = true;
+      const btn = new MockElement('button', this.ownerDocument);
+      btn.innerHTML = bm[1];
+      this.appendChild(btn);
+    }
+    if (!hasBtn && /<button\b/i.test(htmlStr)) {
+      const btn = new MockElement('button', this.ownerDocument);
+      this.appendChild(btn);
     }
   }
 
@@ -193,6 +235,24 @@ class MockElement {
       this.appendChild(newChild);
     }
     return newChild;
+  }
+
+  after(...nodes) {
+    if (!this.parentNode) return;
+    const parent = this.parentNode;
+    const idx = parent.children.indexOf(this);
+    if (idx === -1) return;
+    const nextSibling = parent.children[idx + 1] || null;
+    nodes.forEach(node => {
+      parent.insertBefore(node, nextSibling);
+    });
+  }
+
+  before(...nodes) {
+    if (!this.parentNode) return;
+    nodes.forEach(node => {
+      this.parentNode.insertBefore(node, this);
+    });
   }
 
   addEventListener(event, fn) {
@@ -419,6 +479,55 @@ class MockSpeechSynthesisUtterance {
   }
 }
 
+// --- Web Audio Mock ---
+class MockAudioNode {
+  connect(dest) { return dest; }
+  disconnect() {}
+}
+
+class MockAudioParam {
+  constructor(val = 0) {
+    this.value = val;
+    this.events = [];
+  }
+  setValueAtTime(v, t) { this.value = v; this.events.push({ type: 'setValueAtTime', value: v, time: t }); }
+  exponentialRampToValueAtTime(v, t) { this.value = v; this.events.push({ type: 'exponentialRampToValueAtTime', value: v, time: t }); }
+  linearRampToValueAtTime(v, t) { this.value = v; this.events.push({ type: 'linearRampToValueAtTime', value: v, time: t }); }
+}
+
+class MockOscillatorNode extends MockAudioNode {
+  constructor(ctx) {
+    super();
+    this.ctx = ctx;
+    this.type = 'sine';
+    this.frequency = new MockAudioParam(440);
+  }
+  start(t) { if (this.ctx) this.ctx.sfxEvents.push({ type: 'osc_start', time: t, freq: this.frequency.value, wave: this.type }); }
+  stop(t) { if (this.ctx) this.ctx.sfxEvents.push({ type: 'osc_stop', time: t }); }
+}
+
+class MockGainNode extends MockAudioNode {
+  constructor(ctx) {
+    super();
+    this.ctx = ctx;
+    this.gain = new MockAudioParam(1);
+  }
+}
+
+class MockAudioContext {
+  constructor() {
+    this.currentTime = 0;
+    this.state = 'running';
+    this.destination = new MockAudioNode();
+    this.sfxEvents = [];
+  }
+  createOscillator() { return new MockOscillatorNode(this); }
+  createGain() { return new MockGainNode(this); }
+  resume() { this.state = 'running'; return Promise.resolve(); }
+  suspend() { this.state = 'suspended'; return Promise.resolve(); }
+  close() { this.state = 'closed'; return Promise.resolve(); }
+}
+
 // --- HTML Parser for DOM Tree Reconstruction ---
 function parseHTMLTree(html) {
   const clean = html
@@ -541,6 +650,7 @@ function createHarness(options = {}) {
   }
 
   const speechSynthesisMock = new MockSpeechSynthesis();
+  const audioCtxMock = new MockAudioContext();
 
   const locationMock = {
     _hash: options.initialRoute || '#/',
@@ -569,6 +679,9 @@ function createHarness(options = {}) {
     sessionStorage: sessionStorageMock,
     speechSynthesis: speechSynthesisMock,
     SpeechSynthesisUtterance: MockSpeechSynthesisUtterance,
+    AudioContext: function() { return audioCtxMock; },
+    webkitAudioContext: function() { return audioCtxMock; },
+    _audioCtxMock: audioCtxMock,
     location: locationMock,
     navigator: {
       userAgent: 'Mozilla/5.0 (NodeVM GoetheA1TestHarness/1.0)',
@@ -592,6 +705,21 @@ function createHarness(options = {}) {
     clearTimeout: clearTimeout,
     setInterval: setInterval,
     clearInterval: clearInterval,
+    requestAnimationFrame: (cb) => setTimeout(cb, 16),
+    cancelAnimationFrame: (id) => clearTimeout(id),
+    matchMedia: (query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener() {},
+      removeListener() {},
+      addEventListener() {},
+      removeEventListener() {},
+      dispatchEvent() { return false; }
+    }),
+    devicePixelRatio: 1,
+    innerWidth: 1280,
+    innerHeight: 800,
     console: options.captureConsole ? {
       logs: [],
       errors: [],
@@ -674,6 +802,7 @@ function createHarness(options = {}) {
     sessionStorage: sessionStorageMock,
     speech: speechSynthesisMock,
     speechSynthesis: speechSynthesisMock,
+    audioCtx: audioCtxMock,
     location: locationMock,
     globals: globalsProxy,
     context: context,
@@ -737,6 +866,7 @@ function loadApp(options = {}) {
     localStorage: h.storage,
     sessionStorage: h.sessionStorage,
     speech: h.speech,
+    audioCtx: h.audioCtx,
     location: h.location,
     globals: h.globals,
     htmlContent: h.htmlContent,
@@ -752,6 +882,11 @@ module.exports = {
   MockStorage,
   MockSpeechSynthesis,
   MockSpeechSynthesisUtterance,
+  MockAudioNode,
+  MockAudioParam,
+  MockOscillatorNode,
+  MockGainNode,
+  MockAudioContext,
   matchSelector,
   splitSelector,
   collectDescendants,

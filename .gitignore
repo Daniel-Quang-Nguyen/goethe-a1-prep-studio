@@ -4,3 +4,5 @@ Thumbs.db
 *.tmp
 *.log
 *.bak
+*.bak*
+scratch/

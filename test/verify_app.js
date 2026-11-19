@@ -92,6 +92,7 @@ const checks = [
         assert.ok(typeof p.english === 'string' && p.english.length > 0, `PUZZLES_DATA[${i}] invalid english`);
         assert.ok(Array.isArray(p.scrambled) && p.scrambled.length >= 2, `PUZZLES_DATA[${i}] scrambled must have >= 2 tokens`);
         assert.ok(Array.isArray(p.correct) && p.correct.length >= 2, `PUZZLES_DATA[${i}] correct must have >= 2 tokens`);
+        assert.deepStrictEqual([...p.scrambled].sort(), [...p.correct].sort(), `PUZZLES_DATA[${i}] scrambled cards must match correct sentence tokens exactly`);
         assert.ok(typeof p.rule === 'string' && p.rule.length > 0, `PUZZLES_DATA[${i}] invalid rule`);
       });
 
